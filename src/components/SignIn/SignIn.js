@@ -4,7 +4,7 @@ import './SignIn.scss';
 class SignIn extends Component {
   render() {
     return (
-			<main id="login">
+			<div id="login">
         <div className="container">
           <h1>
             <span className="secondary-font">Mniam</span>
@@ -12,20 +12,20 @@ class SignIn extends Component {
           </h1>
           <img src={ process.env.PUBLIC_URL + 'images/diet.svg' } alt="diet graphics" />
           <form>
-            <div class="form--input">
-              <img class="icon" src={ process.env.PUBLIC_URL + 'images/icons/email.svg' } alt="email" />
+            <div className="form--input">
+              <img className="icon" src={ process.env.PUBLIC_URL + 'images/icons/email.svg' } alt="email" />
               <input name="email" type="email" placeholder="my-email@email.com" />
-              <div class="errors"></div>
+              <div className="errors"></div>
             </div>
-            <div class="form--input">
-              <img class="icon" src={ process.env.PUBLIC_URL + 'images/icons/lock.svg' } alt="password lock" />
+            <div className="form--input">
+              <img className="icon" src={ process.env.PUBLIC_URL + 'images/icons/lock.svg' } alt="password lock" />
               <input name="password" type="password" placeholder="*********" />
-              <div class="errors"></div>
+              <div className="errors"></div>
             </div>
             <button type="submit" className="button primary">ZALOGUJ SIĘ</button>
           </form>
         </div>
-      </main>
+      </div>
     );
   }
 }

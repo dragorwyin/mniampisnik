@@ -1,0 +1,40 @@
+@import "../mixins";
+
+form {
+  @include grid-vertical;
+  --input-icon-width: 36px;
+  --input-bg: #F7F7F7;
+  --input-border: 1px solid #E0E0E0;
+
+  .button {
+    @include grid-full-width;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .form--input {
+    @include grid-full-width;
+    width: 100%;
+    display: flex;
+
+    .icon {
+      background: var(--input-bg);
+      border: var(--input-border);
+      border-right: 0;
+      width: var(--input-icon-width);
+      padding: 10px 0 10px 10px;
+    }
+
+    input {
+      background: var(--input-bg);
+      border: var(--input-border);
+      padding: 10px 15px;
+      border-left: 0;
+      width: calc(100% - var(--input-icon-width));
+    }
+
+    input::placeholder {
+      color: #CCC9C9;
+    }
+  }
+}

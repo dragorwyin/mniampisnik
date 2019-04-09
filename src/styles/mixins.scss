@@ -1,0 +1,26 @@
+@mixin centering {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+  }
+
+@mixin border-radius {
+	border-radius: var(--borders-radius);
+}
+
+@mixin grid {
+	display: grid;
+	grid-gap: var(--grid-gap);
+	grid-template-columns: repeat(var(--grid-columns), 1fr);
+}
+
+@mixin grid-vertical {
+	display: grid;
+	grid-gap: calc(var(--grid-gap) * 2) var(--grid-gap);
+	grid-template-columns: repeat(var(--grid-columns), 1fr);
+}
+
+@mixin grid-full-width {
+	grid-column: span var(--grid-columns);
+}

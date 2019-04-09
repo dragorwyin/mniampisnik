@@ -1,0 +1,18 @@
+button, .button {
+	@include centering;
+	@include border-radius;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	font-weight: var(--font-bold-weight);
+	padding: $button-paddings;
+	border: 0;
+	outline: 0;
+	font-size: var(--p-size);
+	transition: .5s;
+
+	&.primary {
+	  color: #fff;
+	  background: var(--primary-color);
+	}
+}

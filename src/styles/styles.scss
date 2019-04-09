@@ -1,0 +1,88 @@
+@import "./variables";
+@import "./mixins";
+@import "./components/components";
+
+html {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+}
+
+* {
+  font-family: var(--font-family);
+}
+
+.primary-font {
+  color: var(--primary-color);
+}
+
+.secondary-font {
+  color: var(--secondary-color);
+}
+
+p {
+  color: var(--font-color);
+}
+
+.light {
+  font-weight: 300;
+}
+
+.normal {
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.text-center {
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6, p, strong {
+  color: var(--font-color);
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root, main, .App {
+  height: 100%;
+}
+
+main:before {
+  background: url(./images/bg.svg);
+  content: '';
+  width: 100%;
+  position: absolute;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+}
+
+// default font sizes
+@each $name, $size in map-get($font-sizes, lg) {
+  #{$name} {
+    font-size: var(--#{$name}-size);
+  }
+}
+
+@media screen and (max-width: #{map-get($viewports, sm)}) {
+  main:before {
+    content: none;
+  }
+}
+
+@media screen and (max-width: #{map-get($viewports, md)}) {
+  // empty
+}
+
+@media screen and (max-width: #{map-get($viewports, lg)}) {
+  // empty
+}

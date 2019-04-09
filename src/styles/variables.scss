@@ -1,0 +1,87 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,500,300italic,500italic,700italic,900,300);
+
+$font-size: 16px;
+$button-paddings: 14px 56px;
+
+$viewports: (
+  lg: 1200px,
+  md: 992px,
+  sm: 768px
+);
+
+$containers: (
+  lg: 1170px,
+  md: 970px,
+  sm: 750px
+);
+
+$font-sizes: (
+  lg: (
+    h1: 3em,
+    h2: 2em,
+    h3: 1.5em,
+    h4: 1.125em,
+    h5: 1em,
+    p: 1em
+  ),
+  md: (
+    h1: 2.5em,
+    h2: 2em,
+    h3: 1.5em,
+    h4: 1.125em,
+    h5: 1em,
+    p: 1em
+  ),
+  sm: (
+    h1: 2em,
+    h2: 1.625em,
+    h3: 1.375em,
+    h4: 1.25em,
+    h5: 1em,
+    p: 1em
+  )
+);
+
+$palette: (
+  primary: #4579dc,
+  secondary: #f37474,
+  alert: #c44f4f,
+  success: #5e931a
+);
+
+:root {
+  // borders
+  --borders-size: 1px;
+  --borders-radius: 20px;
+
+  --grid-columns: 12;
+  --grid-gap: 15px;
+
+  @each $type, $size in map-get($font-sizes, lg) {
+    --#{$type}-size: #{$size};
+  }
+
+  @each $name, $size in $containers {
+    --size-container-#{$name}: #{$size};
+  }
+
+  @each $name, $color in $palette {
+    --#{$name}-color: #{$color};
+  }
+
+}
+
+:root {
+  // Fonts
+  --font-color: #455164;
+  --light-font-color: #ACB3B9;
+  --footer-font-color: #ACB3B9;
+  --font-size: 16px;
+
+  // Main font
+  --font-family: 'Roboto';
+  --font-light-weight: 300;
+  --font-regular-weight: 400;
+  --font-medium-weight: 500;
+  --font-bold-weight: 700;
+}

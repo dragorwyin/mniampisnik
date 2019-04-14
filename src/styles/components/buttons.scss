@@ -1,3 +1,5 @@
+@import '../variables';
+
 button, .button {
 	@include centering;
 	@include border-radius;
@@ -14,5 +16,13 @@ button, .button {
 	&.primary {
 	  color: #fff;
 	  background: var(--primary-color);
+	}
+
+	&[disabled] {
+		opacity: .75;
+	}
+
+	&:hover:not([disabled]) {
+		background: darken(map-get($palette, primary), 10%)
 	}
 }

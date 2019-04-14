@@ -26,7 +26,13 @@ class Firebase {
   updatePassword = password => this.auth.currentUser.updatePassword(password);
 }
 
+const withFirebase = Component => props => (
+  <FirebaseContext.Consumer>
+    {firebase => <Component {...props} firebase={firebase} />}
+  </FirebaseContext.Consumer>
+);
+
 const FirebaseContext = React.createContext(null);
 
 export default Firebase;
-export { FirebaseContext };
+export { FirebaseContext, withFirebase };

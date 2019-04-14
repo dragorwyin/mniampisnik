@@ -4,5 +4,5 @@ export const RECIPE = '/przepis/:id';
 export const RECIPE_EDIT = '/przepis/:id/edycja';
 export const RECIPE_CREATE = '/przepis/stworz';
 export const RECIPES = '/przepisy';
-
+export const SEARCH = '/przepisy/szukaj';
 

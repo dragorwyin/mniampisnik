@@ -8,7 +8,8 @@ html {
 }
 
 * {
-  font-family: var(--font-family);
+	font-family: var(--font-family);
+	box-sizing: border-box;
 }
 
 .primary-font {
@@ -85,4 +86,31 @@ main:before {
 
 @media screen and (max-width: #{map-get($viewports, lg)}) {
   // empty
+}
+
+.container {
+  margin: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: var(--size-container-xlg);
+}
+
+@each $name, $size in $viewports {
+  @media screen and (max-width: #{$size}) {
+    body .container {
+      width: var(--size-container-#{$name});
+    }
+  }
+}
+
+// All responsive resolutions
+@each $resolution, $size in $viewports {
+  // font sizes
+  @media screen and (max-width: $size) {
+    @each $name, $size in map-get($font-sizes, $resolution) {
+      :root {
+        --#{$name}-size: #{$size};
+      }
+    }
+  }
 }

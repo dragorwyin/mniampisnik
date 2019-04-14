@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import './Recipes.scss';
 
 class Recipes extends Component {
+
+	constructor(props) {
+		super(props);
+		console.log(props);
+	}
+
   render() {
     return (
-		<p>Recipes</p>
+		<h1>Recipes</h1>
     );
   }
 }

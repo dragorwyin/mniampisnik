@@ -1,0 +1,55 @@
+@import '../../../../styles/mixins';
+
+header {
+	align-items: center;
+	background: var(--primary-color);
+	display: flex;
+	height: 84px;
+}
+
+.container {
+	display: flex;
+	justify-content: space-between;
+	padding: 1em;
+}
+
+ul {
+	@include flex-center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	li, a {
+		@include flex-center;
+	}
+
+	li {
+		color: #fff;
+		padding: 0 1.3rem;
+
+		& > div {
+			@include flex-center;
+		}
+
+		&:first-of-type {
+			padding-left: 0;
+		}
+
+		&:last-of-type {
+			padding-right: 0;
+		}
+
+		img {
+			margin-right: .8em;
+		}
+
+		a {
+			color: #fff;
+			text-decoration: none;
+		}
+	}
+}
+
+.logout {
+	cursor: pointer;
+}

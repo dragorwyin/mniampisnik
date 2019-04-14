@@ -7,6 +7,7 @@ import Recipe from './components/Recipe/Recipe';
 import RecipeEdit from './components/Recipe/RecipeEdit/RecipeEdit';
 import RecipeCreate from './components/RecipeCreate/RecipeCreate';
 import Recipes from './components/Recipes/Recipes';
+import Panel from './components/layout/Panel';
 
 class App extends Component {
   render() {
@@ -15,10 +16,10 @@ class App extends Component {
 			<Router>
 				<Route exact path={ROUTES.HOME} component={SignIn} />
 				<Route exact path={ROUTES.SIGN_IN} component={SignIn} />
-				<Route path={ROUTES.RECIPE} component={Recipe} />
-				<Route path={ROUTES.RECIPE_EDIT} component={RecipeEdit} />
-				<Route path={ROUTES.RECIPE_CREATE} component={RecipeCreate} />
-				<Route path={ROUTES.RECIPES} component={Recipes} />
+				<Panel path={ROUTES.RECIPE} component={Recipe} />
+				<Panel path={ROUTES.RECIPE_EDIT} component={RecipeEdit} />
+				<Panel path={ROUTES.RECIPE_CREATE} component={RecipeCreate} />
+				<Panel path={ROUTES.RECIPES} component={Recipes} />
 			</Router>
 			</main>
     );

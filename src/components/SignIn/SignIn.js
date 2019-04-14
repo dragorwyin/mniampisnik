@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './SignIn.scss';
 import * as ROUTES from '../../constants/routes';
-import { withFirebase } from '../Firebase';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 
 const INITIAL_STATE = {
 	email: '',

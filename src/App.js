@@ -10,6 +10,7 @@ import Recipes from './components/Recipes/Recipes';
 import Panel from './components/layout/Panel';
 
 class App extends Component {
+
   render() {
     return (
 			<main className="App">
@@ -23,7 +24,7 @@ class App extends Component {
 			</Router>
 			</main>
     );
-  }
+	}
 }
 
 export default App;

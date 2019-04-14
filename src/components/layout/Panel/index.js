@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import Header from './Header';
 import Navigation from './Navigation';
@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../../Firebase';
 import './styles.scss';
+import AuthGuard from '../../../AuthGuard';
 
 const composeComponent = Component => compose(
 	withRouter,
@@ -14,27 +15,23 @@ const composeComponent = Component => compose(
 
 const Panel = ({component: BaseComponent, ...rest}) => {
 
-	// if (props.authUser) {
-	// 	this.props.history.push(ROUTES.HOME);
-	// 	return;
-	// }
-
 	const HeaderComp = composeComponent(Header);
 	const NavigationComp = composeComponent(Navigation);
 	const Component = composeComponent(BaseComponent);
+	const AuthGuardComp = composeComponent(AuthGuard);
 
   return (
-    <Route {...rest} render={props => (
-      <div className="DefaultLayout">
-        <HeaderComp { ...props } />
-				<NavigationComp { ...props } />
+    <Route {...rest} render={ props => (
+      <>
+        <HeaderComp { ...props } { ...rest } />
+				<AuthGuardComp { ...props } { ...rest } />
+				<NavigationComp { ...props } { ...rest } />
 				<main className="container" id="panel">
-					<Component {...props} />
+					<Component {...props} { ...rest } />
 				</main>
-      </div>
+      </>
     )} />
   )
 };
-
 
 export default Panel;

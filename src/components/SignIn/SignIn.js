@@ -28,9 +28,9 @@ class SignInFormBase extends Component {
 
     this.props.firebase
       .login(email, password)
-      .then(authUser => {
+      .then(() => {
 				this.setState({ ...INITIAL_STATE });
-				this.props.history.push(ROUTES.HOME);
+				this.props.history.push(ROUTES.RECIPES);
       })
       .catch(error => {
         this.setState({ error });

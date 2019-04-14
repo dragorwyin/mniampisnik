@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Recipes.scss';
+import { withAuthentication } from '../Auth';
 
 class Recipes extends Component {
 
@@ -7,7 +8,8 @@ class Recipes extends Component {
     return (
 		<h1>Recipes</h1>
     );
-  }
+	}
+
 }
 
-export default Recipes;
+export default withAuthentication(Recipes);

@@ -1,4 +1,5 @@
 @import '../../../../styles/mixins';
+@import '../../../../styles/variables';
 
 header {
 	align-items: center;
@@ -48,8 +49,31 @@ ul {
 			text-decoration: none;
 		}
 	}
+
+	.logo {
+		display: none;
+	}
 }
 
 .logout {
 	cursor: pointer;
+}
+
+@media screen and (max-width: #{map-get($viewports, sm)}) {
+	header {
+		height: 66px;
+
+		.logo {
+			display: block;
+			margin-left: var(--mobile-padding);
+		}
+
+		.left-nav li:not(.logo) {
+			display: none;
+		}
+
+		.right-nav li span {
+			display: none;
+		}
+	}
 }

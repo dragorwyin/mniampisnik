@@ -15,6 +15,9 @@ class Header extends Component {
 			<header>
 				<div className="container">
 					<ul className="left-nav">
+						<li className="logo">
+							<span className="secondary-font">Mniam</span>Piśnik
+						</li>
 						<li>
 							<Link to={ROUTES.RECIPES}>
 								<img src={ process.env.PUBLIC_URL + 'images/icons/list.svg' } alt="list"></img>

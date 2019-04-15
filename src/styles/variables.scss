@@ -53,7 +53,8 @@ $palette: (
 :root {
   // borders
   --borders-size: 1px;
-  --borders-radius: 20px;
+	--borders-radius: 20px;
+	--mobile-padding: 1rem;
 
   --grid-columns: 12;
   --grid-gap: 15px;

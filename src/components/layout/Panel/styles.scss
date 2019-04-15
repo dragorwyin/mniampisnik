@@ -1,7 +1,15 @@
+@import '../../../styles/variables';
+
 main #panel {
 	background: white;
 	box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
 	height: auto;
 	margin: auto;
 	padding: 2em;
+}
+
+@media screen and (max-width: #{map-get($viewports, sm)}) {
+	main #panel {
+		padding: var(--mobile-padding);
+	}
 }

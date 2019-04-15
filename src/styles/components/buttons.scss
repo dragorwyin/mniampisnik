@@ -26,3 +26,20 @@ button, .button {
 		background: darken(map-get($palette, primary), 10%)
 	}
 }
+
+button.white,
+.button.white {
+	align-items: center;
+	background: #fff;
+	color: var(--primary-color);
+	display: flex;
+	justify-content: center;
+
+	img {
+		margin: .5em;
+	}
+
+	&:hover {
+		background: darken(#fff, 10%);
+	}
+}

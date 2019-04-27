@@ -27,14 +27,11 @@ class SignIn extends Component {
 		event.preventDefault();
 		const { email, password } = this.state;
 
-    this.props.signIn({email, password});
-      // .then(() => {
-			// 	this.setState({ ...INITIAL_STATE });
-			// 	this.props.history.push(ROUTES.RECIPES);
-      // })
-      // .catch(error => {
-      //   this.setState({ error });
-      // });
+
+		this.props.dispatch(signIn({ email, password })).then(r => {
+			this.setState({ ...INITIAL_STATE });
+			this.props.history.push(ROUTES.RECIPES);
+		});
 
     event.preventDefault();
   };
@@ -78,10 +75,6 @@ const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-	signIn: ({ email, password }) => dispatch(signIn({ email, password }))
-});
-
 export default compose(
 	withRouter
-)(connect(mapStateToProps, mapDispatchToProps)(SignIn));
+)(connect(mapStateToProps)(SignIn));

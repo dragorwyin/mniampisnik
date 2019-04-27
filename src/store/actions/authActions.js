@@ -2,13 +2,17 @@ export const signIn = ({ email, password }) => (dispatch, getState, { getFirebas
 	const firebase = getFirebase();
 
 	dispatch({ type: 'LOADING' });
-	firebase.auth().signInWithEmailAndPassword(email, password)
+
+	return new Promise((resolve) => {
+		firebase.auth().signInWithEmailAndPassword(email, password)
 		.then(user => {
 			dispatch({ type: 'LOGIN_SUCCESS', user })
+			resolve(user);
 		})
 		.catch(error => {
 			dispatch({ type: 'LOGIN_ERROR', error });
 		});
+	});
 };
 
 export const logout = () => (dispatch, getState, { getFirebase }) => {

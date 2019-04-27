@@ -1,0 +1,14 @@
+.dropdown .options li {
+	display: grid;
+	cursor: pointer;
+	display: grid;
+	font-size: 12px;
+	grid-gap: 5px;
+	grid-template-columns: 35px 1fr;
+	padding: .5rem 1rem;
+	width: 100%;
+
+	&:hover {
+		background: darken(#fff, 5%);
+	}
+}

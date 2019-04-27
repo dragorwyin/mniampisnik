@@ -2,10 +2,3 @@
 @import "./fonts";
 @import "./forms";
 @import "./loaders";
-
-.alert {
-	background: #ffe8e8;
-	color: var(--alert-color);
-	grid-column: span var(--grid-columns);
-	padding: 1rem;
-}

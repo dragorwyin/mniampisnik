@@ -1,0 +1,9 @@
+.alert {
+	grid-column: span var(--grid-columns);
+	padding: 1rem;
+
+	&.error {
+		background: #ffe8e8;
+		color: var(--alert-color);
+	}
+}

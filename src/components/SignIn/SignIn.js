@@ -6,6 +6,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
 import Loader from '../common/Loader';
+import Alert from '../common/Alert';
 
 const INITIAL_STATE = {
 	email: '',
@@ -50,7 +51,7 @@ class SignIn extends Component {
 					</h1>
 					<img src={ process.env.PUBLIC_URL + 'images/diet.svg' } alt="diet graphics" />
 					<form onSubmit={this.onSubmit}>
-						{ error && <div className="alert error">{ error }</div> }
+						<Alert type="error" content={error} />
 						<div className="form--input">
 							<img className="icon" src={ process.env.PUBLIC_URL + 'images/icons/email.svg' } alt="email" />
 							<input name="email" type="email" placeholder="my-email@email.com" onChange={this.onChange} value={email} />

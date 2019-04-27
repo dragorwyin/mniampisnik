@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import './Recipes.scss';
-// import { withAuthentication } from '../Auth';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
+import Dropdown from '../common/dropdown/Dropdown';
+
+const options = [
+	{ icon: 'vege.svg', name: 'Vege', value: 'vege' },
+	{ icon: 'vit.svg', name: 'Vit', value: 'vit' }
+];
 
 class Recipes extends Component {
 
@@ -17,6 +22,9 @@ class Recipes extends Component {
 							<ListItem {...recipe} key={recipe.id}></ListItem>
 						)
 					})}
+				</div>
+				<div className="dropdowns">
+					<Dropdown options={options} selected="vit" onSelect={(value) => { console.log(value); }}></Dropdown>
 				</div>
 			</div>
     );

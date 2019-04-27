@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../../../constants/routes';
+import { connect } from 'react-redux';
+import { logout } from '../../../../store/actions/authActions';
 import './styles.scss';
 
 class Navigation extends Component {
@@ -31,4 +33,8 @@ class Navigation extends Component {
 
 }
 
-export default Navigation;
+const mapDispatchToProps = (dispatch) => ({
+	logout: () => dispatch(logout())
+});
+
+export default connect(null, mapDispatchToProps)(Navigation);

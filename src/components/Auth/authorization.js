@@ -2,17 +2,22 @@ import React from 'react';
 import { isAuthenticated } from './index';
 import * as ROUTES from '../../constants/routes';
 import AuthUserContext from './context';
+import { connect } from 'react-redux';
+import Firebase from 'firebase';
+
+const mapStateToProps = (state) => ({
+	auth: state.firebase.auth
+});
 
 const withAuthorization = Component => {
-  class WithAuthorization extends React.Component {
-
+	class withAuthorization extends React.Component {
 		constructor(props) {
 			super(props);
 			this._isMounted = true;
 		}
 
 		componentDidMount() {
-			this.listener = this.props.firebase.auth.onAuthStateChanged(
+			this.listener = Firebase.auth().onAuthStateChanged(
 				authUser => {
 					if (!this._isMounted) { return; }
 					if (!isAuthenticated(authUser)) {
@@ -27,18 +32,19 @@ const withAuthorization = Component => {
 			this._isMounted = false;
 		}
 
-    render() {
-      return (
+		render() {
+			const { auth } = this.props;
+			return (
 				<AuthUserContext.Consumer>
-					{ authUser =>
-            isAuthenticated(authUser) ? <Component {...this.props} user={ authUser } /> : null
-          }
+					{ auth =>
+						isAuthenticated(auth) ? <Component {...this.props} user={ auth } /> : null
+					}
 				</AuthUserContext.Consumer>
 			);
-    }
-  }
+		}
+	}
 
-  return WithAuthorization;
+	return connect(mapStateToProps)(withAuthorization);
 };
 
 export default withAuthorization;

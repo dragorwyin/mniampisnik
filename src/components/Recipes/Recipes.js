@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 import './Recipes.scss';
-import { withAuthentication } from '../Auth';
+// import { withAuthentication } from '../Auth';
+import { connect } from 'react-redux';
+import ListItem from './ListItem';
 
 class Recipes extends Component {
 
   render() {
+		const { recipes } = this.props;
     return (
-		<h1>Recipes</h1>
+			<div>
+				<h3 className="secondary-font">Przepisy</h3>
+				<div className="list">
+					{ recipes && recipes.map(recipe => {
+						return (
+							<ListItem {...recipe} key={recipe.id}></ListItem>
+						)
+					})}
+				</div>
+			</div>
     );
 	}
 
 }
 
-export default withAuthentication(Recipes);
+const mapStateToProps = state => ({
+	recipes: state.recipes
+});
+
+export default connect(mapStateToProps)(Recipes);
+// export default connect(mapStateToProps)(withAuthentication(Recipes));

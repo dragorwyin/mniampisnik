@@ -6,6 +6,11 @@ header {
 	background: var(--primary-color);
 	display: flex;
 	height: 84px;
+
+	span, p {
+		color: #fff;
+	}
+
 }
 
 .container {

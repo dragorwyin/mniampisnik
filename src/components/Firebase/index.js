@@ -1,8 +1,8 @@
-import app from 'firebase/app';
-import React from 'react';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import 'firebase/auth';
 
-const config = {
+export const config = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
@@ -11,28 +11,7 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
-class Firebase {
-  constructor() {
-		app.initializeApp(config);
-		this.auth = app.auth();
-	}
+firebase.initializeApp(config);
+firebase.firestore();
 
-	login = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
-	logout = () => this.auth.signOut();
-
-	/* not used yet */
-	register = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
-	resetPassword = email => this.auth.sendPasswordResetEmail(email);
-  updatePassword = password => this.auth.currentUser.updatePassword(password);
-}
-
-const withFirebase = Component => props => (
-  <FirebaseContext.Consumer>
-    {firebase => <Component {...props} firebase={firebase} />}
-  </FirebaseContext.Consumer>
-);
-
-const FirebaseContext = React.createContext(null);
-
-export default Firebase;
-export { FirebaseContext, withFirebase };
+export default firebase;

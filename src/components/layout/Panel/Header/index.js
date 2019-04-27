@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../../../constants/routes';
+import { connect } from 'react-redux';
+import { logout } from '../../../../store/actions/authActions';
 import './styles.scss';
 
 class Header extends Component {
 
 	onLogoutClick = () => {
-		this.props.firebase.logout();
+		this.props.logout();
 		this.props.history.push(ROUTES.SIGN_IN);
 	}
 
@@ -46,4 +48,9 @@ class Header extends Component {
 
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => ({
+	logout: () => dispatch(logout())
+});
+
+
+export default connect(null, mapDispatchToProps)(Header);

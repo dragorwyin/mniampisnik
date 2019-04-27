@@ -8,7 +8,7 @@ import RecipeEdit from './components/Recipe/RecipeEdit/RecipeEdit';
 import RecipeCreate from './components/RecipeCreate/RecipeCreate';
 import Recipes from './components/Recipes/Recipes';
 import Panel from './components/layout/Panel';
-import { withAuthentication } from './components/Auth';
+// import { withAuthentication } from './components/Auth';
 
 class App extends Component {
 
@@ -28,4 +28,4 @@ class App extends Component {
 	}
 }
 
-export default withAuthentication(App);
+export default App;

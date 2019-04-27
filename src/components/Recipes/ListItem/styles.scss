@@ -1,0 +1,26 @@
+.item {
+	align-items: center;
+	display: grid;
+	grid-gap: calc(var(--grid-gap) * 2);
+	grid-template-columns: 1fr auto auto auto;
+	justify-items: left;
+	border-bottom: 1px solid #DFDFDF;
+	padding: 15px 50px 15px 0px;
+
+	h4 {
+		margin: 0;
+	}
+
+	.selected {
+		display: flex;
+		align-items: center;
+
+		img {
+			margin-right: 10px;
+		}
+
+		span {
+			font-size: .8rem;
+		}
+	}
+}

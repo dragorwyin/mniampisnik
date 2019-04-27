@@ -1,51 +1,56 @@
 import React from 'react';
 
 import AuthUserContext from './context';
-import { withFirebase } from '../Firebase';
 import Loader from './loader';
+import { connect } from 'react-redux';
+import Firebase from 'firebase';
+
+const mapStateToProps = (state) => ({
+	auth: state.firebase.auth
+});
 
 const withAuthentication = Component => {
-  class WithAuthentication extends React.Component {
-    constructor(props) {
-      super(props);
+	class withAuthentication extends React.Component {
+		constructor(props) {
+			super(props);
 
 			this._isMounted = true;
-      this.state = {
+			this.state = {
 				authUser: null,
 				loading: true,
-      };
-    }
+			};
+		}
 
-    componentDidMount() {
-      this.listener = this.props.firebase.auth.onAuthStateChanged(
-        authUser => {
+		componentDidMount() {
+			this.listener = Firebase.auth().onAuthStateChanged(
+				authUser => {
 					if (!this._isMounted) { return; }
 					this.setState({loading: false});
-          authUser
-            ? this.setState({ authUser })
-            : this.setState({ authUser: null });
-        },
-      );
-    }
+					authUser
+						? this.setState({ authUser })
+						: this.setState({ authUser: null });
+				},
+			);
+		}
 
-    componentWillUnmount() {
+		componentWillUnmount() {
 			this._isMounted = false;
-      this.listener();
-    }
+			this.listener();
+		}
 
-    render() {
-      return (
+		render() {
+			return (
 				<>
-        <AuthUserContext.Provider value={this.state.authUser}>
+				<AuthUserContext.Provider value={this.props.auth}>
 					<Loader loading={this.state.loading} />
-          <Component {...this.props} />
-        </AuthUserContext.Provider>
+					<Component {...this.props} />
+				</AuthUserContext.Provider>
 				</>
-      );
-    }
-  }
+			);
+		}
+	}
 
-  return withFirebase(WithAuthentication);
+	return connect(mapStateToProps)(withAuthentication);
 };
 
 export default withAuthentication;

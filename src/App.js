@@ -7,7 +7,7 @@ import Recipe from './components/Recipe/Recipe';
 import RecipeEdit from './components/Recipe/RecipeEdit/RecipeEdit';
 import RecipeCreate from './components/RecipeCreate/RecipeCreate';
 import Recipes from './components/Recipes/Recipes';
-import Panel from './components/layout/Panel';
+import ProtectedPanel from './components/layout/ProtectedPanel';
 // import { withAuthentication } from './components/Auth';
 
 class App extends Component {
@@ -18,10 +18,10 @@ class App extends Component {
 			<Router>
 				<Route exact path={ROUTES.HOME} component={SignIn} />
 				<Route exact path={ROUTES.SIGN_IN} component={SignIn} />
-				<Panel path={ROUTES.RECIPE} component={Recipe} />
-				<Panel path={ROUTES.RECIPE_EDIT} component={RecipeEdit} />
-				<Panel path={ROUTES.RECIPE_CREATE} component={RecipeCreate} />
-				<Panel path={ROUTES.RECIPES} component={Recipes} />
+				<ProtectedPanel path={ROUTES.RECIPE} component={Recipe} />
+				<ProtectedPanel path={ROUTES.RECIPE_EDIT} component={RecipeEdit} />
+				<ProtectedPanel path={ROUTES.RECIPE_CREATE} component={RecipeCreate} />
+				<ProtectedPanel path={ROUTES.RECIPES} component={Recipes} />
 			</Router>
 			</main>
     );

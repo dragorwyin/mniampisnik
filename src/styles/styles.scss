@@ -24,6 +24,10 @@ span, p, article {
   color: var(--font-color);
 }
 
+.relative {
+	position: relative;
+}
+
 .light {
   font-weight: 300;
 }
@@ -113,17 +117,4 @@ main:before {
       }
     }
   }
-}
-
-.auth.loading {
-	align-items: center;
-	background: #fff;
-	display: flex;
-	height: 100%;
-	justify-content: center;
-	left: 0;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 2;
 }

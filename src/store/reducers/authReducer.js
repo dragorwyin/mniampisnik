@@ -1,35 +1,38 @@
 const initState = {
-	error: null
+	error: null,
+	user: null,
+	loading: false,
 };
 
 const authReducer = (state = initState, action) => {
 	switch(action.type) {
 		case 'LOGIN_ERROR':
-			console.log("LOGIN ERROR");
 			return {
 				...state,
-				error: action.error.message
+				error: action.error.message,
+				loading: false,
 			};
 		case 'LOGIN_SUCCESS':
-			console.log('LOGIN_SUCCESS');
 			return {
-				...state,
-				error: null
+				error: null,
+				user: action.user,
+				loading: false,
 			};
 		case 'LOGOUT_SUCCESS':
 			console.log('SIGN_OUT_SUCCESS');
 			return {
-				...state,
-				error: null
+				user: null,
+				error: null,
+				loading: false,
 			};
 		case 'LOADING':
-			console.log('loading...');
-			break;
+			return {
+				...state,
+				loading: true,
+			};
 		default:
 			return state;
 	}
-
-	return state;
 }
 
 export default authReducer;

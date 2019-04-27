@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { config } from './components/Firebase';
 import firebase from 'firebase'
+import Loader from './components/common/Loader';
 
 const store = createStore(rootReducer, compose(
 	applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
@@ -17,6 +18,10 @@ const store = createStore(rootReducer, compose(
 	reactReduxFirebase(firebase, { ...config, attachAuthIsReady: true }),
 ));
 
+// loader
+ReactDOM.render(<Loader loading="true" fullpage="true"/>, document.getElementById('root'));
+
+// when firebase auth is ready
 store.firebaseAuthIsReady.then(() => {
 	ReactDOM.render(
 		<Provider store={store}>

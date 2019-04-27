@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
+import Loader from '../common/Loader';
 
 const INITIAL_STATE = {
 	email: '',
@@ -40,19 +41,19 @@ class SignIn extends Component {
 
   render() {
 		const { email, password } = this.state;
-		const { error } = this.props;
+		const { error, loading } = this.props;
 		const isInvalid = password === '' || email === '';
 
     return (
 			<div id="login">
-				<div className="container">
+				<div className="container relative">
+					<Loader loading={loading} />
 					<h1>
 						<span className="secondary-font">Mniam</span>Piśnik
 					</h1>
 					<img src={ process.env.PUBLIC_URL + 'images/diet.svg' } alt="diet graphics" />
 					<form onSubmit={this.onSubmit}>
 						{ error && <div className="alert error">{ error }</div> }
-						{ console.log(this.state) }
 						<div className="form--input">
 							<img className="icon" src={ process.env.PUBLIC_URL + 'images/icons/email.svg' } alt="email" />
 							<input name="email" type="email" placeholder="my-email@email.com" onChange={this.onChange} value={email} />
@@ -73,7 +74,8 @@ class SignIn extends Component {
 
 // Map Props from store
 const mapStateToProps = (state) => ({
-	error: state.auth.error
+	error: state.auth.error,
+	loading: state.auth.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

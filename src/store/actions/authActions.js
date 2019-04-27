@@ -3,8 +3,8 @@ export const signIn = ({ email, password }) => (dispatch, getState, { getFirebas
 
 	dispatch({ type: 'LOADING' });
 	firebase.auth().signInWithEmailAndPassword(email, password)
-		.then(() => {
-			dispatch({ type: 'LOGIN_SUCCESS' })
+		.then(user => {
+			dispatch({ type: 'LOGIN_SUCCESS', user })
 		})
 		.catch(error => {
 			dispatch({ type: 'LOGIN_ERROR', error });

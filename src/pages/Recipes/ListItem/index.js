@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './styles.scss';
-import Icon from '../../common/Icon';
+import Icon from '../../../components/common/Icon';
 
 class ListItem extends Component {
 

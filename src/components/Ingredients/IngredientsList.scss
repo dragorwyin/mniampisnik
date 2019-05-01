@@ -1,0 +1,37 @@
+.ingredients-list {
+
+	.list-item {
+		background: #fff;
+		border-bottom: 1px solid #D6D6D6;
+		color: #6B6B6B;
+		font-size: 1rem;
+
+		display: grid;
+		grid-template-columns: 1fr 20px;
+
+		padding: 5px 0;
+
+		textarea {
+			border: 1px solid transparent;
+			resize: none;
+			box-sizing: border-box;
+			overflow: hidden;
+
+			&:focus {
+				box-shadow: none;
+				outline: none;
+			}
+		}
+
+		.icon-wrapper {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			img {
+				cursor: pointer;
+			}
+		}
+
+	}
+}

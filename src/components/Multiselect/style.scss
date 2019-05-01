@@ -1,0 +1,21 @@
+.portions {
+	display: flex;
+
+	.portion {
+		cursor: pointer;
+		margin: 0 5px;
+
+		&:first-of-type {
+			margin-left: 0;
+		}
+
+		&:last-of-type {
+			margin-right: 0;
+		}
+
+		&:not(.selected) {
+			filter: grayscale(100%) brightness(1.6);
+		}
+	}
+
+}

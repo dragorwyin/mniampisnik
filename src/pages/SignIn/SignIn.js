@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
-import Loader from '../common/Loader';
-import Alert from '../common/Alert';
+import Loader from '../../components/common/Loader';
+import Alert from '../../components/common/Alert';
 
 const INITIAL_STATE = {
 	email: '',

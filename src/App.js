@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import './App.scss';
-import SignIn from './components/SignIn/SignIn';
-import Recipe from './components/Recipe/Recipe';
-import RecipeEdit from './components/Recipe/RecipeEdit/RecipeEdit';
-import RecipeCreate from './components/RecipeCreate/RecipeCreate';
-import Recipes from './components/Recipes/Recipes';
-import ProtectedPanel from './components/layout/ProtectedPanel';
+import SignIn from './pages/SignIn/SignIn';
+import Recipe from './pages/Recipe/Recipe';
+import RecipeEdit from './pages/Recipe/RecipeEdit/RecipeEdit';
+import RecipeCreate from './pages/RecipeCreate/RecipeCreate';
+import Recipes from './pages/Recipes/Recipes';
+import ProtectedPanel from './pages/layout/ProtectedPanel';
 // import { withAuthentication } from './components/Auth';
 
 class App extends Component {

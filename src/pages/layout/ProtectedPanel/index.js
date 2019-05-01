@@ -4,7 +4,7 @@ import Header from './Header';
 import Navigation from './Navigation';
 import './styles.scss';
 import { connect } from 'react-redux';
-import Loader from '../../common/Loader';
+import Loader from '../../../components/common/Loader';
 import * as ROUTES from '../../../constants/routes';
 
 export const isAuth = auth => auth && auth.uid;

@@ -47,7 +47,7 @@ class Recipes extends Component {
 				</div>
 
 				<Multiselect onChange={index => console.log(index)} />
-				<Switch checked={true} name="blah" onChange={ checked => console.log(checked)} />
+				<Switch checked={true} label="Testowane" name="blah" onChange={ checked => console.log(checked)} />
 			</div>
     );
 	}

@@ -6,6 +6,9 @@ import Dropdown from '../../components/common/Dropdown/Dropdown';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
 import Multiselect from '../../components/Multiselect';
 import Switch from '../../components/common/Switch';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const options = [
 	{ icon: 'vege.svg', name: 'Vege', value: 'vege' },
@@ -24,8 +27,24 @@ const ingredients = ['blah', 'blah2', 'blah3 zxc zxc zxc as dd qw eqw dqwd qwd q
 
 class Recipes extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+      editorState: EditorState.createEmpty(),
+		};
+
+		this.onEditorStateChange = this.onEditorStateChange.bind(this);
+	}
+
+	onEditorStateChange(editorState) {
+    this.setState({
+      editorState,
+    });
+  }
+
   render() {
 		const { recipes } = this.props;
+		const { editorState } = this.state;
     return (
 			<div>
 				<h3 className="secondary-font">Przepisy</h3>
@@ -48,6 +67,17 @@ class Recipes extends Component {
 
 				<Multiselect onChange={index => console.log(index)} />
 				<Switch checked={true} label="Testowane" name="blah" onChange={ checked => console.log(checked)} />
+				<Editor
+					wrapperClassName="recipe-editor"
+					editorState={editorState}
+					onEditorStateChange={this.onEditorStateChange}
+					toolbar={{
+						options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'history'],
+						inline: { inDropdown: false },
+						list: { inDropdown: true },
+						textAlign: { inDropdown: false },
+						history: { inDropdown: true },
+					}} />
 			</div>
     );
 	}

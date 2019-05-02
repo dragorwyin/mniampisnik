@@ -118,3 +118,40 @@ main:before {
     }
   }
 }
+
+.recipe-editor {
+
+	.rdw-editor-main {
+		border: 1px solid #f1f1f1;
+	}
+
+	.rdw-editor-toolbar {
+		margin-bottom: 0;
+	}
+
+	.rdw-dropdownoption-active {
+		background: #e0e0e0;
+	}
+
+	.rdw-dropdownoption-default {
+		color: var(--font-color);
+		width: 100%;
+		text-align: center;
+	}
+
+	.rdw-dropdown-wrapper .rdw-dropdown-optionwrapper {
+		overflow-y: hidden;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.public-DraftEditor-content {
+		padding: 1rem;
+	}
+
+	.public-DraftStyleDefault-block {
+		margin: 0;
+		margin-bottom: 0.5rem;
+	}
+}

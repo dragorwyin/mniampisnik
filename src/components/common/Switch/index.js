@@ -19,13 +19,9 @@ class Switch extends Component {
 	handleChange() {
 		this.setState(state => {
 			let { checked } = state;
+			if (this.props.onChange) this.props.onChange(!checked);
 			return { checked: !checked };
 		});
-	}
-
-	componentDidUpdate() {
-		const { checked } = this.state;
-		if (this.props.onChange) this.props.onChange({ checked });
 	}
 
   render() {
@@ -34,7 +30,12 @@ class Switch extends Component {
     return (
 			<div className="switch">
 				<label>{ label }</label>
-				<input type="checkbox" checked={checked} onChange={this.handleChange} name={name} />
+				<input
+					className="input"
+					type="checkbox"
+					checked={checked}
+					onChange={this.handleChange}
+					name={name} />
 			</div>
     );
   }

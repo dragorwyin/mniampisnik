@@ -11,6 +11,10 @@
 
 		padding: 5px 0;
 
+		&:last-of-type {
+			border: none;
+		}
+
 		textarea {
 			border: 1px solid transparent;
 			resize: none;

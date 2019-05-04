@@ -14,15 +14,11 @@ class IngredientsList extends Component {
 		this.newItemTimeout = null;
 	}
 
-	componentDidUpdate() {
-		const { items } = this.state;
-		if (this.props.onChange) this.props.onChange(items);
-	}
-
 	handleDeleteItem(index) {
 		this.setState(state => {
 			const { items } = state;
 			items.splice(index, 1);
+			if (this.props.onChange) this.props.onChange(items);
 			return { items };
 		});
 	}
@@ -31,6 +27,7 @@ class IngredientsList extends Component {
 		this.setState(state => {
 			const { items } = state;
 			items[index] = value;
+			if (this.props.onChange) this.props.onChange(items);
 			return items;
 		});
 	}
@@ -39,6 +36,7 @@ class IngredientsList extends Component {
 		this.setState(state => {
 			let { items } = state;
 			items.push(value);
+			if (this.props.onChange) this.props.onChange(items);
 			return { items };
 		});
 	}

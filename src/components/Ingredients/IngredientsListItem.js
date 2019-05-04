@@ -50,7 +50,7 @@ class ListItem extends Component {
 			<div className="list-item">
 				<textarea
 					rows="1"
-					placeholder="Składnik"
+					placeholder="Wpisz nowy składnik..."
 					onKeyPress={this.handleEnter}
 					onChange={this.handleChange}
 					style={style}

@@ -1,10 +1,13 @@
 @import "../mixins";
 
-form {
-  @include grid-vertical;
-  --input-icon-width: 36px;
+:root {
+	--input-icon-width: 36px;
   --input-bg: #F7F7F7;
   --input-border: 1px solid #E0E0E0;
+}
+
+form {
+  @include grid-vertical;
 
   .button {
     @include grid-full-width;
@@ -24,17 +27,86 @@ form {
       width: var(--input-icon-width);
       padding: 10px 0 10px 10px;
     }
-
-    input {
-      background: var(--input-bg);
-      border: var(--input-border);
-      padding: 10px 15px;
-      border-left: 0;
-      width: calc(100% - var(--input-icon-width));
-    }
-
-    input::placeholder {
-      color: #CCC9C9;
-    }
   }
+}
+
+
+input {
+	background: var(--input-bg);
+	border: var(--input-border);
+	padding: 10px 15px;
+	width: calc(100% - var(--input-icon-width));
+}
+
+input::placeholder {
+	color: #CCC9C9;
+}
+
+.checkbox {
+	font-size: 14px;
+  position: relative;
+  display: block;
+  margin-bottom: 15px;
+	cursor: pointer;
+
+	input {
+		position: absolute;
+		z-index: -1;
+		opacity: 0;
+	}
+
+	.checkbox-control {
+		position: relative;
+		left: 0;
+		margin-right: 10px;
+		width: 20px;
+		height: 20px;
+		background: #e6e6e6;
+	}
+
+	&:hover input ~ .checkbox-control,
+	&:focus input ~ .checkbox-control {
+		background: #ccc;
+	}
+
+	input:checked ~ .checkbox-control {
+		background: var(--primary-color);
+	}
+
+	&:hover input:not([disabled]):checked ~ .checkbox-control,
+	input:checked:focus ~ .checkbox-control {
+		background: var(--primary-color);
+	}
+
+	input:disabled ~ .checkbox-control {
+		pointer-events: none;
+		opacity: .6;
+		background: #e6e6e6;
+	}
+
+	.checkbox-control:after {
+		position: absolute;
+		display: none;
+		content: '';
+	}
+
+	input:checked ~ .checkbox-control:after {
+		display: block;
+	}
+
+	.checkbox-control:after {
+		top: 4px;
+		left: 8px;
+		width: 3px;
+		height: 8px;
+		transform: rotate(45deg);
+		border: solid #fff;
+		border-width: 0 2px 2px 0;
+	}
+
+	input:disabled ~ .checkbox-control:after {
+		border-color: #7b7b7b;
+	}
+
+
 }

@@ -25,11 +25,6 @@ class Multiselect extends Component {
 		this.selectTo(selected);
 	}
 
-	componentDidUpdate() {
-		const { selected } = this.state;
-		if (this.props.onChange) this.props.onChange(selected);
-	}
-
 	selectTo(index) {
 		if (index === null || index === undefined) { return; }
 		this.setState(state => {
@@ -40,6 +35,7 @@ class Multiselect extends Component {
 				return { icon, selected };
 			});
 
+			if (this.props.onChange) this.props.onChange(index);
 			return { portions, selected: index };
 		});
 	}

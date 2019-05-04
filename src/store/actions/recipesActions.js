@@ -4,6 +4,9 @@ export const FILTER_RECIPE_ACTION = 'FILTER_RECIPE';
 export const DELETE_RECIPE_ACTION = 'DELETE_RECIPE';
 export const PATCH_RECIPE_ACTION = 'PATCH_RECIPE';
 export const POST_RECIPE_ACTION = 'POST_RECIPE';
+export const POST_RECIPE_ACTION_ERR = 'POST_RECIPE_ERROR';
+
+const generateID = () => '_' + Math.random().toString(36).substr(2, 9);
 
 export const getRecipe = id => {
 	return (dispatch, getState, { getFirebase, getFirestore } ) => {
@@ -11,9 +14,42 @@ export const getRecipe = id => {
 	}
 };
 
-export const postRecipe = id => {
-	return (dispatch, getState, { getFirebase, getFirestore }) => {
-		dispatch({ type: POST_RECIPE_ACTION, id });
+export const postRecipe = (recipe) => {
+	return (dispatch, getState, { getFirestore }) => {
+		const {
+			ingredients = null,
+			name = '',
+			preparation = null,
+			preparation_type = null,
+			rating = 0,
+			tested = false,
+			portions = 0,
+			time_of_day = null,
+			type = null,
+		} = recipe;
+
+		const id = generateID();
+		const user_id = getState().firebase.auth.uid;
+
+		const firestore = getFirestore();
+		firestore.collection('recipes').add({
+			id,
+			user_id,
+			ingredients,
+			name,
+			preparation,
+			portions,
+			preparation_type,
+			rating,
+			tested,
+			time_of_day,
+			created_at: new Date(),
+			type,
+		}).then(() => {
+			dispatch({ type: POST_RECIPE_ACTION, id });
+		}).catch(error => {
+			dispatch({type: POST_RECIPE_ACTION_ERR, error})
+		});
 	}
 };
 

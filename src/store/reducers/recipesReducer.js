@@ -12,6 +12,7 @@ const recipesReducer = (state = initState, action) => {
 		case GET_RECIPE_ACTION:
 			return state.find(recipe => recipe.id === action.id);
 		case POST_RECIPE_ACTION:
+			console.log('done');
 			return [...state, action];
 		case PATCH_RECIPE_ACTION:
 			return state.map(recipe => {

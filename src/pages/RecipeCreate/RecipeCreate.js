@@ -6,6 +6,10 @@ import Multiselect from '../../components/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { postRecipe } from '../../store/actions/recipesActions';
+import { connect } from 'react-redux';
+import draftToHtml from 'draftjs-to-html';
+import { convertToRaw } from 'draft-js';
 
 const ratingOpts = [
 	{ icon: 'non-medal.svg', name: '', value: '' },
@@ -43,11 +47,13 @@ class RecipeCreate extends Component {
 		this.state = {
 			ingredients: [],
 			name: '',
+			preparation_editor: '',
 			preparation: '',
 			preparation_type: 'cook',
-			rating: 'well',
+			rating: null,
 			tested: false,
-			time_of_day: timeOfDayOpts,
+			time_of_day: timeOfDayOpts.map(({ value, checked }) => ({ value, checked })),
+			portions: 0,
 			type: 'vege',
 		}
 
@@ -62,12 +68,17 @@ class RecipeCreate extends Component {
 		this.handleSaveClick = this.handleSaveClick.bind(this);
 	}
 
-	handleEditorChange(preparation) { this.setState({ preparation }); }
+	handleEditorChange(preparation_editor) {
+		const preparation = draftToHtml(convertToRaw(preparation_editor.getCurrentContent()));
+		this.setState({ preparation });
+		this.setState({ preparation_editor });
+	}
+
 	handleRatingSelect(rating) { this.setState({ rating }); }
 	handleTestingSelect(tested) { this.setState({ tested }); }
 	handleTypeSelect(type) { this.setState({ type }); }
 	handlePreparationTypeSelect(preparation_type) { this.setState({ preparation_type }); }
-	handleNameChange(name) { this.setState({ name }); }
+	handleNameChange(e) { this.setState({ name: e.target.value }); }
 	handlePortionsChange(portions) { this.setState({ portions }); }
 	handleTimeDay(index) {
 		this.setState(state => {
@@ -78,13 +89,14 @@ class RecipeCreate extends Component {
 	}
 
 	handleSaveClick() {
-		console.log(this.state);
+		this.props.postRecipe(this.state);
 	}
 
 	isSaveDisabled() {
-		const { preparation, name} = this.state;
-		return preparation === '' && name === '';
+		const { name, ingredients } = this.state;
+		return name === '' || ingredients.length === 0;
 	}
+
 	isVitarian() { return this.state.type === 'vit'; }
 
   render() {
@@ -93,7 +105,7 @@ class RecipeCreate extends Component {
 			type,
 			preparation_type,
 			ingredients,
-			preparation,
+			preparation_editor,
 			time_of_day,
 		} = this.state;
 
@@ -149,7 +161,7 @@ class RecipeCreate extends Component {
 						<h2>Przygotowanie</h2>
 						<Editor
 							wrapperClassName="recipe-editor"
-							editorState={preparation}
+							editorState={preparation_editor}
 							onEditorStateChange={this.handleEditorChange}
 							toolbar={{
 								options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'history'],
@@ -162,17 +174,17 @@ class RecipeCreate extends Component {
 				</div>
 				<div className="time-of-day">
 					{
-						time_of_day.map(({ name, checked }, index) => (
-							<label className="checkbox" key={name}>
+						time_of_day.map(({ checked, value }, index) => (
+							<label className="checkbox" key={value}>
 								<input
-									key={name}
+									key={value}
 									type="checkbox"
-									name={name}
-									id={name+'checkbox'}
+									name={timeOfDayOpts[index].name}
+									id={value+'checkbox'}
 									checked={checked}
 									onChange={() => this.handleTimeDay(index)} />
 								<div className="checkbox-control"></div>
-								{name}
+								{timeOfDayOpts[index].name}
 							</label>
 						))
 					}
@@ -182,4 +194,10 @@ class RecipeCreate extends Component {
   }
 }
 
-export default RecipeCreate;
+const mapStateToProps = state => ({ auth: state.firebase.auth });
+
+const mapDispatchToProps = (dispatch) => ({
+	postRecipe: (project) => dispatch(postRecipe(project))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeCreate);

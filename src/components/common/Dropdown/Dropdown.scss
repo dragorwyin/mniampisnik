@@ -2,6 +2,18 @@
 	position: relative;
 	display: inline-block;
 
+	&[disabled] {
+		opacity: .1;
+
+		.selected-option {
+			cursor: default;
+		}
+
+		img {
+			filter: saturate(.3);
+		}
+	}
+
 	.selected-option {
 		display: flex;
 		cursor: pointer;

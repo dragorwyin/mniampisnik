@@ -8,6 +8,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const ratingOpts = [
+	{ icon: 'non-medal.svg', name: '', value: '' },
 	{ icon: 'bronze-medal.svg', name: '', value: 'good' },
 	{ icon: 'silver-medal.svg', name: '', value: 'fine' },
 	{ icon: 'gold-medal.svg', name: '', value: 'perfect' },
@@ -74,6 +75,8 @@ class RecipeCreate extends Component {
 		});
 	}
 
+	isVitarian() { return this.state.type === 'vit'; }
+
   render() {
 		const {
 			rating,
@@ -110,7 +113,8 @@ class RecipeCreate extends Component {
 						<Dropdown
 							options={preparationTypeOpts}
 							selected={preparation_type}
-							onSelect={this.handleTypeSelect}>
+							onSelect={this.handleTypeSelect}
+							disabled={this.isVitarian()}>
 						</Dropdown>
 					</div>
 					<div></div>

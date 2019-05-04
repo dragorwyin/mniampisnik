@@ -27,11 +27,17 @@ class Dropdown extends Component {
 		}
 	}
 
+	isDisabled() {
+		return this.props.disabled;
+	}
+
 	handleToggleDropdown = () => {
+		if (this.isDisabled()) { return; }
 		this.setState((state) => ({ open: !state.open }));
 	}
 
 	handleItemClick = (value) => {
+		if (this.isDisabled()) { return; }
 		this.setState({
 			selected: this.state.options.find(option => option.value === value),
 			options: this.state.options.map(option => {
@@ -61,10 +67,11 @@ class Dropdown extends Component {
 
 	render() {
 		const { options, selected, open } = this.state;
+		const { disabled } = this.props;
 		if (!options || !options.length) return null;
 
 		return (
-			<div className="dropdown">
+			<div className="dropdown" disabled={disabled}>
 				<div className="selected-option" onClick={() => this.handleToggleDropdown()}>
 					<Icon src={selected.icon}/><span>{selected.name}</span>
 				</div>

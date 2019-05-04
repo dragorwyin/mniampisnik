@@ -41,13 +41,14 @@ class RecipeCreate extends Component {
 		super(props);
 
 		this.state = {
+			ingredients: [],
+			name: '',
+			preparation: '',
+			preparation_type: 'cook',
 			rating: 'well',
 			tested: false,
-			type: 'vege',
-			preparation_type: 'cook',
-			ingredients: [],
-			preparation: '',
 			time_of_day: timeOfDayOpts,
+			type: 'vege',
 		}
 
 		this.handleRatingSelect = this.handleRatingSelect.bind(this);
@@ -58,6 +59,7 @@ class RecipeCreate extends Component {
 		this.handlePortionsChange = this.handlePortionsChange.bind(this);
 		this.handleEditorChange = this.handleEditorChange.bind(this);
 		this.handleTimeDay = this.handleTimeDay.bind(this);
+		this.handleSaveClick = this.handleSaveClick.bind(this);
 	}
 
 	handleEditorChange(preparation) { this.setState({ preparation }); }
@@ -75,6 +77,14 @@ class RecipeCreate extends Component {
 		});
 	}
 
+	handleSaveClick() {
+		console.log(this.state);
+	}
+
+	isSaveDisabled() {
+		const { preparation, name} = this.state;
+		return preparation === '' && name === '';
+	}
 	isVitarian() { return this.state.type === 'vit'; }
 
   render() {
@@ -99,6 +109,15 @@ class RecipeCreate extends Component {
 							selected={rating}
 							onSelect={this.handleRatingSelect}>
 						</Dropdown>
+					</div>
+					<div className="right">
+						<button
+							type="button"
+							className="primary small button"
+							disabled={this.isSaveDisabled()}
+							onClick={this.handleSaveClick}>
+								ZAPISZ
+						</button>
 					</div>
 				</div>
 

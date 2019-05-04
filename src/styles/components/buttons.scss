@@ -13,6 +13,10 @@ button, .button {
 	font-size: var(--p-size);
 	transition: .5s;
 
+	&.small {
+		padding: 8px 40px;
+	}
+
 	&.primary {
 	  color: #fff;
 	  background: var(--primary-color);

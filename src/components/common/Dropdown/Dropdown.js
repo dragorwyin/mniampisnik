@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Dropdown.scss';
 import DropdownItem from './DropdownItem';
 import Icon from '../Icon';
+import PropTypes from 'prop-types';
 
 class Dropdown extends Component {
 
@@ -87,6 +88,18 @@ class Dropdown extends Component {
 
 	}
 
+}
+
+Dropdown.propTypes = {
+	disabled: PropTypes.bool,
+	selected: PropTypes.string,
+	options: PropTypes.arrayOf(PropTypes.shape({
+		value: PropTypes.string.isRequired,
+		selected: PropTypes.bool,
+		name: PropTypes.string,
+		icon: PropTypes.string,
+	})).isRequired,
+	onSelect: PropTypes.func,
 }
 
 export default Dropdown;

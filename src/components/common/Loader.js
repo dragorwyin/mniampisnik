@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Loader.scss';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 class Loader extends Component {
 
@@ -22,6 +23,11 @@ class Loader extends Component {
 
 	}
 
+}
+
+Loader.propTypes = {
+	loading: PropTypes.bool.isRequired,
+	fullpage: PropTypes.bool,
 }
 
 export default Loader;

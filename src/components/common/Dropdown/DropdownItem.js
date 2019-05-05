@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './DropdownItem.scss';
 import Icon from '../Icon';
+import PropTypes from 'prop-types';
 
 class DropdownItem extends Component {
 
@@ -19,6 +20,14 @@ class DropdownItem extends Component {
 		);
 	}
 
+}
+
+DropdownItem.propTypes = {
+	selected: PropTypes.bool,
+	value: PropTypes.string.isRequired,
+	name: PropTypes.string,
+	icon: PropTypes.string,
+	onClick: PropTypes.func,
 }
 
 export default DropdownItem;

@@ -19,7 +19,7 @@ const store = createStore(rootReducer, compose(
 ));
 
 // loader
-ReactDOM.render(<Loader loading="true" fullpage="true"/>, document.getElementById('root'));
+ReactDOM.render(<Loader loading={true} fullpage={true}/>, document.getElementById('root'));
 
 // when firebase auth is ready
 store.firebaseAuthIsReady.then(() => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style.scss';
 import Icon from '../common/Icon';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 class Multiselect extends Component {
 
@@ -62,7 +63,12 @@ class Multiselect extends Component {
 			</div>
 		);
 	}
+}
 
+Multiselect.propTypes = {
+	icon: PropTypes.string,
+	count: PropTypes.number,
+	onChange: PropTypes.func,
 }
 
 export default Multiselect;

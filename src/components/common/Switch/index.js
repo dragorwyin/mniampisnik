@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './style.scss';
+import PropTypes from 'prop-types';
 
 class Switch extends Component {
 
@@ -39,6 +40,13 @@ class Switch extends Component {
 			</div>
     );
   }
+}
+
+Switch.propTypes = {
+	name: PropTypes.string,
+	label: PropTypes.string,
+	checked: PropTypes.bool,
+	onChange: PropTypes.func,
 }
 
 export default Switch;

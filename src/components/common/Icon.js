@@ -1,5 +1,6 @@
 /* global process */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Icon extends Component {
 
@@ -9,6 +10,13 @@ class Icon extends Component {
 			<img src={ process.env.PUBLIC_URL + 'images/icons/' + src } alt={alt} width={width} height={height} />
     );
   }
+}
+
+Icon.propTypes = {
+	src: PropTypes.string.isRequired,
+	alt: PropTypes.string,
+	width: PropTypes.number,
+	height: PropTypes.number,
 }
 
 export default Icon;

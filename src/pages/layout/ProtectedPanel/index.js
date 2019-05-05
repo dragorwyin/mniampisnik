@@ -16,7 +16,7 @@ const ProtectedPanel = ({component: Component, loading, auth, ...rest}) => {
 				<Redirect to={{ pathname: ROUTES.SIGN_IN }} />
 				) : (
 					<>
-						<Loader loading={loading} fullpage="true" />
+						<Loader loading={loading} fullpage={true} />
 						<Header {...props} {...rest} />
 						<Navigation {...props} {...rest} />
 						<main className="container" id="panel">

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Alert.scss';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 const types = ['error', 'success', 'warning'];
 
@@ -25,6 +26,11 @@ class Alert extends Component {
 
 	}
 
+}
+
+Alert.propTypes = {
+	type: PropTypes.oneOf(types).isRequired,
+	content: PropTypes.string.isRequired,
 }
 
 export default Alert;

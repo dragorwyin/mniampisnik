@@ -126,7 +126,7 @@ class RecipeCreate extends Component {
 							disabled={this.isVitarian()}>
 						</Dropdown>
 					</div>
-					<div></div>
+					<div className="mobile-hidden"></div>
 					<div className="name-wrapper">
 						<input name="name" onChange={this.handleNameChange} placeholder="Mój przepis" />
 					</div>

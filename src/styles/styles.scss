@@ -107,18 +107,6 @@ main:before {
   }
 }
 
-// All responsive resolutions
-@each $resolution, $size in $viewports {
-  // font sizes
-  @media screen and (max-width: $size) {
-    @each $name, $size in map-get($font-sizes, $resolution) {
-      :root {
-        --#{$name}-size: #{$size};
-      }
-    }
-  }
-}
-
 .recipe-editor {
 
 	.rdw-editor-main {
@@ -154,4 +142,16 @@ main:before {
 		margin: 0;
 		margin-bottom: 0.5rem;
 	}
+}
+
+// All responsive resolutions
+@each $resolution, $size in $viewports {
+  // font sizes
+  @media screen and (max-width: $size) {
+    @each $name, $size in map-get($font-sizes, $resolution) {
+      :root {
+        --#{$name}-size: #{$size};
+      }
+    }
+  }
 }

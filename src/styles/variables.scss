@@ -17,22 +17,6 @@ $containers: (
 );
 
 $font-sizes: (
-  lg: (
-    h1: 3em,
-    h2: 2em,
-    h3: 1.5em,
-    h4: 1.125em,
-    h5: 1em,
-    p: 1em
-  ),
-  md: (
-    h1: 2.5em,
-    h2: 2em,
-    h3: 1.5em,
-    h4: 1.125em,
-    h5: 1em,
-    p: 1em
-  ),
   sm: (
     h1: 2em,
     h2: 1.625em,
@@ -40,7 +24,23 @@ $font-sizes: (
     h4: 1.25em,
     h5: 1em,
     p: 1em
-  )
+	),
+	md: (
+    h1: 2.5em,
+    h2: 2em,
+    h3: 1.5em,
+    h4: 1.125em,
+    h5: 1em,
+    p: 1em
+  ),
+	lg: (
+    h1: 3em,
+    h2: 2em,
+    h3: 1.5em,
+    h4: 1.125em,
+    h5: 1em,
+    p: 1em
+  ),
 );
 
 $palette: (

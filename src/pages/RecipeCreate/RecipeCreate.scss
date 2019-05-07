@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 #createRecipe {
 	.top {
     display: flex;
@@ -67,4 +69,37 @@
 			}
 		}
 	}
+
+	@media screen and (max-width: #{map-get($viewports, sm)}) {
+		.top .right {
+			display: none;
+		}
+
+		.selectors {
+			grid-gap: var(--grid-gap);
+			align-items: center;
+			grid-template-columns: 125px 30px 30px;
+		}
+
+		.options-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.options-grid .selectors .selected-option img {
+			margin: 0;
+		}
+
+		.dropdown .selected-option span {
+			display: none;
+		}
+
+		.mobile-hidden {
+			display: none;
+		}
+
+		.time-of-day {
+			grid-template-columns: repeat(2, auto);
+		}
+	}
+
 }

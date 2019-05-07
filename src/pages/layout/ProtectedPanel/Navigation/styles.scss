@@ -17,6 +17,7 @@ div[role="navigation"] {
 	padding-right: var(--mobile-padding);
 	position: fixed;
 	width: 100%;
+	z-index: 100;
 
 	img {
 		height: 30px;

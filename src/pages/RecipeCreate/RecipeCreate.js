@@ -16,6 +16,7 @@ import {
 	RATINGS_ARRAY,
 	TIME_OF_DAY_ARRAY
 } from '../../constants/recipes';
+import { RECIPES } from '../../constants/routes';
 
 class RecipeCreate extends Component {
 
@@ -67,7 +68,10 @@ class RecipeCreate extends Component {
 	}
 
 	handleSaveClick() {
-		this.props.postRecipe(this.state);
+		const { history } = this.props;
+		this.props.postRecipe(this.state).then(() => {
+			history.push(RECIPES);
+		});
 	}
 
 	isSaveDisabled() {

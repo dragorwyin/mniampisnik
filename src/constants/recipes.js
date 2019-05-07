@@ -1,29 +1,29 @@
 export const RECIPE_TYPES = {
-	VEGE: { value: 'vege', name: 'Vege', icon: 'vege.svg' },
-	VEGAN: { value: 'vegan', name: 'Vegan', icon: 'vegan.svg' },
-	VITARIAN: { value: 'vitarian', name: 'Vit', icon: 'vit.svg' },
+	vege: { value: 'vege', name: 'Vege', icon: 'vege.svg' },
+	vegan: { value: 'vegan', name: 'Vegan', icon: 'vegan.svg' },
+	vit: { value: 'vit', name: 'Vit', icon: 'vit.svg' },
 };
 
 export const PREPARATION_TYPES = {
-	COOK: { value: 'cook', name: 'Gotowanie', icon: 'cook.svg' },
-	COOK_WITH_STEAM: { value: 'cook_with_steam', name: 'Na parze', icon: 'cook-with-steam.svg' },
-	FRIED: { value: 'fried', name: 'Smażone', icon: 'fried.svg' },
-	BAKED: { value: 'baked', name: 'Pieczone', icon: 'baked.svg' },
+	cook: { value: 'cook', name: 'Gotowanie', icon: 'cook.svg' },
+	cook_with_steam: { value: 'cook_with_steam', name: 'Na parze', icon: 'cook-with-steam.svg' },
+	fried: { value: 'fried', name: 'Smażone', icon: 'fried.svg' },
+	baked: { value: 'baked', name: 'Pieczone', icon: 'baked.svg' },
 };
 
 export const RATINGS = {
-	NONE: {	value: '', name: '', icon: 'non-medal.svg' },
-	GOOD: { value: 'good', name: 'Dobre', icon: 'bronze-medal.svg' },
-	WELL: { value: 'well', name: 'Świetne', icon: 'silver-medal.svg' },
-	PERFECT: {value: 'perfect', name: 'Mniam!', icon: 'gold-medal.svg' },
+	null: {	value: 'null', name: '', icon: 'non-medal.svg' },
+	good: { value: 'good', name: 'Dobre', icon: 'bronze-medal.svg' },
+	well: { value: 'well', name: 'Świetne', icon: 'silver-medal.svg' },
+	perfect: {value: 'perfect', name: 'Mniam!', icon: 'gold-medal.svg' },
 };
 
 export const TIME_OF_DAY = {
-	BREAKFAST: { value: 'breakfast', name: 'Śniadanie' },
-	SEC_BREAKFAST: { value: 'second_breakfast', name: 'Drugie Śniadanie' },
-	DINNER: { value: 'dinner', name: 'Obiad' },
-	TEA: { value: 'tea', name: 'Przekąska' },
-	SUPPER: { value: 'supper', name: 'Kolacja' },
+	breakfast: { value: 'breakfast', name: 'Śniadanie' },
+	second_breakfast: { value: 'second_breakfast', name: 'Drugie Śniadanie' },
+	dinner: { value: 'dinner', name: 'Obiad' },
+	tea: { value: 'tea', name: 'Przekąska' },
+	supper: { value: 'supper', name: 'Kolacja' },
 };
 
 export const RECIPE_TYPES_ARRAY = Object.entries(RECIPE_TYPES).map(([,data]) => data);

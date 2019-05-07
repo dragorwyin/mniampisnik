@@ -32,23 +32,27 @@ export const postRecipe = (recipe) => {
 		const user_id = getState().firebase.auth.uid;
 
 		const firestore = getFirestore();
-		firestore.collection('recipes').add({
-			id,
-			user_id,
-			ingredients,
-			name,
-			preparation,
-			portions,
-			preparation_type,
-			rating,
-			tested,
-			time_of_day,
-			created_at: new Date(),
-			type,
-		}).then(() => {
-			dispatch({ type: POST_RECIPE_ACTION, id });
-		}).catch(error => {
-			dispatch({type: POST_RECIPE_ACTION_ERR, error})
+
+		return new Promise((resolve) => {
+			firestore.collection('recipes').add({
+				id,
+				user_id,
+				ingredients,
+				name,
+				preparation,
+				portions,
+				preparation_type,
+				rating,
+				tested,
+				time_of_day,
+				created_at: new Date(),
+				type,
+			}).then(() => {
+				dispatch({ type: POST_RECIPE_ACTION, id });
+				resolve(id);
+			}).catch(error => {
+				dispatch({type: POST_RECIPE_ACTION_ERR, error})
+			});
 		});
 	}
 };
@@ -60,7 +64,14 @@ export const patchRecipe = id => {
 };
 
 export const getRecipes = () => {
-	// return (dispatch, getState) => {
-	// 	dispatch({ type: GET_RECIPES_ACTION });
-	// }
+	return (dispatch, getState, { getFirestore }) => {
+		const firestore = getFirestore();
+		firestore.collection('recipes').get()
+		.then(snapshot => {
+			const recipes = snapshot.docs.map(doc => doc._document.data.value());
+			dispatch({ type: GET_RECIPES_ACTION, recipes });
+		}).catch(error => {
+			console.error(error);
+		});
+	}
 };

@@ -74,7 +74,8 @@ class Dropdown extends Component {
 		return (
 			<div className="dropdown" disabled={disabled}>
 				<div className="selected-option" onClick={() => this.handleToggleDropdown()}>
-					<Icon src={selected.icon}/><span>{selected.name}</span>
+					{ selected.icon && <Icon src={selected.icon}/> }
+					<span>{selected.name}</span>
 				</div>
 				{ open && (
 					<ul className="options" ref={this.optionsRef}>

@@ -14,7 +14,7 @@ class DropdownItem extends Component {
 				className={selected ? 'selected' : ''}
 				onClick={() => this.onClick(value)}
 				key={value}>
-					<Icon src={icon}/>
+					{ icon && <Icon src={icon}/> }
 					<span>{name}</span>
 			</li>
 		);

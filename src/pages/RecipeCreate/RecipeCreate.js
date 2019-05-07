@@ -10,34 +10,12 @@ import { postRecipe } from '../../store/actions/recipesActions';
 import { connect } from 'react-redux';
 import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from 'draft-js';
-
-const ratingOpts = [
-	{ icon: 'non-medal.svg', name: '', value: '' },
-	{ icon: 'bronze-medal.svg', name: '', value: 'good' },
-	{ icon: 'silver-medal.svg', name: '', value: 'fine' },
-	{ icon: 'gold-medal.svg', name: '', value: 'perfect' },
-];
-
-const typeOpts = [
-	{ icon: 'vege.svg', name: 'Vege', value: 'vege' },
-	{ icon: 'vit.svg', name: 'Vit', value: 'vit' },
-	{ icon: 'vegan.svg', name: 'Vegan', value: 'vegan' },
-];
-
-const preparationTypeOpts = [
-	{ icon: 'cook.svg', name: 'Gotowane', value: 'cook' },
-	{ icon: 'cook-with-steam.svg', name: 'Na parze', value: 'cook_with_steam' },
-	{ icon: 'fried.svg', name: 'Smażone', value: 'fried' },
-	{ icon: 'baked.svg', name: 'Pieczone', value: 'baked' },
-];
-
-const timeOfDayOpts = [
-	{ name: 'Śniadanie', value: 'breakfast', checked: true },
-	{ name: '2 Śniadanie', value: 'second_breakfast', checked: false },
-	{ name: 'Obiad', value: 'dinner', checked: false },
-	{ name: 'Podwieczorek', value: 'tea', checked: false },
-	{ name: 'Kolacja', value: 'supper', checked: false },
-];
+import {
+	RECIPE_TYPES_ARRAY,
+	PREPARATION_TYPES_ARRAY,
+	RATINGS_ARRAY,
+	TIME_OF_DAY_ARRAY
+} from '../../constants/recipes';
 
 class RecipeCreate extends Component {
 
@@ -52,7 +30,7 @@ class RecipeCreate extends Component {
 			preparation_type: 'cook',
 			rating: null,
 			tested: false,
-			time_of_day: timeOfDayOpts.map(({ value, checked }) => ({ value, checked })),
+			time_of_day: TIME_OF_DAY_ARRAY.map(({ value, checked }) => ({ value, checked })),
 			portions: 0,
 			type: 'vege',
 		}
@@ -117,7 +95,7 @@ class RecipeCreate extends Component {
 							<span className="secondary-font">Przepisy</span> / <span>Nowy Przepis</span>
 						</h3>
 						<Dropdown
-							options={ratingOpts}
+							options={RATINGS_ARRAY}
 							selected={rating}
 							onSelect={this.handleRatingSelect}>
 						</Dropdown>
@@ -137,12 +115,12 @@ class RecipeCreate extends Component {
 					<div className="selectors">
 						<Switch label="Testowane" name="tested" onChange={this.handleTestingSelect} />
 						<Dropdown
-							options={typeOpts}
+							options={RECIPE_TYPES_ARRAY}
 							selected={type}
 							onSelect={this.handleTypeSelect}>
 						</Dropdown>
 						<Dropdown
-							options={preparationTypeOpts}
+							options={PREPARATION_TYPES_ARRAY}
 							selected={preparation_type}
 							onSelect={this.handleTypeSelect}
 							disabled={this.isVitarian()}>
@@ -179,12 +157,12 @@ class RecipeCreate extends Component {
 								<input
 									key={value}
 									type="checkbox"
-									name={timeOfDayOpts[index].name}
+									name={TIME_OF_DAY_ARRAY[index].name}
 									id={value+'checkbox'}
 									checked={checked}
 									onChange={() => this.handleTimeDay(index)} />
 								<div className="checkbox-control"></div>
-								{timeOfDayOpts[index].name}
+								{TIME_OF_DAY_ARRAY[index].name}
 							</label>
 						))
 					}

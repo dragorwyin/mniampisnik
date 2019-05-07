@@ -71,6 +71,10 @@
 	}
 
 	@media screen and (max-width: #{map-get($viewports, sm)}) {
+		.top {
+			margin-top: 1rem;
+		}
+
 		.top .right {
 			display: none;
 		}

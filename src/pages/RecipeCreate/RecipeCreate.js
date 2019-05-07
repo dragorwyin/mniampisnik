@@ -126,7 +126,7 @@ class RecipeCreate extends Component {
 						<Dropdown
 							options={PREPARATION_TYPES_ARRAY}
 							selected={preparation_type}
-							onSelect={this.handleTypeSelect}
+							onSelect={this.handlePreparationTypeSelect}
 							disabled={this.isVitarian()}>
 						</Dropdown>
 					</div>

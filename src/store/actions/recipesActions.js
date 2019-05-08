@@ -6,8 +6,6 @@ export const PATCH_RECIPE_ACTION = 'PATCH_RECIPE';
 export const POST_RECIPE_ACTION = 'POST_RECIPE';
 export const POST_RECIPE_ACTION_ERR = 'POST_RECIPE_ERROR';
 
-const generateID = () => '_' + Math.random().toString(36).substr(2, 9);
-
 export const getRecipe = id => {
 	return (dispatch, getState, { getFirebase, getFirestore } ) => {
 		dispatch({ type: GET_RECIPES_ACTION, id });
@@ -16,40 +14,40 @@ export const getRecipe = id => {
 
 export const postRecipe = (recipe) => {
 	return (dispatch, getState, { getFirestore }) => {
-		const {
-			ingredients = null,
-			name = '',
-			preparation = null,
-			preparation_type = null,
-			rating = 0,
-			tested = false,
-			portions = 0,
-			time_of_day = null,
-			type = null,
-		} = recipe;
+		const firestore = getFirestore()
+		const recipes = getState().recipes;
 
-		const id = generateID();
-		const user_id = getState().firebase.auth.uid;
+		// defaults
+		const defaultData = {
+			ingredients: null,
+			name: '',
+			preparation: null,
+			preparation_type: null,
+			rating: 0,
+			tested: false,
+			portions: 0,
+			time_of_day: null,
+			type: null,
+			user_id: getState().firebase.auth.uid,
+			id: recipes.length + 1,
+			created_at: new Date(),
+		};
 
-		const firestore = getFirestore();
+		// replace defaults
+		const data = {
+			...defaultData,
+			...recipe,
+		};
+
+		// remove uneccessary data
+		const validKeys = Object.keys(defaultData);
+		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
 
 		return new Promise((resolve) => {
-			firestore.collection('recipes').add({
-				id,
-				user_id,
-				ingredients,
-				name,
-				preparation,
-				portions,
-				preparation_type,
-				rating,
-				tested,
-				time_of_day,
-				created_at: new Date(),
-				type,
-			}).then(() => {
-				dispatch({ type: POST_RECIPE_ACTION, id });
-				resolve(id);
+			firestore.collection('recipes').add(data)
+			.then(() => {
+				dispatch({ type: POST_RECIPE_ACTION, data });
+				resolve(data);
 			}).catch(error => {
 				dispatch({type: POST_RECIPE_ACTION_ERR, error})
 			});
@@ -68,8 +66,8 @@ export const getRecipes = () => {
 		const firestore = getFirestore();
 		firestore.collection('recipes').get()
 		.then(snapshot => {
-			const recipes = snapshot.docs.map(doc => doc._document.data.value());
-			dispatch({ type: GET_RECIPES_ACTION, recipes });
+			const data = snapshot.docs.map(doc => doc._document.data.value());
+			dispatch({ type: GET_RECIPES_ACTION, data });
 		}).catch(error => {
 			console.error(error);
 		});

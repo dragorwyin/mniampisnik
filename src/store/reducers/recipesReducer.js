@@ -7,14 +7,14 @@ import {
 } from '../actions/recipesActions';
 
 const recipesReducer = (state = [], action) => {
-	switch (action.type) {
+	const { type, data } = action;
+	switch (type) {
 		case GET_RECIPES_ACTION:
-			return action.recipes;
+			return data;
 		case GET_RECIPE_ACTION:
 			return state.find(recipe => recipe.id === action.id);
 		case POST_RECIPE_ACTION:
-			console.log('done');
-			return [...state, action];
+			return [...state, data];
 		case PATCH_RECIPE_ACTION:
 			return state.map(recipe => {
 				if (recipe.id === action.id) { recipe = action; }

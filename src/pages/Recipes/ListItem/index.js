@@ -10,13 +10,13 @@ import {
 class ListItem extends Component {
 
   render() {
-		let { name, type, preparation_type, rating } = this.props;
+		let { name, type, preparation_type, rating, id } = this.props;
 		type = RECIPE_TYPES[type];
 		preparation_type = PREPARATION_TYPES[preparation_type];
 		rating = RATINGS[rating];
     return (
 			<div className="item">
-				<h4 className="name">{name}</h4>
+				<h4 className="name">{id}. {name}</h4>
 				<div className="selected"><Icon src={type.icon} /> <span>{type.name}</span></div>
 				<div className="selected"><Icon src={preparation_type.icon} /> <span>{preparation_type.name}</span></div>
 				<div className="selected"><Icon src={rating.icon} /> <span>{rating.name}</span></div>

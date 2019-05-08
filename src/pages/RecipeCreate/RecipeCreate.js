@@ -6,7 +6,7 @@ import Multiselect from '../../components/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { postRecipe } from '../../store/actions/recipesActions';
+import { postRecipe, getRecipes } from '../../store/actions/recipesActions';
 import { connect } from 'react-redux';
 import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from 'draft-js';
@@ -51,6 +51,10 @@ class RecipeCreate extends Component {
 		const preparation = draftToHtml(convertToRaw(preparation_editor.getCurrentContent()));
 		this.setState({ preparation });
 		this.setState({ preparation_editor });
+	}
+
+	componentDidMount() {
+		this.props.getRecipes();
 	}
 
 	handleRatingSelect(rating) { this.setState({ rating }); }
@@ -176,10 +180,11 @@ class RecipeCreate extends Component {
   }
 }
 
-const mapStateToProps = state => ({ auth: state.firebase.auth });
+const mapStateToProps = state => ({ auth: state.firebase.auth, recipes: state.recipes });
 
 const mapDispatchToProps = (dispatch) => ({
-	postRecipe: (project) => dispatch(postRecipe(project))
+	postRecipe: (project) => dispatch(postRecipe(project)),
+	getRecipes: () => dispatch(getRecipes())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeCreate);

@@ -29,6 +29,7 @@ class Recipes extends Component {
 
   render() {
 		const { recipes } = this.props;
+		recipes.reverse();
     return (
 			<div>
 				<h3 className="secondary-font">Przepisy</h3>

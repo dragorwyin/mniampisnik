@@ -7,8 +7,8 @@ class IngredientsList extends Component {
 	constructor(props) {
 		super(props);
 
-		const { items } = this.props;
-		this.state = { items };
+		const { items, disabled = false } = this.props;
+		this.state = { items, disabled };
 
 		this.handleNewItemInput = this.handleNewItemInput.bind(this);
 		this.newItemTimeout = null;
@@ -42,20 +42,23 @@ class IngredientsList extends Component {
 	}
 
 	render() {
-		const { items } = this.state;
+		const { items, disabled } = this.state;
 		return (
 			<div className="ingredients-list">
 				{ items && items.map((ingredient, index) => (
 					<IngredientsListItem
 						key={`key${index}`}
 						value={ingredient}
+						disabled={disabled}
 						onDelete={() => this.handleDeleteItem(index)}
 						onChange={value => this.handleChangeItem(index, value)} />
 				))}
-				<IngredientsListItem
-					value=""
-					onEnter={this.handleNewItemInput}
-					newItem="true" />
+				{ !disabled &&
+					<IngredientsListItem
+						value=""
+						onEnter={this.handleNewItemInput}
+						newItem="true" />
+				}
 			</div>
 		);
 	}

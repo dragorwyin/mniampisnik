@@ -5,13 +5,14 @@ import ListItem from './ListItem';
 import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { getRecipes } from '../../store/actions/recipesActions';
+import Loader from '../../components/common/Loader';
 
 class Recipes extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-      editorState: EditorState.createEmpty(),
+			editorState: EditorState.createEmpty(),
 		};
 
 		this.onEditorStateChange = this.onEditorStateChange.bind(this);
@@ -25,21 +26,32 @@ class Recipes extends Component {
     this.setState({
       editorState,
     });
-  }
+	}
+
+	areRecipes(data) {
+		return data && Array.isArray(data);
+	}
+
+	loader() {
+		return <Loader loading={true} fullpage={true} />;
+	}
 
   render() {
 		const { recipes } = this.props;
-		recipes.reverse();
     return (
 			<div>
-				<h3 className="secondary-font">Przepisy</h3>
-				<div className="list">
-					{ recipes && recipes.map(recipe => {
-						return (
-							<ListItem {...recipe} key={recipe.id}></ListItem>
-						)
-					})}
-				</div>
+				{ this.areRecipes(recipes) ?
+					(<>
+						<h3 className="secondary-font">Przepisy</h3>
+						<div className="list">
+							{ recipes.reverse().map(recipe => {
+								return (
+									<ListItem {...recipe} key={recipe.id}></ListItem>
+								)
+							})}
+						</div>
+					</>) : this.loader()
+				}
 			</div>
     );
 	}
@@ -47,7 +59,7 @@ class Recipes extends Component {
 }
 
 const mapStateToProps = state => ({
-	recipes: state.recipes
+	recipes: state.recipes.items
 });
 
 const mapDispatchToProps = (dispatch) => ({

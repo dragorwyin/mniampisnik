@@ -11,9 +11,10 @@ class Switch extends Component {
 			checked = false,
 			label = '',
 			name = '',
+			disabled = false,
 		} = props;
 
-		this.state = { checked, label, name };
+		this.state = { checked, label, name, disabled };
 		this.handleChange = this.handleChange.bind(this);
 	}
 
@@ -26,7 +27,7 @@ class Switch extends Component {
 	}
 
   render() {
-		const { checked, label, name } = this.state;
+		const { checked, label, name, disabled } = this.state;
 
     return (
 			<div className="switch">
@@ -34,6 +35,7 @@ class Switch extends Component {
 				<input
 					className="input"
 					type="checkbox"
+					disabled={disabled}
 					checked={checked}
 					onChange={this.handleChange}
 					name={name} />
@@ -47,6 +49,7 @@ Switch.propTypes = {
 	label: PropTypes.string,
 	checked: PropTypes.bool,
 	onChange: PropTypes.func,
+	disabled: PropTypes.bool,
 }
 
 export default Switch;

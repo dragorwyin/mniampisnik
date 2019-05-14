@@ -6,16 +6,28 @@ export const PATCH_RECIPE_ACTION = 'PATCH_RECIPE';
 export const POST_RECIPE_ACTION = 'POST_RECIPE';
 export const POST_RECIPE_ACTION_ERR = 'POST_RECIPE_ERROR';
 
-export const getRecipe = id => {
-	return (dispatch, getState, { getFirebase, getFirestore } ) => {
-		dispatch({ type: GET_RECIPES_ACTION, id });
+export const getRecipe = doc_id => {
+	return (dispatch, getState, { getFirestore } ) => {
+		const firestore = getFirestore();
+
+		return new Promise((resolve) => {
+			firestore.collection('recipes').doc(doc_id).get()
+			.then(snapshot => {
+				const data = snapshot.data();
+				dispatch({ type: GET_RECIPE_ACTION, data });
+				resolve(data);
+			}).catch(error => {
+				console.error(error);
+			});
+		});
+
 	}
 };
 
 export const postRecipe = (recipe) => {
 	return (dispatch, getState, { getFirestore }) => {
 		const firestore = getFirestore()
-		const recipes = getState().recipes;
+		const recipes = getState().recipes.items;
 
 		// defaults
 		const defaultData = {
@@ -66,7 +78,10 @@ export const getRecipes = () => {
 		const firestore = getFirestore();
 		firestore.collection('recipes').get()
 		.then(snapshot => {
-			const data = snapshot.docs.map(doc => doc._document.data.value());
+			const data = snapshot.docs.map(doc => ({
+				...doc.data(),
+				doc_id: doc.id,
+			}));
 			dispatch({ type: GET_RECIPES_ACTION, data });
 		}).catch(error => {
 			console.error(error);

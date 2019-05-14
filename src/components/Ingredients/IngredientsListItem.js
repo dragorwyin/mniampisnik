@@ -15,9 +15,10 @@ class ListItem extends Component {
 			value = '',
 			newItem = false,
 			style = { height: 'auto' },
+			disabled = false,
 		} = props;
 
-		this.state = { value, newItem, style };
+		this.state = { value, newItem, style, disabled };
 	}
 
 	componentDidMount() {
@@ -45,10 +46,11 @@ class ListItem extends Component {
 	}
 
 	render() {
-		const { value, style } = this.state;
+		const { value, style, disabled } = this.state;
 		return (
 			<div className="list-item">
 				<textarea
+					disabled={disabled}
 					rows="1"
 					placeholder="Wpisz nowy składnik..."
 					onKeyPress={this.handleEnter}
@@ -57,7 +59,7 @@ class ListItem extends Component {
 					value={value}
 					ref={this.textarea}/>
 
-					{ value.length > 0 &&
+					{ !disabled && value.length > 0 &&
 						<div className="icon-wrapper" onClick={this.handleDeleteClick}>
 							<Icon src="circle-x.svg" />
 						</div> }

@@ -25,6 +25,10 @@
 				box-shadow: none;
 				outline: none;
 			}
+
+			&:disabled {
+				background: transparent;
+			}
 		}
 
 		.icon-wrapper {

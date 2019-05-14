@@ -9,7 +9,11 @@ class Multiselect extends Component {
 	constructor(props) {
 		super(props);
 
-		const { icon = 'portion.svg', count = 5 } = props;
+		const {
+			icon = 'portion.svg',
+			count = 5,
+			disabled = false
+		} = props;
 
 		this.state = {
 			portions: Array(+count).fill({
@@ -17,6 +21,7 @@ class Multiselect extends Component {
 				selected: false,
 			}),
 			selected: null,
+			disabled,
 		};
 
 	}
@@ -49,14 +54,14 @@ class Multiselect extends Component {
 	}
 
 	render() {
-		const { portions } = this.state;
+		const { portions, disabled } = this.state;
 		return (
 			<div className="portions">
 				{ portions.map(({ selected, icon }, index) => (
 					<div
 						className={this.getClasses(selected)}
 						key={icon+index}
-						onClick={() => this.selectTo(index)}>
+						onClick={() => { if (!disabled) return this.selectTo(index)} }>
 							<Icon src={icon}/>
 					</div>
 				))}

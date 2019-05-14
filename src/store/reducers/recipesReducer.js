@@ -6,15 +6,15 @@ import {
 	GET_RECIPES_ACTION,
 } from '../actions/recipesActions';
 
-const recipesReducer = (state = [], action) => {
+const recipesReducer = (state = {}, action) => {
 	const { type, data } = action;
 	switch (type) {
 		case GET_RECIPES_ACTION:
-			return data;
+			return { items: data };
 		case GET_RECIPE_ACTION:
-			return state.find(recipe => recipe.id === action.id);
+			return { selected: data };
 		case POST_RECIPE_ACTION:
-			return [...state, data];
+			return { recipes: [...state.recipes, data] };
 		case PATCH_RECIPE_ACTION:
 			return state.map(recipe => {
 				if (recipe.id === action.id) { recipe = action; }

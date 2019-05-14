@@ -1,0 +1,113 @@
+@import '../../styles/variables';
+
+#viewRecipe {
+	.top {
+    display: flex;
+    justify-content: space-between;
+
+		.left {
+			display: flex;
+			align-items: center;
+
+			.secondary-font {
+				text-decoration: none;
+			}
+
+			h3 {
+				margin: 0;
+			}
+
+			.dropdown {
+				margin-left: 10px;
+			}
+		}
+	}
+
+	.options-grid {
+		display: grid;
+		margin-top: 2rem;
+		grid-template-columns: 1fr 2fr;
+		grid-gap: calc(var(--grid-gap) * 2);
+	}
+
+	.selectors {
+		display: grid;
+		grid-gap: calc(var(--grid-gap) * 2);
+		grid-template-columns: repeat(3, auto);
+	}
+
+	.portions {
+		align-self: center;
+	}
+
+	.name-wrapper {
+		display: flex;
+		align-items: center;
+
+		input {
+			max-width: 383px;
+			width: 100%;
+		}
+
+		.portions {
+			margin-left: 40px;
+		}
+	}
+
+	h2 {
+		margin-top: 0;
+		margin-bottom: 1rem;
+	}
+
+	.time-of-day {
+		margin-top: 2rem;
+		display: grid;
+		grid-template-columns: repeat(5, auto);
+
+		.checkbox {
+			display: flex;
+			align-items: center;
+
+			input {
+				width: 20px;
+			}
+		}
+	}
+
+	@media screen and (max-width: #{map-get($viewports, sm)}) {
+		.top {
+			margin-top: 1rem;
+		}
+
+		.top .right {
+			display: none;
+		}
+
+		.selectors {
+			grid-gap: var(--grid-gap);
+			align-items: center;
+			grid-template-columns: 125px 30px 30px;
+		}
+
+		.options-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.options-grid .selectors .selected-option img {
+			margin: 0;
+		}
+
+		.dropdown .selected-option span {
+			display: none;
+		}
+
+		.mobile-hidden {
+			display: none;
+		}
+
+		.time-of-day {
+			grid-template-columns: repeat(2, auto);
+		}
+	}
+
+}

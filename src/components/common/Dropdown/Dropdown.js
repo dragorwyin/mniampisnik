@@ -8,12 +8,17 @@ class Dropdown extends Component {
 
 	constructor(props) {
 		super(props);
-		const { options, selected = null } = props;
+		const {
+			options,
+			selected = null,
+			viewOnly = false,
+		} = props;
 
 		this.optionsRef = React.createRef();
 
 		this.state = {
 			selected: selected ? options.find(option => option.value === selected) : null,
+			viewOnly,
 			options: options.map(option => {
 				option.selected = option.selected ? true : false;
 				return option;
@@ -67,7 +72,7 @@ class Dropdown extends Component {
 	}
 
 	render() {
-		const { options, selected, open } = this.state;
+		const { options, selected, open, viewOnly } = this.state;
 		const { disabled } = this.props;
 		if (!options || !options.length) return null;
 
@@ -77,7 +82,7 @@ class Dropdown extends Component {
 					{ selected.icon && <Icon src={selected.icon}/> }
 					<span>{selected.name}</span>
 				</div>
-				{ open && (
+				{ !viewOnly && open && (
 					<ul className="options" ref={this.optionsRef}>
 						{ options && options.map(option => (
 							<DropdownItem {...option} key={option.value} onClick={() => this.handleItemClick(option.value)}/>
@@ -101,6 +106,7 @@ Dropdown.propTypes = {
 		icon: PropTypes.string,
 	})).isRequired,
 	onSelect: PropTypes.func,
+	viewOnly: PropTypes.bool,
 }
 
 export default Dropdown;

@@ -49,16 +49,16 @@ class SignIn extends Component {
 					<h1>
 						<span className="secondary-font">Mniam</span>Piśnik
 					</h1>
-					<img src={ process.env.PUBLIC_URL + 'images/diet.svg' } alt="diet graphics" />
+					<img src={ process.env.PUBLIC_URL + '/images/diet.svg' } alt="diet graphics" />
 					<form onSubmit={this.onSubmit}>
 						<Alert type="error" content={error} />
 						<div className="form--input">
-							<img className="icon" src={ process.env.PUBLIC_URL + 'images/icons/email.svg' } alt="email" />
+							<img className="icon" src={ process.env.PUBLIC_URL + '/images/icons/email.svg' } alt="email" />
 							<input name="email" type="email" placeholder="my-email@email.com" onChange={this.onChange} value={email} />
 							<div className="errors"></div>
 						</div>
 						<div className="form--input">
-							<img className="icon" src={ process.env.PUBLIC_URL + 'images/icons/lock.svg' } alt="password lock" />
+							<img className="icon" src={ process.env.PUBLIC_URL + '/images/icons/lock.svg' } alt="password lock" />
 							<input name="password" type="password" placeholder="*********" onChange={this.onChange} value={password} />
 							<div className="errors"></div>
 						</div>

@@ -16,16 +16,16 @@ class Navigation extends Component {
 		return (
 			<div role="navigation">
 				<Link to={ROUTES.SEARCH}>
-					<img src={ process.env.PUBLIC_URL + 'images/icons/tag.svg' } alt="search"></img>
+					<img src={ process.env.PUBLIC_URL + '/images/icons/tag.svg' } alt="search"></img>
 				</Link>
 				<Link to={ROUTES.RECIPE_CREATE}>
 					<button className="white button icon">
-						<img src={ process.env.PUBLIC_URL + 'images/icons/plus.svg' } alt="plus"></img>
+						<img src={ process.env.PUBLIC_URL + '/images/icons/plus.svg' } alt="plus"></img>
 						<span>Dodaj</span>
 					</button>
 				</Link>
 				<Link to={ROUTES.RECIPES}>
-					<img src={ process.env.PUBLIC_URL + 'images/icons/list.svg' } alt="list"></img>
+					<img src={ process.env.PUBLIC_URL + '/images/icons/list.svg' } alt="list"></img>
 				</Link>
 			</div>
 		);

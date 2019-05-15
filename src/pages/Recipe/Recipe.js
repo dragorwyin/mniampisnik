@@ -41,6 +41,11 @@ class Recipe extends Component {
 		return <Loader loading={true} fullpage={true} />;
 	}
 
+	computeEditURL() {
+		const { doc_id } = this.state;
+		return ROUTES.RECIPE_EDIT.replace(':id', doc_id);
+	}
+
   render() {
 		const { recipe } = this.props;
 		if (!recipe) { return this.loader(); }
@@ -53,6 +58,7 @@ class Recipe extends Component {
 			time_of_day,
 			portions,
 			preparation,
+			tested,
 		} = recipe;
 
     return (
@@ -69,20 +75,19 @@ class Recipe extends Component {
 						</Dropdown>
 					</div>
 					<div className="right">
-						<button
+						<Link to={this.computeEditURL()}
 							type="button"
 							className="primary small button"
 							disabled={false}
-							// onClick={this.handleSaveClick}
 							>
 								EDYTUJ
-						</button>
+						</Link>
 					</div>
 				</div>
 
 				<div className="options-grid">
 					<div className="selectors">
-						<Switch label="Testowane" name="tested" disabled={true} />
+						<Switch checked={tested} label="Testowane" name="tested" disabled={true} />
 						<Dropdown
 							options={RECIPE_TYPES_ARRAY}
 							selected={type}

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './RecipeCreate.scss';
+import './RecipeEdit.scss';
 import Dropdown from '../../components/common/Dropdown/Dropdown';
 import Switch from '../../components/common/Switch';
 import Multiselect from '../../components/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { postRecipe, getRecipes } from '../../store/actions/recipesActions';
+import { patchRecipe, getRecipe } from '../../store/actions/recipesActions';
 import { connect } from 'react-redux';
 import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from 'draft-js';
@@ -16,25 +16,19 @@ import {
 	RATINGS_ARRAY,
 	TIME_OF_DAY_ARRAY
 } from '../../constants/recipes';
-import { RECIPES } from '../../constants/routes';
+import { RECIPE } from '../../constants/routes';
+import Loader from '../../components/common/Loader';
+import htmlToDraft from 'html-to-draftjs';
+import { EditorState, ContentState } from 'draft-js';
 
-class RecipeCreate extends Component {
+class RecipeEdit extends Component {
 
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			ingredients: [],
-			name: '',
-			preparation_editor: '',
-			preparation: '',
-			preparation_type: 'cook',
-			rating: null,
-			tested: false,
-			time_of_day: TIME_OF_DAY_ARRAY.map(({ value, checked }) => ({ value, checked })),
-			portions: 0,
-			type: 'vege',
-		}
+			doc_id: this.props.match.params.id,
+		};
 
 		this.handleRatingSelect = this.handleRatingSelect.bind(this);
 		this.handleTestingSelect = this.handleTestingSelect.bind(this);
@@ -54,7 +48,20 @@ class RecipeCreate extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getRecipes();
+		const { doc_id } = this.state;
+		this.props.getRecipe(doc_id).then(recipe => {
+			this.setState(recipe);
+			this.setState({
+				preparation_editor: this.readDraftContent(recipe.preparation),
+			});
+		});
+	}
+
+	readDraftContent(preparation) {
+		const blocksFromHtml = htmlToDraft(preparation);
+		const { contentBlocks, entityMap } = blocksFromHtml;
+		const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+		return EditorState.createWithContent(contentState);
 	}
 
 	handleRatingSelect(rating) { this.setState({ rating }); }
@@ -73,34 +80,44 @@ class RecipeCreate extends Component {
 
 	handleSaveClick() {
 		const { history } = this.props;
-		this.props.postRecipe(this.state).then(() => {
-			history.push(RECIPES);
+		this.props.patchRecipe(this.state.doc_id, this.state).then(() => {
+			history.push(RECIPE.replace(':id', this.state.doc_id));
 		});
 	}
 
 	isSaveDisabled() {
 		const { name, ingredients } = this.state;
-		return name === '' || ingredients.length === 0;
+		return !name || name === '' || !ingredients || ingredients.length === 0;
 	}
 
 	isVitarian() { return this.state.type === 'vit'; }
 
+	loader() {
+		return <Loader loading={true} fullpage={true} />;
+	}
+
   render() {
 		const {
+			preparation_editor,
+			name,
+			id,
 			rating,
 			type,
 			preparation_type,
 			ingredients,
-			preparation_editor,
 			time_of_day,
-		} = this.state;
+			portions,
+			tested,
+		 } = this.state;
+
+		if (!id) { return this.loader(); }
 
     return (
-			<div id="createRecipe" className="recipe">
+			<div id="editRecipe" className="recipe">
 				<div className="top">
 					<div className="left">
 						<h3>
-							<span className="secondary-font">Przepisy</span> / <span>Nowy Przepis</span>
+							<span className="secondary-font">Przepisy</span> / <span>{name}</span>
 						</h3>
 						<Dropdown
 							options={RATINGS_ARRAY}
@@ -121,7 +138,7 @@ class RecipeCreate extends Component {
 
 				<div className="options-grid">
 					<div className="selectors">
-						<Switch label="Testowane" name="tested" onChange={this.handleTestingSelect} />
+						<Switch checked={tested} label="Testowane" name="tested" onChange={this.handleTestingSelect} />
 						<Dropdown
 							options={RECIPE_TYPES_ARRAY}
 							selected={type}
@@ -136,9 +153,9 @@ class RecipeCreate extends Component {
 					</div>
 					<div className="mobile-hidden"></div>
 					<div className="name-wrapper">
-						<input name="name" onChange={this.handleNameChange} placeholder="Mój przepis" />
+						<input name="name" onChange={this.handleNameChange} placeholder="Mój przepis" value={name} />
 					</div>
-					<Multiselect onChange={this.handlePortionsChange} />
+					<Multiselect selected={portions} onChange={this.handlePortionsChange} />
 					<div className="ingredients-wrapper">
 						<h2>Składniki</h2>
 						<IngredientsList items={ingredients}/>
@@ -180,11 +197,14 @@ class RecipeCreate extends Component {
   }
 }
 
-const mapStateToProps = state => ({ auth: state.firebase.auth, recipes: state.recipes });
+const mapStateToProps = state => ({
+	auth: state.firebase.auth,
+	recipe: state.recipes.selected,
+ });
 
 const mapDispatchToProps = (dispatch) => ({
-	postRecipe: (recipe) => dispatch(postRecipe(recipe)),
-	getRecipes: () => dispatch(getRecipes())
+	patchRecipe: (doc_id, recipe) => dispatch(patchRecipe(doc_id, recipe)),
+	getRecipe: (doc_id) => dispatch(getRecipe(doc_id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeCreate);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeEdit);

@@ -67,9 +67,45 @@ export const postRecipe = (recipe) => {
 	}
 };
 
-export const patchRecipe = id => {
-	return (dispatch, getState, { getFirebase, getFirestore }) => {
-		dispatch({ type: PATCH_RECIPE_ACTION, id });
+export const patchRecipe = (doc_id, recipe) => {
+	return (dispatch, getState, { getFirestore }) => {
+		const firestore = getFirestore()
+
+		// defaults
+		const defaultData = {
+			ingredients: null,
+			name: '',
+			preparation: null,
+			preparation_type: null,
+			rating: 0,
+			tested: false,
+			portions: 0,
+			time_of_day: null,
+			type: null,
+			user_id: getState().firebase.auth.uid,
+			id: 1,
+			created_at: new Date(),
+		};
+
+		// replace defaults
+		const data = {
+			...defaultData,
+			...recipe,
+		};
+
+		// remove uneccessary data
+		const validKeys = Object.keys(defaultData);
+		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
+
+		return new Promise((resolve) => {
+			firestore.collection('recipes').doc(doc_id).set(data)
+			.then(() => {
+				dispatch({ type: PATCH_RECIPE_ACTION, data });
+				resolve(data);
+			}).catch(error => {
+				console.error(error);
+			});
+		});
 	}
 };
 

@@ -108,7 +108,7 @@ class RecipeEdit extends Component {
 			time_of_day,
 			portions,
 			tested,
-		 } = this.state;
+		} = this.state;
 
 		if (!id) { return this.loader(); }
 

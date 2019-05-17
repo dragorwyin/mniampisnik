@@ -1,7 +1,7 @@
 @import "../mixins";
 
 :root {
-	--input-icon-width: 36px;
+	--input-icon-width: 40px;
   --input-bg: #F7F7F7;
   --input-border: 1px solid #E0E0E0;
 }
@@ -17,15 +17,15 @@ form {
 
   .form--input {
     @include grid-full-width;
-    width: 100%;
+		width: 100%;
+		position: relative;
     display: flex;
 
     .icon {
-      background: var(--input-bg);
-      border: var(--input-border);
-      border-right: 0;
-      width: var(--input-icon-width);
-      padding: 10px 0 10px 10px;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 10px;
     }
   }
 }
@@ -34,8 +34,8 @@ form {
 input {
 	background: var(--input-bg);
 	border: var(--input-border);
-	padding: 10px 15px;
-	width: calc(100% - var(--input-icon-width));
+	padding: 10px 15px 10px var(--input-icon-width);
+	width: 100%;
 }
 
 input::placeholder {

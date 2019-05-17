@@ -18,7 +18,6 @@ import {
 } from '../../constants/recipes';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import { RECIPES } from '../../constants/routes';
 
 class RecipeCreate extends Component {
 
@@ -76,7 +75,8 @@ class RecipeCreate extends Component {
 	handleSaveClick() {
 		const { history } = this.props;
 		this.props.postRecipe(this.state).then(() => {
-			history.push(RECIPES);
+			console.log('here');
+			history.push(ROUTES.RECIPES);
 		});
 	}
 

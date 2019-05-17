@@ -61,6 +61,7 @@ export const postRecipe = (recipe) => {
 				dispatch({ type: POST_RECIPE_ACTION, data });
 				resolve(data);
 			}).catch(error => {
+				console.error(error);
 				dispatch({type: POST_RECIPE_ACTION_ERR, error})
 			});
 		});

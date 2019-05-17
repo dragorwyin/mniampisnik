@@ -78,18 +78,26 @@ main:before {
   }
 }
 
-@media screen and (max-width: #{map-get($viewports, sm)}) {
-  main:before {
-    content: none;
-  }
+.on-mobile-only {
+	display: none !important;
+}
+
+@media screen and (max-width: #{map-get($viewports, lg)}) {
+	// empty
 }
 
 @media screen and (max-width: #{map-get($viewports, md)}) {
   // empty
 }
 
-@media screen and (max-width: #{map-get($viewports, lg)}) {
-  // empty
+@media screen and (max-width: #{map-get($viewports, sm)}) {
+  main:before {
+    content: none;
+	}
+
+	.on-mobile-only {
+		display: flex !important;
+	}
 }
 
 .container {
@@ -105,6 +113,11 @@ main:before {
       width: var(--size-container-#{$name});
     }
   }
+}
+
+.pull-right {
+	display: flex;
+	justify-content: flex-end;
 }
 
 .recipe-editor {

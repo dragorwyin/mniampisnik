@@ -26,7 +26,11 @@ form {
 			top: 0;
 			bottom: 0;
 			left: 10px;
-    }
+		}
+
+		&.with-icon input {
+			padding:  10px 15px 10px var(--input-icon-width);
+		}
   }
 }
 
@@ -34,7 +38,7 @@ form {
 input {
 	background: var(--input-bg);
 	border: var(--input-border);
-	padding: 10px 15px 10px var(--input-icon-width);
+	padding: 10px 15px;
 	width: 100%;
 }
 

@@ -16,6 +16,8 @@ import {
 	RATINGS_ARRAY,
 	TIME_OF_DAY_ARRAY
 } from '../../constants/recipes';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 import { RECIPES } from '../../constants/routes';
 
 class RecipeCreate extends Component {
@@ -100,7 +102,7 @@ class RecipeCreate extends Component {
 				<div className="top">
 					<div className="left">
 						<h3>
-							<span className="secondary-font">Przepisy</span> / <span>Nowy Przepis</span>
+							<Link to={ROUTES.RECIPES} className="secondary-font">Przepisy</Link> / <span>Nowy Przepis</span>
 						</h3>
 						<Dropdown
 							options={RATINGS_ARRAY}
@@ -174,6 +176,15 @@ class RecipeCreate extends Component {
 							</label>
 						))
 					}
+				</div>
+				<div className="pull-right on-mobile-only">
+					<button
+						type="button"
+						className="primary small button"
+						disabled={this.isSaveDisabled()}
+						onClick={this.handleSaveClick}>
+							ZAPISZ
+					</button>
 				</div>
 			</div>
     );

@@ -16,10 +16,11 @@ import {
 	RATINGS_ARRAY,
 	TIME_OF_DAY_ARRAY
 } from '../../constants/recipes';
-import { RECIPE } from '../../constants/routes';
 import Loader from '../../components/common/Loader';
 import htmlToDraft from 'html-to-draftjs';
 import { EditorState, ContentState } from 'draft-js';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 
 class RecipeEdit extends Component {
 
@@ -81,7 +82,7 @@ class RecipeEdit extends Component {
 	handleSaveClick() {
 		const { history } = this.props;
 		this.props.patchRecipe(this.state.doc_id, this.state).then(() => {
-			history.push(RECIPE.replace(':id', this.state.doc_id));
+			history.push(ROUTES.RECIPE.replace(':id', this.state.doc_id));
 		});
 	}
 
@@ -117,7 +118,7 @@ class RecipeEdit extends Component {
 				<div className="top">
 					<div className="left">
 						<h3>
-							<span className="secondary-font">Przepisy</span> / <span>{name}</span>
+							<Link to={ROUTES.RECIPES} className="secondary-font">Przepisy</Link> / <span>{name}</span>
 						</h3>
 						<Dropdown
 							options={RATINGS_ARRAY}
@@ -191,6 +192,15 @@ class RecipeEdit extends Component {
 							</label>
 						))
 					}
+				</div>
+				<div className="pull-right on-mobile-only">
+					<button
+						type="button"
+						className="primary small button"
+						disabled={this.isSaveDisabled()}
+						onClick={this.handleSaveClick}>
+							ZAPISZ
+					</button>
 				</div>
 			</div>
     );

@@ -1,12 +1,26 @@
+@import '../../../styles/variables';
+
 .item {
 	text-decoration: none;
 	align-items: center;
 	display: grid;
 	grid-gap: calc(var(--grid-gap) * 2);
-	grid-template-columns: 1fr auto auto auto;
+	grid-template-columns: 1fr auto;
 	justify-items: left;
 	border-bottom: 1px solid #DFDFDF;
 	padding: 15px 50px 15px 0px;
+
+	.options {
+		display: grid;
+		grid-gap: calc(var(--grid-gap));
+		grid-template-columns: auto auto auto auto;
+		align-items: center;
+	}
+
+	.switch label,
+	.options span {
+		display: none;
+	}
 
 	h4 {
 		margin: 0;
@@ -24,4 +38,28 @@
 			font-size: .8rem;
 		}
 	}
+
+}
+
+@media screen and (max-width: #{map-get($viewports, sm)}) {
+	.item {
+		grid-template-columns: initial;
+		grid-gap: var(--grid-gap);
+		grid-template-areas:
+			'name'
+			'options';
+		width: 100%;
+
+		.name {
+			grid-area: name;
+		}
+
+		.options {
+			grid-area: options;
+			display: grid;
+			grid-template-columns: repeat(4, auto);
+			grid-gap: calc(var(--grid-gap) * 1.5);
+		}
+	}
+
 }

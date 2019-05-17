@@ -52,12 +52,12 @@ class SignIn extends Component {
 					<img src={ process.env.PUBLIC_URL + '/images/diet.svg' } alt="diet graphics" />
 					<form onSubmit={this.onSubmit}>
 						<Alert type="error" content={error} />
-						<div className="form--input">
+						<div className="form--input with-icon">
 							<img className="icon" src={ process.env.PUBLIC_URL + '/images/icons/email.svg' } alt="email" />
 							<input name="email" type="email" placeholder="my-email@email.com" onChange={this.onChange} value={email} />
 							<div className="errors"></div>
 						</div>
-						<div className="form--input">
+						<div className="form--input with-icon">
 							<img className="icon" src={ process.env.PUBLIC_URL + '/images/icons/lock.svg' } alt="password lock" />
 							<input name="password" type="password" placeholder="*********" onChange={this.onChange} value={password} />
 							<div className="errors"></div>
@@ -72,8 +72,8 @@ class SignIn extends Component {
 
 // Map Props from store
 const mapStateToProps = (state) => ({
-	error: state.auth.error,
-	loading: state.auth.loading,
+	error: state.auth.error = '',
+	loading: state.auth.loading = false,
 });
 
 export default compose(

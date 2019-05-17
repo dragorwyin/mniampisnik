@@ -1,4 +1,7 @@
 .switch {
+	display: flex;
+	align-items: center;
+
 	label {
 		color: var(--font-color);
 		font-size: 14px;
@@ -20,6 +23,7 @@
 		background-clip: padding-box;
 		color: #E2E5E5;
 		vertical-align: middle;
+		padding: initial;
 		transition: all 0.25s linear 0.25s;
 
 		&:before {

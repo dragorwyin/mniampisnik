@@ -39,7 +39,7 @@ class Recipes extends Component {
   render() {
 		const { recipes } = this.props;
     return (
-			<div>
+			<div id="recipes">
 				{ this.areRecipes(recipes) ?
 					(<>
 						<h3 className="secondary-font">Przepisy</h3>

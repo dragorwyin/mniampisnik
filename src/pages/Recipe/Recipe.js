@@ -66,7 +66,7 @@ class Recipe extends Component {
 				<div className="top">
 					<div className="left">
 						<h3>
-							<Link to={ROUTES.RECIPES} className="secondary-font">Przepisy</Link> / {name}<span></span>
+							<Link to={ROUTES.RECIPES} className="secondary-font">Przepisy</Link> / <span>{name}</span>
 						</h3>
 						<Dropdown
 							options={RATINGS_ARRAY}
@@ -125,6 +125,15 @@ class Recipe extends Component {
 							</label>
 						))
 					}
+				</div>
+				<div className="pull-right on-mobile-only">
+					<Link to={this.computeEditURL()}
+						type="button"
+						className="primary small button"
+						disabled={false}
+						>
+							EDYTUJ
+					</Link>
 				</div>
 			</div>
     );

@@ -1,7 +1,30 @@
-.container {
-	justify-content: initial;
+@import '../../styles/variables';
+
+#recipes {
+	width: 100%;
+
+	.list {
+		width: 50%;
+	}
+
+	.container {
+		justify-content: initial;
+	}
+
+	h3 {
+		margin-top: 0;
+	}
 }
 
-h3 {
-	margin-top: 0;
+@media screen and (max-width: #{map-get($viewports, sm)}) {
+	#recipes {
+		.list {
+			width: calc(100% + 30px);
+			margin-left: -15px;
+
+			.item {
+				padding: 15px;
+			}
+		}
+	}
 }

@@ -5,6 +5,10 @@
     display: flex;
     justify-content: space-between;
 
+		a {
+			text-decoration: none;
+		}
+
 		.left {
 			display: flex;
 			align-items: center;

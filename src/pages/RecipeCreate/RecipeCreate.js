@@ -75,7 +75,6 @@ class RecipeCreate extends Component {
 	handleSaveClick() {
 		const { history } = this.props;
 		this.props.postRecipe(this.state).then(() => {
-			console.log('here');
 			history.push(ROUTES.RECIPES);
 		});
 	}
@@ -170,7 +169,7 @@ class RecipeCreate extends Component {
 									name={TIME_OF_DAY_ARRAY[index].name}
 									id={value+'checkbox'}
 									checked={checked}
-									onChange={() => this.handleTimeDay(index)} />
+									onChange={() => this.handleTimeDay(index)}/>
 								<div className="checkbox-control"></div>
 								{TIME_OF_DAY_ARRAY[index].name}
 							</label>

@@ -27,10 +27,10 @@ class Header extends Component {
 							</Link>
 						</li>
 						<li>
-							<Link to={ROUTES.SEARCH}>
-								<img src={ process.env.PUBLIC_URL + '/images/icons/tag.svg' } alt="tags"></img>
-								<span>Szukaj</span>
-							</Link>
+						<Link to={ROUTES.RECIPE_CREATE}>
+							<img src={ process.env.PUBLIC_URL + '/images/icons/plus.svg' } alt="plus" className="white"></img>
+							<span>Dodaj</span>
+						</Link>
 						</li>
 					</ul>
 					<ul className="right-nav">

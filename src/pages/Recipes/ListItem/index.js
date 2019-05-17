@@ -5,9 +5,6 @@ import * as ROUTES from '../../../constants/routes';
 import Switch from '../../../components/common/Switch';
 import Dropdown from '../../../components/common/Dropdown/Dropdown';
 import {
-	RECIPE_TYPES,
-	PREPARATION_TYPES,
-	RATINGS,
 	RECIPE_TYPES_ARRAY,
 	PREPARATION_TYPES_ARRAY,
 	RATINGS_ARRAY,

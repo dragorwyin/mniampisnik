@@ -24,6 +24,17 @@ span, p, article {
   color: var(--font-color);
 }
 
+article {
+	--font-size: 14px;
+	--p-size: var(--font-size);
+	--h1-size: 1.5em;
+	--h2-size: 1.25em;
+
+	p {
+		margin: .5rem 0;
+	}
+}
+
 .relative {
 	position: relative;
 }

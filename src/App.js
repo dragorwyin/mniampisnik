@@ -8,7 +8,6 @@ import RecipeEdit from './pages/RecipeEdit/RecipeEdit';
 import RecipeCreate from './pages/RecipeCreate/RecipeCreate';
 import Recipes from './pages/Recipes/Recipes';
 import ProtectedPanel from './pages/layout/ProtectedPanel';
-// import { withAuthentication } from './components/Auth';
 
 class App extends Component {
 

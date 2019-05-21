@@ -4,12 +4,9 @@ import Dropdown from '../../components/common/Dropdown/Dropdown';
 import Switch from '../../components/common/Switch';
 import Multiselect from '../../components/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Editor from '../../components/common/Editor';
 import { postRecipe, getRecipes } from '../../store/actions/recipesActions';
 import { connect } from 'react-redux';
-import draftToHtml from 'draftjs-to-html';
-import { convertToRaw } from 'draft-js';
 import {
 	RECIPE_TYPES_ARRAY,
 	PREPARATION_TYPES_ARRAY,
@@ -27,7 +24,6 @@ class RecipeCreate extends Component {
 		this.state = {
 			ingredients: [],
 			name: '',
-			preparation_editor: '',
 			preparation: '',
 			preparation_type: 'cook',
 			rating: null,
@@ -48,10 +44,8 @@ class RecipeCreate extends Component {
 		this.handleSaveClick = this.handleSaveClick.bind(this);
 	}
 
-	handleEditorChange(preparation_editor) {
-		const preparation = draftToHtml(convertToRaw(preparation_editor.getCurrentContent()));
+	handleEditorChange(preparation) {
 		this.setState({ preparation });
-		this.setState({ preparation_editor });
 	}
 
 	componentDidMount() {
@@ -92,7 +86,7 @@ class RecipeCreate extends Component {
 			type,
 			preparation_type,
 			ingredients,
-			preparation_editor,
+			preparation,
 			time_of_day,
 		} = this.state;
 
@@ -147,16 +141,9 @@ class RecipeCreate extends Component {
 					<div className="preparation-wrapper">
 						<h2>Przygotowanie</h2>
 						<Editor
-							wrapperClassName="recipe-editor"
-							editorState={preparation_editor}
-							onEditorStateChange={this.handleEditorChange}
-							toolbar={{
-								options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'history'],
-								inline: { inDropdown: false },
-								list: { inDropdown: true },
-								textAlign: { inDropdown: false },
-								history: { inDropdown: true },
-							}} />
+							value={preparation}
+							onChange={this.handleEditorChange}
+						/>
 					</div>
 				</div>
 				<div className="time-of-day">

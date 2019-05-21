@@ -44,7 +44,7 @@ class Recipes extends Component {
 					(<>
 						<h3 className="secondary-font">Przepisy</h3>
 						<div className="list">
-							{ recipes.reverse().map(recipe => {
+							{ recipes.map(recipe => {
 								return (
 									<ListItem {...recipe} key={recipe.id}></ListItem>
 								)

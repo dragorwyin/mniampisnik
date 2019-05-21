@@ -118,7 +118,7 @@ export const getRecipes = () => {
 			const data = snapshot.docs.map(doc => ({
 				...doc.data(),
 				doc_id: doc.id,
-			}));
+			})).sort((a, b) => a.id > b.id ? 1 : -1);
 			dispatch({ type: GET_RECIPES_ACTION, data });
 		}).catch(error => {
 			console.error(error);

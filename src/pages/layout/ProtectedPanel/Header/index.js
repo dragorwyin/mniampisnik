@@ -18,7 +18,9 @@ class Header extends Component {
 				<div className="container">
 					<ul className="left-nav">
 						<li className="logo">
-							<span className="secondary-font">Mniam</span>Piśnik
+							<Link to={ROUTES.RECIPES}>
+								<span className="secondary-font">Mniam</span>Piśnik
+							</Link>
 						</li>
 						<li>
 							<Link to={ROUTES.RECIPES}>

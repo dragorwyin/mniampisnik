@@ -28,7 +28,7 @@ class Header extends Component {
 						</li>
 						<li>
 						<Link to={ROUTES.RECIPE_CREATE}>
-							<img src={ process.env.PUBLIC_URL + '/images/icons/plus.svg' } alt="plus" className="white"></img>
+							<img src={ process.env.PUBLIC_URL + '/images/icons/add.svg' } alt="plus" className="white"></img>
 							<span>Dodaj</span>
 						</Link>
 						</li>
@@ -36,7 +36,7 @@ class Header extends Component {
 					<ul className="right-nav">
 						<li className="mobile-only">
 							<Link to={ROUTES.RECIPE_CREATE}>
-								<img src={ process.env.PUBLIC_URL + '/images/icons/plus.svg' } alt="plus"></img>
+								<img src={ process.env.PUBLIC_URL + '/images/icons/add.svg' } alt="plus"></img>
 							</Link>
 						</li>
 						<li className="mobile-only">

@@ -11,6 +11,7 @@ main #panel {
 @media screen and (max-width: #{map-get($viewports, sm)}) {
 	main #panel {
 		padding: var(--mobile-padding);
-		margin-bottom: 65px;
+		padding-bottom: 2rem;
+		padding-top: 70px;
 	}
 }

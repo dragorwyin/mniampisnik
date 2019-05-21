@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Header from './Header';
-import Navigation from './Navigation';
 import './styles.scss';
 import { connect } from 'react-redux';
 import Loader from '../../../components/common/Loader';
@@ -18,7 +17,6 @@ const ProtectedPanel = ({component: Component, loading, auth, ...rest}) => {
 					<>
 						<Loader loading={loading} fullpage={true} />
 						<Header {...props} {...rest} />
-						<Navigation {...props} {...rest} />
 						<main className="container" id="panel">
 							<Component {...props} {...rest} />
 						</main>

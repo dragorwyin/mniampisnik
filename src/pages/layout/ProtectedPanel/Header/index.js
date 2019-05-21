@@ -34,9 +34,19 @@ class Header extends Component {
 						</li>
 					</ul>
 					<ul className="right-nav">
+						<li className="mobile-only">
+							<Link to={ROUTES.RECIPE_CREATE}>
+								<img src={ process.env.PUBLIC_URL + '/images/icons/plus.svg' } alt="plus"></img>
+							</Link>
+						</li>
+						<li className="mobile-only">
+							<Link to={ROUTES.RECIPES}>
+								<img src={ process.env.PUBLIC_URL + '/images/icons/list.svg' } alt="list"></img>
+							</Link>
+						</li>
 						<li>
 							<div className="logout" onClick={this.onLogoutClick}>
-								<img src={ process.env.PUBLIC_URL + '/images/icons/rocket.svg' } alt="rocket"></img>
+								<img src={ process.env.PUBLIC_URL + '/images/icons/logout.svg' } alt="logout"></img>
 								<span>Wyloguj</span>
 							</div>
 						</li>

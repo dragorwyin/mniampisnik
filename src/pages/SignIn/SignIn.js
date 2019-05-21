@@ -49,7 +49,7 @@ class SignIn extends Component {
 					<h1>
 						<span className="secondary-font">Mniam</span>Piśnik
 					</h1>
-					<img src={ process.env.PUBLIC_URL + '/images/diet.svg' } alt="diet graphics" />
+					<img src={ process.env.PUBLIC_URL + '/images/diet.svg' } className="info-graphic" alt="diet graphics" />
 					<form onSubmit={this.onSubmit}>
 						<Alert type="error" content={error} />
 						<div className="form--input with-icon">

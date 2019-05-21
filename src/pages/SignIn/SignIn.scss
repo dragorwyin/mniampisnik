@@ -37,8 +37,14 @@
 }
 
 @media screen and (max-width: #{map-get($viewports, sm)}) {
-  #login .container {
-    box-shadow: none;
-    padding: 3em 1em;
-  }
+  #login {
+		.container {
+			box-shadow: none;
+			padding: 3em;
+		}
+
+		.info-graphic {
+			max-width: 160px;
+		}
+	}
 }

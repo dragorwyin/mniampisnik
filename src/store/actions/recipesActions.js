@@ -140,7 +140,9 @@ export const searchRecipes = ({
 			return filter.selected && filter.value === mappedNullValue;
 		});
 
-		const foundName = (itemName) => name === '' || itemName.includes(name);
+		const foundName = (itemName) => {
+			return name === '' || itemName.toLowerCase().includes(name.toLowerCase());
+		}
 
 		const foundTimeOfDay = (itemTime) => itemTime.some(
 			time =>

@@ -6,6 +6,7 @@ main #panel {
 	height: auto;
 	margin: auto;
 	padding: 2em;
+	position: relative;
 }
 
 @media screen and (max-width: #{map-get($viewports, sm)}) {

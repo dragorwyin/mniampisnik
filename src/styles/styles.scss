@@ -39,6 +39,11 @@ article {
 	position: relative;
 }
 
+.horizontal-center {
+	display: flex;
+	justify-content: center;
+}
+
 .light {
   font-weight: 300;
 }

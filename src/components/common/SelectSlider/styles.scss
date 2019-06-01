@@ -1,0 +1,49 @@
+.select-slider {
+	align-items: center;
+	display: flex;
+	width: 100%;
+	user-select: none;
+
+	.select-slider--left-button,
+	.select-slider--right-button {
+		align-items: center;
+		cursor: pointer;
+		display: flex;
+		padding: .7rem 1rem;
+
+		&[disabled] {
+			cursor: default;
+			opacity: .5;
+		}
+	}
+
+	.select-slider--items {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		margin: 0 1rem;
+		min-width: 250px;
+
+		.checkbox {
+			display: flex;
+			align-items: center;
+			font-size: 12px;
+		}
+
+		& > * {
+			cursor: pointer;
+			margin: 0 1.3rem;
+			&[disabled] {
+				opacity: .3;
+			}
+
+			&:first-of-type {
+				margin-left: 0;
+			}
+
+			&:last-of-type {
+				margin-right: 0;
+			}
+		}
+	}
+}

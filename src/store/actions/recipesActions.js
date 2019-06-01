@@ -125,3 +125,39 @@ export const getRecipes = () => {
 		});
 	}
 };
+
+export const searchRecipes = ({
+	filters,
+	time_of_day,
+	tested,
+	name,
+}) => {
+	return (dispatch, getState) => {
+		const recipes = getState().recipes.items;
+
+		const foundFiltered = (value) => filters.some(filter => {
+			const mappedNullValue = value === null ? 'null' : value;
+			return filter.selected && filter.value === mappedNullValue;
+		});
+
+		const foundName = (itemName) => name === '' || itemName.includes(name);
+
+		const foundTimeOfDay = (itemTime) => itemTime.some(
+			time =>
+				time_of_day.some(
+					filter => filter.value === time.value && filter.checked && time.checked
+				)
+		);
+
+		const data = recipes.filter((item) => (
+				foundFiltered(item.type)
+				&& foundFiltered(item.preparation_type)
+				&& foundFiltered(item.rating)
+				&& foundName(item.name)
+				&& item.tested === tested
+				&& foundTimeOfDay(item.time_of_day)
+		));
+
+		dispatch({ type: FILTER_RECIPE_ACTION, data });
+	}
+};

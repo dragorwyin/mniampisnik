@@ -4,6 +4,7 @@ import {
 	PATCH_RECIPE_ACTION,
 	DELETE_RECIPE_ACTION,
 	GET_RECIPES_ACTION,
+	FILTER_RECIPE_ACTION,
 } from '../actions/recipesActions';
 
 const recipesReducer = (state = {}, action) => {
@@ -11,6 +12,8 @@ const recipesReducer = (state = {}, action) => {
 	switch (type) {
 		case GET_RECIPES_ACTION:
 			return { items: data };
+		case FILTER_RECIPE_ACTION:
+			return { ...state, filtered: data };
 		case GET_RECIPE_ACTION:
 			return { selected: data };
 		case POST_RECIPE_ACTION:

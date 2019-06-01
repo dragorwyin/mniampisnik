@@ -2,34 +2,30 @@ import React, { Component } from 'react';
 import './Recipes.scss';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
-import { EditorState } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { getRecipes } from '../../store/actions/recipesActions';
+import { getRecipes, searchRecipes } from '../../store/actions/recipesActions';
 import Loader from '../../components/common/Loader';
+import SearchRecipes from './SearchRecipes/';
 
 class Recipes extends Component {
 
 	constructor(props) {
 		super(props);
+		this.onSearch = this.onSearch.bind(this);
 		this.state = {
-			editorState: EditorState.createEmpty(),
+			recipes: []
 		};
-
-		this.onEditorStateChange = this.onEditorStateChange.bind(this);
 	}
 
 	componentDidMount() {
 		this.props.getRecipes();
 	}
 
-	onEditorStateChange(editorState) {
-    this.setState({
-      editorState,
-    });
+	onSearch(filters) {
+		this.props.searchRecipes(filters);
 	}
 
-	areRecipes(data) {
-		return data && Array.isArray(data);
+	areProperRecipes(recipes) {
+		return recipes && Array.isArray(recipes);
 	}
 
 	loader() {
@@ -37,21 +33,23 @@ class Recipes extends Component {
 	}
 
   render() {
-		const { recipes } = this.props;
+		const { recipes, filteredRecipes } = this.props;
+		const items = filteredRecipes ? filteredRecipes : recipes;
     return (
 			<div id="recipes">
-				{ this.areRecipes(recipes) ?
+				{ this.areProperRecipes(items) ?
 					(<>
 						<h3 className="secondary-font">Przepisy</h3>
 						<div className="list">
-							{ recipes.map(recipe => {
+							{ items.map(item => {
 								return (
-									<ListItem {...recipe} key={recipe.id}></ListItem>
+									<ListItem {...item} key={item.id}></ListItem>
 								)
 							})}
 						</div>
 					</>) : this.loader()
 				}
+				<SearchRecipes onSearch={this.onSearch} />
 			</div>
     );
 	}
@@ -59,11 +57,13 @@ class Recipes extends Component {
 }
 
 const mapStateToProps = state => ({
-	recipes: state.recipes.items
+	recipes: state.recipes.items,
+	filteredRecipes: state.recipes.filtered,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	getRecipes: () => dispatch(getRecipes())
+	getRecipes: () => dispatch(getRecipes()),
+	searchRecipes: (filters) => dispatch(searchRecipes(filters)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

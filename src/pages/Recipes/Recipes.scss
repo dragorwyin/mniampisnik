@@ -2,6 +2,7 @@
 
 #recipes {
 	width: 100%;
+	min-height: 430px;
 
 	.list {
 		width: 50%;
@@ -14,16 +15,102 @@
 	h3 {
 		margin-top: 1rem;
 	}
+
+	#searchRecipes {
+		box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+		padding: 2em 1rem;
+		position: absolute;
+		right: 0;
+		top: 4em;
+
+		h3 {
+			color: var(--light-font-color);
+			font-weight: 300;
+			margin-bottom: .5rem;
+			margin-top: 0;
+		}
+
+		hr {
+			border: 0;
+			border-top: 1px solid #dfdfdf;
+			display: block;
+			height: 1px;
+		}
+
+		.name-wrapper {
+			display: flex;
+			justify-content: center;
+			padding: 1rem 0;
+		}
+
+		.top-wrapper {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.switch {
+			margin: 0;
+		}
+
+		.search-wrapper {
+			margin-top: 1.5rem;
+		}
+	}
 }
 
-@media screen and (max-width: #{map-get($viewports, sm)}) {
+@media screen and (max-width: #{map-get($viewports, md)}) {
 	#recipes {
+		display: grid;
+		grid-template-areas:
+		'h3'
+		'search-recipes'
+		'items-list';
+
+		.list .item:first-of-type {
+			border-top: 1px solid #DFDFDF
+		}
+
+		.top-wrapper {
+			flex-direction: column;
+			margin-top: 1rem;
+		}
+
+		h3 {
+			grid-area: h3;
+		}
+
 		.list {
+			grid-area: items-list;
 			width: calc(100% + 30px);
 			margin-left: -15px;
 
 			.item {
 				padding: 15px;
+			}
+		}
+
+		#searchRecipes {
+			box-shadow: none;
+			grid-area: search-recipes;
+			position: static;
+			padding: .5rem 0 2rem;
+
+			hr {
+				margin-left: -1rem;
+				width: calc(100% + 2rem);
+			}
+
+			.select-slider {
+				margin-left: -1rem;
+
+				.select-slider--items {
+					margin: auto;
+
+					label {
+						margin: 0 .5rem;
+					}
+				}
 			}
 		}
 	}

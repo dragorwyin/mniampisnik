@@ -16,7 +16,6 @@ import {
 import Loader from '../../components/common/Loader';
 import htmlToDraft from 'html-to-draftjs';
 import { EditorState, ContentState } from 'draft-js';
-import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 
 class RecipeEdit extends Component {

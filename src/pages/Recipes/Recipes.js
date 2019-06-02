@@ -10,10 +10,12 @@ class Recipes extends Component {
 
 	constructor(props) {
 		super(props);
-		this.onSearch = this.onSearch.bind(this);
 		this.state = {
 			recipes: []
 		};
+
+		this.onSearch = this.onSearch.bind(this);
+		this.loadItems = this.loadItems.bind(this);
 	}
 
 	componentDidMount() {
@@ -22,6 +24,10 @@ class Recipes extends Component {
 
 	onSearch(filters) {
 		this.props.searchRecipes(filters);
+	}
+
+	loadItems() {
+		this.props.getRecipes();
 	}
 
 	areProperRecipes(recipes) {
@@ -49,7 +55,7 @@ class Recipes extends Component {
 						</div>
 					</>) : this.loader()
 				}
-				<SearchRecipes onSearch={this.onSearch} />
+				<SearchRecipes onSearch={this.onSearch} onReset={this.loadItems} />
 			</div>
     );
 	}

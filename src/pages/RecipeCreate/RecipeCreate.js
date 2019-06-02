@@ -13,7 +13,6 @@ import {
 	RATINGS_ARRAY,
 	TIME_OF_DAY_ARRAY
 } from '../../constants/recipes';
-import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 
 class RecipeCreate extends Component {

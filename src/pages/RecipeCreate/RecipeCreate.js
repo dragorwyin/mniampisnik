@@ -95,7 +95,7 @@ class RecipeCreate extends Component {
 				<div className="top">
 					<div className="left">
 						<h3>
-							<Link to={ROUTES.RECIPES} className="secondary-font">Przepisy</Link> / <span>Nowy Przepis</span>
+							<span>Nowy Przepis</span>
 						</h3>
 						<Dropdown
 							options={RATINGS_ARRAY}

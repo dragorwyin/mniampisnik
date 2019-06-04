@@ -2,6 +2,8 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
+/* global process */
+
 export const config = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -12,9 +14,8 @@ export const config = {
 };
 
 firebase.initializeApp(config);
-firebase.firestore().enablePersistence()
-	.catch(err => {
-		console.error(err);
-	});
+firebase.firestore().enablePersistence().catch(error => {
+	console.error(error);
+});
 
 export default firebase;

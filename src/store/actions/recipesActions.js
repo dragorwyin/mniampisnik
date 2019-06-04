@@ -56,6 +56,11 @@ export const postRecipe = (recipe) => {
 		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
 
 		return new Promise((resolve) => {
+			if (firestore.isCacheOn) {
+				dispatch({ type: POST_RECIPE_ACTION, data });
+				resolve(data);
+			}
+
 			firestore.collection('recipes').add(data)
 			.then(() => {
 				dispatch({ type: POST_RECIPE_ACTION, data });
@@ -99,6 +104,11 @@ export const patchRecipe = (doc_id, recipe) => {
 		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
 
 		return new Promise((resolve) => {
+			if (firestore.isCacheOn) {
+				dispatch({ type: PATCH_RECIPE_ACTION, data });
+				resolve(data);
+			}
+
 			firestore.collection('recipes').doc(doc_id).set(data)
 			.then(() => {
 				dispatch({ type: PATCH_RECIPE_ACTION, data });

@@ -12,6 +12,9 @@ export const config = {
 };
 
 firebase.initializeApp(config);
-firebase.firestore();
+firebase.firestore().enablePersistence()
+	.catch(err => {
+		console.error(err);
+	});
 
 export default firebase;

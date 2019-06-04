@@ -19,7 +19,6 @@ const authReducer = (state = initState, action) => {
 				loading: false,
 			};
 		case 'LOGOUT_SUCCESS':
-			console.log('SIGN_OUT_SUCCESS');
 			return {
 				user: null,
 				error: null,

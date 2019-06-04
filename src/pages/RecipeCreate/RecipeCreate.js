@@ -40,6 +40,7 @@ class RecipeCreate extends Component {
 		this.handlePortionsChange = this.handlePortionsChange.bind(this);
 		this.handleEditorChange = this.handleEditorChange.bind(this);
 		this.handleTimeDay = this.handleTimeDay.bind(this);
+		this.handleIngredientsChange = this.handleIngredientsChange.bind(this);
 		this.handleSaveClick = this.handleSaveClick.bind(this);
 	}
 
@@ -57,6 +58,7 @@ class RecipeCreate extends Component {
 	handlePreparationTypeSelect(preparation_type) { this.setState({ preparation_type }); }
 	handleNameChange(e) { this.setState({ name: e.target.value }); }
 	handlePortionsChange(portions) { this.setState({ portions }); }
+	handleIngredientsChange(ingredients) { this.setState({ ingredients })}
 	handleTimeDay(index) {
 		this.setState(state => {
 			let { time_of_day } = state;
@@ -135,7 +137,7 @@ class RecipeCreate extends Component {
 					<Multiselect onChange={this.handlePortionsChange} />
 					<div className="ingredients-wrapper">
 						<h2>Składniki</h2>
-						<IngredientsList items={ingredients}/>
+						<IngredientsList items={ingredients} onChange={this.handleIngredientsChange}/>
 					</div>
 					<div className="preparation-wrapper">
 						<h2>Przygotowanie</h2>

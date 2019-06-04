@@ -30,14 +30,6 @@ store.firebaseAuthIsReady.then(() => {
 		document.getElementById('root'));
 });
 
-store.firestore.collection('recipes').onSnapshot({ includeMetadataChanges: true }, (snapshot) => {
-	snapshot.docChanges().forEach(change => {
-		// console.log(change.type);
-		// console.log(snapshot.metadata.fromCache);
-		store.firestore.isCacheOn = snapshot.metadata.fromCache;
-	});
-});
-
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

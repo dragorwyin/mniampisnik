@@ -79,7 +79,7 @@ class RecipeEdit extends Component {
 
 	isSaveDisabled() {
 		const { name, ingredients } = this.state;
-		return !name || name === '' || !ingredients || ingredients.length === 0;
+		return name === '' || ingredients.length === 0;
 	}
 
 	isVitarian() { return this.state.type === 'vit'; }

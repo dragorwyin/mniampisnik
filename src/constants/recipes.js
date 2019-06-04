@@ -5,6 +5,7 @@ export const RECIPE_TYPES = {
 };
 
 export const PREPARATION_TYPES = {
+	null: {	value: 'null', name: '', icon: 'non-preparation.svg' },
 	cook: { value: 'cook', name: 'Gotowanie', icon: 'cook.svg' },
 	cook_with_steam: { value: 'cook_with_steam', name: 'Na parze', icon: 'cook-with-steam.svg' },
 	fried: { value: 'fried', name: 'Smażone', icon: 'fried.svg' },

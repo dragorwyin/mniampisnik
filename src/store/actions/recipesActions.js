@@ -56,12 +56,13 @@ export const postRecipe = (recipe) => {
 		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
 
 		return new Promise((resolve) => {
-			if (firestore.isCacheOn) {
-				dispatch({ type: POST_RECIPE_ACTION, data });
-				resolve(data);
-			}
+			const docRef = firestore.collection('recipes');
 
-			firestore.collection('recipes').add(data)
+			docRef.onSnapshot({ includeMetadataChanges: true }, (snapshot) => {
+				if (snapshot.metadata.fromCache) resolve();
+			});
+
+			docRef.add(data)
 			.then(() => {
 				dispatch({ type: POST_RECIPE_ACTION, data });
 				resolve(data);
@@ -104,13 +105,13 @@ export const patchRecipe = (doc_id, recipe) => {
 		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
 
 		return new Promise((resolve) => {
-			if (firestore.isCacheOn) {
-				dispatch({ type: PATCH_RECIPE_ACTION, data });
-				resolve(data);
-			}
+			const docRef = firestore.collection('recipes').doc(doc_id);
 
-			firestore.collection('recipes').doc(doc_id).set(data)
-			.then(() => {
+			docRef.onSnapshot({ includeMetadataChanges: true }, (snapshot) => {
+				if (snapshot.metadata.fromCache) resolve();
+			});
+
+			docRef.set(data).then(() => {
 				dispatch({ type: PATCH_RECIPE_ACTION, data });
 				resolve(data);
 			}).catch(error => {

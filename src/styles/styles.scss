@@ -74,17 +74,11 @@ html, body, #root, main, .App {
   height: 100%;
 }
 
-main:before {
-  background: url(./images/bg.svg);
-  content: '';
-  width: 100%;
-  position: absolute;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  top: 0;
-  left: 0;
-  height: 100%;
-  z-index: -1;
+main.App > .background {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
 }
 
 // default font sizes

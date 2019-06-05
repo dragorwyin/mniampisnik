@@ -109,7 +109,7 @@ class SearchRecipes extends Component {
 					<SelectSlider
 						items={filters}
 						page={0}
-						itemsPerPages={[3, 4, 4]}
+						itemsPerPages={[4, 4, 4]}
 
 						render={
 							items => items.map((item, i) => (

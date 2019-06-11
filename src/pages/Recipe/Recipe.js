@@ -6,7 +6,8 @@ import {
 	RECIPE_TYPES_ARRAY,
 	PREPARATION_TYPES_ARRAY,
 	RATINGS_ARRAY,
-	TIME_OF_DAY_ARRAY
+	TIME_OF_DAY_ARRAY,
+	DISH_TYPE_ARRAY,
 } from '../../constants/recipes';
 import Switch from '../../components/common/Switch';
 import Dropdown from '../../components/common/Dropdown/Dropdown';
@@ -28,7 +29,9 @@ class Recipe extends Component {
 
 	componentDidMount() {
 		const { doc_id } = this.state;
-		this.props.getRecipe(doc_id);
+		this.props.getRecipe(doc_id).then(recipe => {
+			this.setState(recipe);
+		});
 	}
 
 	showArticleHTML(preparation) {
@@ -59,6 +62,7 @@ class Recipe extends Component {
 			portions,
 			preparation,
 			tested,
+			dish_type,
 		} = recipe;
 
     return (
@@ -98,6 +102,11 @@ class Recipe extends Component {
 							selected={preparation_type}
 							viewOnly={true}
 							disabled={this.isVitarian(type)}>
+						</Dropdown>
+						<Dropdown
+							options={DISH_TYPE_ARRAY}
+							selected={dish_type}
+							viewOnly={true}>
 						</Dropdown>
 					</div>
 					<Multiselect selected={portions} disabled={true}/>

@@ -11,7 +11,8 @@ import {
 	RECIPE_TYPES_ARRAY,
 	PREPARATION_TYPES_ARRAY,
 	RATINGS_ARRAY,
-	TIME_OF_DAY_ARRAY
+	TIME_OF_DAY_ARRAY,
+	DISH_TYPE_ARRAY,
 } from '../../constants/recipes';
 import Loader from '../../components/common/Loader';
 import htmlToDraft from 'html-to-draftjs';
@@ -36,6 +37,7 @@ class RecipeEdit extends Component {
 		this.handleEditorChange = this.handleEditorChange.bind(this);
 		this.handleTimeDay = this.handleTimeDay.bind(this);
 		this.handleSaveClick = this.handleSaveClick.bind(this);
+		this.handleDishTypeSelect = this.handleDishTypeSelect.bind(this);
 	}
 
 	handleEditorChange(preparation) {
@@ -60,6 +62,7 @@ class RecipeEdit extends Component {
 	handleTestingSelect(tested) { this.setState({ tested }); }
 	handleTypeSelect(type) { this.setState({ type }); }
 	handlePreparationTypeSelect(preparation_type) { this.setState({ preparation_type }); }
+	handleDishTypeSelect(dish_type) { this.setState({ dish_type }); }
 	handleNameChange(e) { this.setState({ name: e.target.value }); }
 	handlePortionsChange(portions) { this.setState({ portions }); }
 	handleTimeDay(index) {
@@ -100,6 +103,7 @@ class RecipeEdit extends Component {
 			time_of_day,
 			portions,
 			tested,
+			dish_type,
 		} = this.state;
 
 		if (!id) { return this.loader(); }
@@ -141,6 +145,11 @@ class RecipeEdit extends Component {
 							selected={preparation_type}
 							onSelect={this.handlePreparationTypeSelect}
 							disabled={this.isVitarian()}>
+						</Dropdown>
+						<Dropdown
+							options={DISH_TYPE_ARRAY}
+							selected={dish_type}
+							onSelect={this.handleDishTypeSelect}>
 						</Dropdown>
 					</div>
 					<div className="mobile-hidden"></div>

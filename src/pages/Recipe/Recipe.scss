@@ -32,12 +32,16 @@
 		margin-top: 2rem;
 		grid-template-columns: 1fr 2fr;
 		grid-gap: calc(var(--grid-gap) * 2);
+
+		.selected-option span {
+			display: none;
+		}
 	}
 
 	.selectors {
 		display: grid;
-		grid-gap: calc(var(--grid-gap) * 2);
-		grid-template-columns: repeat(3, auto);
+		grid-gap: var(--grid-gap);
+		grid-template-columns: 150px 40px 40px 40px;
 	}
 
 	.portions {

@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
 			<main className="App">
-				<img className="background" src={process.env.PUBLIC_URL + '/images/bg.svg' } />
+				<img className="background" src={process.env.PUBLIC_URL + '/images/bg.svg' } alt="background" />
 				<Router>
 					<Route exact path={ROUTES.HOME} component={SignIn} />
 					<Route exact path={ROUTES.SIGN_IN} component={SignIn} />

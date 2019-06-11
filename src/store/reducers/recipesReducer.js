@@ -19,7 +19,7 @@ const recipesReducer = (state = {}, action) => {
 		case POST_RECIPE_ACTION:
 			return { items: [...state.items, data] };
 		case PATCH_RECIPE_ACTION:
-			return { selected: data };
+			return { ...state, selected: data };
 		case DELETE_RECIPE_ACTION:
 			return state.filter(recipe => recipe.id !== action.id);
 		default:

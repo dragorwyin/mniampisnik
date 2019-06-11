@@ -8,6 +8,7 @@ import {
 	RECIPE_TYPES_ARRAY,
 	PREPARATION_TYPES_ARRAY,
 	RATINGS_ARRAY,
+	DISH_TYPE_ARRAY,
 } from '../../../constants/recipes';
 
 class ListItem extends Component {
@@ -15,7 +16,7 @@ class ListItem extends Component {
 	isVitarian(type) { return type === 'vit'; }
 
   render() {
-		let { name, type, preparation_type, rating, id, doc_id, tested } = this.props;
+		let { name, type, preparation_type, rating, id, doc_id, tested, dish_type } = this.props;
     return (
 			<Link to={ROUTES.RECIPE.replace(':id', doc_id)} className="item">
 				<h4 className="name">{id}. {name}</h4>
@@ -35,6 +36,11 @@ class ListItem extends Component {
 					<Dropdown
 						options={RATINGS_ARRAY}
 						selected={rating}
+						viewOnly={true}>
+					</Dropdown>
+					<Dropdown
+						options={DISH_TYPE_ARRAY}
+						selected={dish_type}
 						viewOnly={true}>
 					</Dropdown>
 				</div>

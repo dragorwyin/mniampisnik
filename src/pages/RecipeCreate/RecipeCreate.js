@@ -11,7 +11,8 @@ import {
 	RECIPE_TYPES_ARRAY,
 	PREPARATION_TYPES_ARRAY,
 	RATINGS_ARRAY,
-	TIME_OF_DAY_ARRAY
+	TIME_OF_DAY_ARRAY,
+	DISH_TYPE_ARRAY,
 } from '../../constants/recipes';
 import * as ROUTES from '../../constants/routes';
 
@@ -27,6 +28,7 @@ class RecipeCreate extends Component {
 			preparation_type: 'cook',
 			rating: null,
 			tested: false,
+			dish_type: 'dry_dish',
 			time_of_day: TIME_OF_DAY_ARRAY.map(({ value, checked }) => ({ value, checked })),
 			portions: 0,
 			type: 'vege',
@@ -35,6 +37,7 @@ class RecipeCreate extends Component {
 		this.handleRatingSelect = this.handleRatingSelect.bind(this);
 		this.handleTestingSelect = this.handleTestingSelect.bind(this);
 		this.handleTypeSelect = this.handleTypeSelect.bind(this);
+		this.handleDishTypeSelect = this.handleDishTypeSelect.bind(this);
 		this.handlePreparationTypeSelect = this.handlePreparationTypeSelect.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handlePortionsChange = this.handlePortionsChange.bind(this);
@@ -59,6 +62,7 @@ class RecipeCreate extends Component {
 	handleNameChange(e) { this.setState({ name: e.target.value }); }
 	handlePortionsChange(portions) { this.setState({ portions }); }
 	handleIngredientsChange(ingredients) { this.setState({ ingredients })}
+	handleDishTypeSelect(dish_type) { this.setState({ dish_type })}
 	handleTimeDay(index) {
 		this.setState(state => {
 			let { time_of_day } = state;
@@ -89,6 +93,7 @@ class RecipeCreate extends Component {
 			ingredients,
 			preparation,
 			time_of_day,
+			dish_type,
 		} = this.state;
 
     return (
@@ -128,6 +133,11 @@ class RecipeCreate extends Component {
 							selected={preparation_type}
 							onSelect={this.handlePreparationTypeSelect}
 							disabled={this.isVitarian()}>
+						</Dropdown>
+						<Dropdown
+							options={DISH_TYPE_ARRAY}
+							selected={dish_type}
+							onSelect={this.handleDishTypeSelect}>
 						</Dropdown>
 					</div>
 					<div className="mobile-hidden"></div>

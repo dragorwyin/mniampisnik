@@ -164,14 +164,16 @@ export const searchRecipes = ({
 				)
 		);
 
-		const data = recipes.filter((item) => (
+		const data = recipes.filter((item) => {
+			return (
 				foundFiltered(item.type)
 				&& foundFiltered(item.preparation_type)
 				&& foundFiltered(item.rating)
+				&& foundFiltered(item.dish_type)
 				&& foundName(item.name)
 				&& item.tested === tested
 				&& foundTimeOfDay(item.time_of_day)
-		));
+		)});
 
 		dispatch({ type: FILTER_RECIPE_ACTION, data });
 	}

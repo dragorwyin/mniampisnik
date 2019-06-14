@@ -4,33 +4,28 @@ import DropdownItem from './DropdownItem';
 import Icon from '../Icon';
 import PropTypes from 'prop-types';
 
-class Dropdown extends Component {
+class MultiDropdown extends Component {
 
 	constructor(props) {
 		super(props);
 		const {
 			options,
-			selected = null,
 			viewOnly = false,
+			placeholder,
 		} = props;
 
 		this.optionsRef = React.createRef();
 
 		this.state = {
-			selected: selected ? options.find(option => option.value === selected) : null,
+			selectedItems: new Set(options.filter(option => !!option.selected).map(option => option.value)),
 			viewOnly,
 			options: options.map(option => ({
 				...option,
 				selected: option.selected ? true: false,
 			})),
+			placeholder,
 			open: props.open ? true : false,
 		};
-
-		if (!this.state.selected) {
-			const [option] = this.state.options;
-			this.state.selected = option;
-			option.selected = true;
-		}
 	}
 
 	isDisabled() {
@@ -44,17 +39,28 @@ class Dropdown extends Component {
 
 	handleItemClick = (value) => {
 		if (this.isDisabled()) { return; }
+		let { selectedItems } = this.state;
+		let selected = false;
+
+		if (selectedItems.has(value)) {
+			selectedItems.delete(value);
+			selected = false;
+		} else {
+			selectedItems.add(value);
+			selected = true;
+		}
+
 		this.setState({
-			selected: this.state.options.find(option => option.value === value),
-			options: this.state.options.map(option => {
-				option.selected = option.value === value;
-				return option;
-			}),
-			open: false,
+			selectedItems,
+			options: this.state.options
+				.map(option => {
+					if (option.value === value) { option.selected = selected; }
+					return option;
+				}),
 		});
 
 		if (this.props.onSelect) {
-			this.props.onSelect(value);
+			this.props.onSelect(Array.from(selectedItems));
 		}
 	}
 
@@ -72,33 +78,38 @@ class Dropdown extends Component {
 	}
 
 	render() {
-		const { options, selected, open, viewOnly } = this.state;
+		const { options, open, viewOnly, placeholder } = this.state;;
 		const { disabled } = this.props;
 		if (!options || !options.length) return null;
 
 		return (
 			<div className="dropdown" disabled={disabled}>
 				<div className="selected-option" onClick={() => this.handleToggleDropdown()}>
-					{ selected.icon && <Icon src={selected.icon}/> }
-					<span>{selected.name}</span>
+					{ placeholder.icon && <Icon src={placeholder.icon}/> }
 				</div>
 				{ !viewOnly && open && (
 					<ul className="options" ref={this.optionsRef}>
 						{ options && options.map(option => (
-							<DropdownItem {...option} key={option.value} onClick={() => this.handleItemClick(option.value)}/>
+							<DropdownItem
+								{...option}
+								key={option.value}
+								showCheckbox={true}
+								onClick={() => this.handleItemClick(option.value)}
+							/>
 						))}
 					</ul>
 				)}
 			</div>
 		);
-
 	}
-
 }
 
-Dropdown.propTypes = {
+MultiDropdown.propTypes = {
 	disabled: PropTypes.bool,
-	selected: PropTypes.string,
+	selected: PropTypes.array,
+	placeholder: PropTypes.shape({
+		selected: PropTypes.bool,
+	}).isRequired,
 	options: PropTypes.arrayOf(PropTypes.shape({
 		value: PropTypes.string.isRequired,
 		selected: PropTypes.bool,
@@ -109,4 +120,4 @@ Dropdown.propTypes = {
 	viewOnly: PropTypes.bool,
 }
 
-export default Dropdown;
+export default MultiDropdown;

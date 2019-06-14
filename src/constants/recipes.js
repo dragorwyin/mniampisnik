@@ -21,13 +21,13 @@ export const RATINGS = {
 
 export const DISH_TYPE = {
 	dry_dish: {	value: 'dry_dish', name: 'Danie wytrawne', icon: 'dry-dish.svg' },
-	salad: { value: 'salad', name: 'Sałatka', icon: 'salad.svg' },
+	salad: { value: 'salad', name: 'Sałatka, surówka', icon: 'salad.svg' },
 	sweet_dish: { value: 'sweet_dish', name: 'Danie na słodko', icon: 'sweet-dish.svg' },
 	soup: {value: 'soup', name: 'Zupa', icon: 'soup.svg' },
 	drink: {value: 'drink', name: 'Napój, kontajl, mleko', icon: 'milk.svg' },
 	lubricant: {value: 'lubricant', name: 'Sos, serek, smarowidło, pasta', icon: 'jam.svg' },
 	dessert: {value: 'dessert', name: 'Deser, ciasto, ciasteczka', icon: 'bun.svg' },
-	snack: {value: 'snack', name: 'Przekąska', icon: 'sandwich.svg' },
+	snack: {value: 'snack', name: 'Przekąska, chlebek', icon: 'sandwich.svg' },
 };
 
 export const TIME_OF_DAY = {

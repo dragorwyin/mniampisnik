@@ -4,11 +4,29 @@
 	display: grid;
 	font-size: 12px;
 	grid-gap: 5px;
-	grid-template-columns: 35px 1fr;
+	grid-template-columns: 35px 1fr 20px;
 	padding: .5rem 1rem;
 	width: 100%;
 
 	&:hover {
 		background: darken(#fff, 5%);
+	}
+
+	.checkbox {
+		margin-bottom: 0;
+		margin-left: 5px;
+
+		.checkbox-control {
+			background: transparent;
+
+			&:hover {
+				background: transparent;
+			}
+
+			&:after {
+				border: solid #9E9E9E;
+				border-width: 0 2px 2px 0;
+			}
+		}
 	}
 }

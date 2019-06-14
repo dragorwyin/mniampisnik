@@ -23,7 +23,11 @@
 		right: 0;
 		top: 4em;
 		transition: 1s;
-		height: 347px;
+
+		.searchRecipes--filters {
+			display: flex;
+			justify-content: space-around;
+		}
 
 		&[data-is-closed="true"] {
 			cursor: pointer;
@@ -44,6 +48,10 @@
 
 			.searchRecipes--close {
 				cursor: pointer;
+
+				img {
+					margin-right: 10px;
+				}
 			}
 		}
 
@@ -90,6 +98,8 @@
 		.searchRecipes--top-wrapper {
 			align-items: center;
 			display: flex;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
 			justify-content: space-between;
 		}
 

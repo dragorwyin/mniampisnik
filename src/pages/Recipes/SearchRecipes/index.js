@@ -5,26 +5,31 @@ import {
 	RECIPE_TYPES_ARRAY,
 	RATINGS_ARRAY,
 	TIME_OF_DAY_ARRAY,
+	DISH_TYPE_ARRAY,
 } from '../../../constants/recipes';
 import Icon from '../../../components/common/Icon';
 import Switch from '../../../components/common/Switch';
+import MultiDropdown from '../../../components/common/Dropdown/MultiDropdown';
+
+const allSelected = arr => arr.map(type => ({ ...type, selected: true }));
 
 class SearchRecipes extends Component {
 
 	constructor(props) {
 		super(props);
 
-		const predefined = [...RECIPE_TYPES_ARRAY, ...PREPARATION_TYPES_ARRAY, ...RATINGS_ARRAY];
-
 		this.state = {
-			filters: predefined.map(filter => { filter.selected = true; return filter; }),
 			time_of_day: TIME_OF_DAY_ARRAY.map(({ value }, index) => ({ value, checked: true, index })),
+			preparation_types: allSelected(PREPARATION_TYPES_ARRAY),
+			recipe_types: allSelected(RECIPE_TYPES_ARRAY),
+			dish_types: allSelected(DISH_TYPE_ARRAY),
+			ratings: allSelected(RATINGS_ARRAY),
 			tested: true,
 			name: '',
 			isClosed: false,
 		}
 
-		this.handleFiltersClick = this.handleFiltersClick.bind(this);
+		// this.handleFiltersClick = this.handleFiltersClick.bind(this);
 		this.handleTimeDay = this.handleTimeDay.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -36,14 +41,16 @@ class SearchRecipes extends Component {
 
 	handleNameChange(e) { this.setState({ name: e.target.value }); }
 
-	handleFiltersClick({ value }) {
-		this.setState(({ filters }) => {
+	handleFiltersClick(type, values) {
+		this.setState(state => {
+			const filters = state[type].map(filter => ({
+				...filter,
+				selected: values.includes(filter.value)
+			}));
 			return {
-				filters: filters.map(filter => {
-					if (filter.value === value) {	filter.selected = !filter.selected; }
-					return filter;
-				})
-			};
+				...state,
+				[type]: filters,
+			}
 		});
 	}
 
@@ -57,7 +64,9 @@ class SearchRecipes extends Component {
 	}
 
 	handleSearchClick() {
-		if (this.props.onSearch) this.props.onSearch(this.state);
+		const { preparation_types, recipe_types, dish_types, ratings} = this.state;
+		const filters = preparation_types.concat(recipe_types, dish_types, ratings);
+		if (this.props.onSearch) this.props.onSearch({...this.state, filters});
 	}
 
 	handleTestingSelect(tested) {
@@ -77,11 +86,14 @@ class SearchRecipes extends Component {
 
   render() {
 		const {
-			filters,
 			time_of_day,
 			tested,
 			name,
 			isClosed,
+			recipe_types,
+			dish_types,
+			preparation_types,
+			ratings,
 		} = this.state;
 
     return (
@@ -95,33 +107,13 @@ class SearchRecipes extends Component {
 					</div>
 					<div className="searchRecipes--top-wrapper">
 						<Switch checked={tested} label="Testowane" name="tested" onChange={this.handleTestingSelect} />
-						<div className="searchRecipes--name-wrapper">
-							<input
-								name="name"
-								onChange={this.handleNameChange}
-								placeholder="Nazwa przepisu"
-								value={name}
-								type="text"/>
-						</div>
+						<MultiDropdown
+							options={ratings}
+							placeholder={{ icon: 'non-medal.svg'}}
+							onSelect={values => this.handleFiltersClick('ratings', values)}
+						/>
 					</div>
 
-					<hr />
-					<SelectSlider
-						items={filters}
-						page={0}
-						itemsPerPages={[4, 4, 4]}
-
-						render={
-							items => items.map((item, i) => (
-								<div
-									key={i}
-									disabled={!item.selected}
-									onClick={() => this.handleFiltersClick(item)}>
-										<Icon src={item.icon}/>
-								</div>
-							))
-						}
-					/>
 					<hr />
 					<SelectSlider
 						items={time_of_day}
@@ -146,6 +138,34 @@ class SearchRecipes extends Component {
 					/>
 					<hr />
 
+					<div className="searchRecipes--name-wrapper">
+						<input
+							name="name"
+							onChange={this.handleNameChange}
+							placeholder="Nazwa przepisu"
+							value={name}
+							type="text"/>
+					</div>
+
+					<div className="searchRecipes--filters">
+						<MultiDropdown
+							options={preparation_types}
+							placeholder={{ icon: 'preparation-type.svg'}}
+							onSelect={values => this.handleFiltersClick('preparation_types', values)}
+						/>
+
+						<MultiDropdown
+							options={recipe_types}
+							placeholder={{ icon: 'eat-type.svg'}}
+							onSelect={values => this.handleFiltersClick('recipe_types', values)}
+						/>
+
+						<MultiDropdown
+							options={dish_types}
+							placeholder={{ icon: 'dish_type.svg'}}
+							onSelect={values => this.handleFiltersClick('dish_types', values)}
+						/>
+					</div>
 					<div className="horizontal-center searchRecipes--search-wrapper">
 						<button
 							type="button"

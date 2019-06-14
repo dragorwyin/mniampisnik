@@ -15,8 +15,6 @@ import {
 	DISH_TYPE_ARRAY,
 } from '../../constants/recipes';
 import Loader from '../../components/common/Loader';
-import htmlToDraft from 'html-to-draftjs';
-import { EditorState, ContentState } from 'draft-js';
 import * as ROUTES from '../../constants/routes';
 
 class RecipeEdit extends Component {
@@ -49,13 +47,6 @@ class RecipeEdit extends Component {
 		this.props.getRecipe(doc_id).then(recipe => {
 			this.setState(recipe);
 		});
-	}
-
-	readDraftContent(preparation) {
-		const blocksFromHtml = htmlToDraft(preparation);
-		const { contentBlocks, entityMap } = blocksFromHtml;
-		const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-		return EditorState.createWithContent(contentState);
 	}
 
 	handleRatingSelect(rating) { this.setState({ rating }); }

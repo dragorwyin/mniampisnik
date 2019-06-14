@@ -8,7 +8,14 @@ class DropdownItem extends Component {
 	onClick = value => { this.props.onClick(value); }
 
 	render() {
-		const { value, icon, name, selected } = this.props;
+		const {
+			value,
+			icon,
+			name,
+			selected,
+			showCheckbox = false
+		} = this.props;
+
 		return (
 			<li
 				className={selected ? 'selected' : ''}
@@ -16,6 +23,13 @@ class DropdownItem extends Component {
 				key={value}>
 					{ icon && <Icon src={icon}/> }
 					<span>{name}</span>
+					{ showCheckbox && (
+						<label className="checkbox">
+							<input type="checkbox" checked={selected} onChange={() => {}} />
+								<div className="checkbox-control">
+								</div>
+						</label>
+					)}
 			</li>
 		);
 	}
@@ -27,6 +41,7 @@ DropdownItem.propTypes = {
 	value: PropTypes.string.isRequired,
 	name: PropTypes.string,
 	icon: PropTypes.string,
+	showCheckbox: PropTypes.bool,
 	onClick: PropTypes.func,
 }
 

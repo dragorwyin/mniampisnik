@@ -57,7 +57,7 @@
 		.options {
 			grid-area: options;
 			display: grid;
-			grid-template-columns: repeat(4, auto);
+			grid-template-columns: repeat(5, auto);
 			grid-gap: calc(var(--grid-gap) * 1.5);
 		}
 	}

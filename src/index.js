@@ -25,6 +25,7 @@ ReactDOM.render(<Loader loading={true} fullpage={true}/>, document.getElementByI
 // when firebase auth is ready
 store.firebaseAuthIsReady.then(() => {
 	const currentUser = store.firebase.auth().currentUser;
+	console.log(currentUser);
 	if (currentUser) {
 		store.dispatch(setAuthUser(currentUser));
 	}

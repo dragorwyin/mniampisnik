@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 
 class DropdownItem extends Component {
 
-	onClick = value => { this.props.onClick(value); }
+	onClick = (e, value) => {
+		e.stopPropagation();
+		this.props.onClick(value);
+	}
 
 	render() {
 		const {
@@ -19,15 +22,19 @@ class DropdownItem extends Component {
 		return (
 			<li
 				className={selected ? 'selected' : ''}
-				onClick={() => this.onClick(value)}
+				onClick={(e) => this.onClick(e, value)}
 				key={value}>
 					{ icon && <Icon src={icon}/> }
 					<span>{name}</span>
 					{ showCheckbox && (
 						<label className="checkbox">
-							<input type="checkbox" checked={selected} onChange={() => {}} />
-								<div className="checkbox-control">
-								</div>
+							<input
+								type="checkbox"
+								checked={selected}
+								onClick={e => e.stopPropagation() }
+								onChange={() => {}}
+							/>
+							<div className="checkbox-control"></div>
 						</label>
 					)}
 			</li>

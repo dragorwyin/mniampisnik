@@ -37,7 +37,7 @@ class MultiDropdown extends Component {
 		this.setState((state) => ({ open: !state.open }));
 	}
 
-	handleItemClick = (value) => {
+	handleItemClick = value => {
 		if (this.isDisabled()) { return; }
 		let { selectedItems } = this.state;
 		let selected = false;

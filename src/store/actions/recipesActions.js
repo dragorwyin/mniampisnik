@@ -140,7 +140,10 @@ export const getRecipes = () => {
 };
 
 export const searchRecipes = ({
-	filters,
+	preparation_types,
+	ratings,
+	dish_types,
+	recipe_types,
 	time_of_day,
 	tested,
 	name,
@@ -148,7 +151,7 @@ export const searchRecipes = ({
 	return (dispatch, getState) => {
 		const recipes = getState().recipes.items;
 
-		const foundFiltered = (value) => filters.some(filter => {
+		const foundFiltered = (filters, value) => filters.some(filter => {
 			const mappedNullValue = value === null ? 'null' : value;
 			return filter.selected && filter.value === mappedNullValue;
 		});
@@ -164,12 +167,14 @@ export const searchRecipes = ({
 				)
 		);
 
+		console.log(recipe_types, preparation_types, ratings, dish_types);
+
 		const data = recipes.filter((item) => {
 			return (
-				foundFiltered(item.type)
-				&& foundFiltered(item.preparation_type)
-				&& foundFiltered(item.rating)
-				&& foundFiltered(item.dish_type)
+				foundFiltered(recipe_types, item.type)
+				&& foundFiltered(preparation_types, item.preparation_type)
+				&& foundFiltered(ratings, item.rating)
+				&& foundFiltered(dish_types, item.dish_type)
 				&& foundName(item.name)
 				&& item.tested === tested
 				&& foundTimeOfDay(item.time_of_day)

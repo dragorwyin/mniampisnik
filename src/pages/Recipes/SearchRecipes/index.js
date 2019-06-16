@@ -64,9 +64,7 @@ class SearchRecipes extends Component {
 	}
 
 	handleSearchClick() {
-		const { preparation_types, recipe_types, dish_types, ratings} = this.state;
-		const filters = preparation_types.concat(recipe_types, dish_types, ratings);
-		if (this.props.onSearch) this.props.onSearch({...this.state, filters});
+		if (this.props.onSearch) this.props.onSearch(this.state);
 	}
 
 	handleTestingSelect(tested) {

@@ -11,7 +11,7 @@ import Icon from '../../../components/common/Icon';
 import Switch from '../../../components/common/Switch';
 import MultiDropdown from '../../../components/common/Dropdown/MultiDropdown';
 
-const allSelected = arr => arr.map(type => ({ ...type, selected: true }));
+const allUnselected = arr => arr.map(type => ({ ...type, selected: false }));
 
 class SearchRecipes extends Component {
 
@@ -19,11 +19,11 @@ class SearchRecipes extends Component {
 		super(props);
 
 		this.state = {
-			time_of_day: TIME_OF_DAY_ARRAY.map(({ value }, index) => ({ value, checked: true, index })),
-			preparation_types: allSelected(PREPARATION_TYPES_ARRAY),
-			recipe_types: allSelected(RECIPE_TYPES_ARRAY),
-			dish_types: allSelected(DISH_TYPE_ARRAY),
-			ratings: allSelected(RATINGS_ARRAY),
+			time_of_day: TIME_OF_DAY_ARRAY.map(({ value }, index) => ({ value, checked: false, index })),
+			preparation_types: allUnselected(PREPARATION_TYPES_ARRAY),
+			recipe_types: allUnselected(RECIPE_TYPES_ARRAY),
+			dish_types: allUnselected(DISH_TYPE_ARRAY),
+			ratings: allUnselected(RATINGS_ARRAY),
 			tested: true,
 			name: '',
 			isClosed: false,

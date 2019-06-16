@@ -156,6 +156,7 @@ export const searchRecipes = ({
 		const recipes = getState().recipes.items;
 
 		const foundFiltered = (filters, value) => filters.some(filter => {
+			if (filters.every(({ selected }) => selected === false)) return true;
 			const mappedNullValue = value === null ? 'null' : value;
 			return filter.selected && filter.value === mappedNullValue;
 		});
@@ -164,12 +165,15 @@ export const searchRecipes = ({
 			return name === '' || itemName.toLowerCase().includes(name.toLowerCase());
 		}
 
-		const foundTimeOfDay = (itemTime) => itemTime.some(
-			time =>
-				time_of_day.some(
-					filter => filter.value === time.value && filter.checked && time.checked
-				)
-		);
+		const foundTimeOfDay = (itemTime) => {
+			if (time_of_day.every(({ checked }) => checked === false)) return true;
+			return itemTime.some(
+				time =>
+					time_of_day.some(
+						filter => filter.value === time.value && filter.checked && time.checked
+					)
+			);
+		};
 
 		const data = recipes.filter((item) => {
 			return (

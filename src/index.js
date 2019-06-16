@@ -11,6 +11,7 @@ import thunk from 'redux-thunk';
 import { config } from './components/Firebase';
 import firebase from 'firebase'
 import Loader from './components/common/Loader';
+import { setAuthUser } from './store/actions/authActions';
 
 const store = createStore(rootReducer, compose(
 	applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
@@ -23,6 +24,11 @@ ReactDOM.render(<Loader loading={true} fullpage={true}/>, document.getElementByI
 
 // when firebase auth is ready
 store.firebaseAuthIsReady.then(() => {
+	const currentUser = store.firebase.auth().currentUser;
+	if (currentUser) {
+		store.dispatch(setAuthUser(currentUser));
+	}
+
 	ReactDOM.render(
 		<Provider store={store}>
 				<App />

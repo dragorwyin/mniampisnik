@@ -9,9 +9,10 @@ export const POST_RECIPE_ACTION_ERR = 'POST_RECIPE_ERROR';
 export const getRecipe = doc_id => {
 	return (dispatch, getState, { getFirestore } ) => {
 		const firestore = getFirestore();
+		const userUid = getState().auth.user.uid;
 
 		return new Promise((resolve) => {
-			firestore.collection('recipes').doc(doc_id).get()
+			firestore.collection('users').doc(userUid).collection('recipes').doc(doc_id).get()
 			.then(snapshot => {
 				const data = snapshot.data();
 				dispatch({ type: GET_RECIPE_ACTION, data });
@@ -28,6 +29,7 @@ export const postRecipe = (recipe) => {
 	return (dispatch, getState, { getFirestore }) => {
 		const firestore = getFirestore()
 		const recipes = getState().recipes.items;
+		const userUid = getState().auth.user.uid;
 
 		// defaults
 		const defaultData = {
@@ -57,7 +59,7 @@ export const postRecipe = (recipe) => {
 		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
 
 		return new Promise((resolve) => {
-			const docRef = firestore.collection('recipes');
+			const docRef = firestore.collection(`users/${userUid}/recipes`);
 
 			docRef.onSnapshot({ includeMetadataChanges: true }, (snapshot) => {
 				if (snapshot.metadata.fromCache) resolve();
@@ -65,7 +67,6 @@ export const postRecipe = (recipe) => {
 
 			docRef.add(data)
 			.then(() => {
-				dispatch({ type: POST_RECIPE_ACTION, data });
 				resolve(data);
 			}).catch(error => {
 				console.error(error);
@@ -78,6 +79,7 @@ export const postRecipe = (recipe) => {
 export const patchRecipe = (doc_id, recipe) => {
 	return (dispatch, getState, { getFirestore }) => {
 		const firestore = getFirestore()
+		const userUid = getState().auth.user.uid;
 
 		// defaults
 		const defaultData = {
@@ -107,7 +109,7 @@ export const patchRecipe = (doc_id, recipe) => {
 		Object.keys(data).forEach((key) => validKeys.includes(key) || delete data[key]);
 
 		return new Promise((resolve) => {
-			const docRef = firestore.collection('recipes').doc(doc_id);
+			const docRef = firestore.collection('users').doc(userUid).collection('recipes').doc(doc_id);
 
 			docRef.onSnapshot({ includeMetadataChanges: true }, (snapshot) => {
 				if (snapshot.metadata.fromCache) resolve();
@@ -126,7 +128,9 @@ export const patchRecipe = (doc_id, recipe) => {
 export const getRecipes = () => {
 	return (dispatch, getState, { getFirestore }) => {
 		const firestore = getFirestore();
-		firestore.collection('recipes').get()
+		const userUid = getState().auth.user.uid;
+
+		firestore.collection(`users/${userUid}/recipes`).get()
 		.then(snapshot => {
 			const data = snapshot.docs.map(doc => ({
 				...doc.data(),
@@ -166,8 +170,6 @@ export const searchRecipes = ({
 					filter => filter.value === time.value && filter.checked && time.checked
 				)
 		);
-
-		console.log(recipe_types, preparation_types, ratings, dish_types);
 
 		const data = recipes.filter((item) => {
 			return (

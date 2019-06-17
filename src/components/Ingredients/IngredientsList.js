@@ -8,13 +8,12 @@ class IngredientsList extends Component {
 		super(props);
 
 		const { items, disabled = false } = this.props;
-		this.state = { items, disabled };
+		this.state = { items, disabled, focusOn: null };
 
-		this.handleNewItemInput = this.handleNewItemInput.bind(this);
 		this.newItemTimeout = null;
 	}
 
-	handleDeleteItem(index) {
+	handleDeleteItem = index => {
 		this.setState(state => {
 			const { items } = state;
 			items.splice(index, 1);
@@ -23,7 +22,7 @@ class IngredientsList extends Component {
 		});
 	}
 
-	handleChangeItem(index, value) {
+	handleChangeItem = (index, value) => {
 		this.setState(state => {
 			const { items } = state;
 			items[index] = value;
@@ -32,7 +31,7 @@ class IngredientsList extends Component {
 		});
 	}
 
-	handleNewItemInput(value) {
+	handleNewItemInput = value => {
 		this.setState(state => {
 			let { items } = state;
 			items.push(value);
@@ -41,17 +40,27 @@ class IngredientsList extends Component {
 		});
 	}
 
+	handleNewItemAfter = index => {
+		const { items } = this.state;
+		items.splice(index+1, 0, '');
+		this.setState({ items: [] });
+		setTimeout(() => { this.setState({ items, focusOn: index+1 }); }, 0);
+	}
+
 	render() {
-		const { items, disabled } = this.state;
+		const { items, disabled, focusOn } = this.state;
 		return (
 			<div className="ingredients-list">
 				{ items && items.map((ingredient, index) => (
-					<IngredientsListItem
-						key={`key${index}`}
-						value={ingredient}
-						disabled={disabled}
-						onDelete={() => this.handleDeleteItem(index)}
-						onChange={value => this.handleChangeItem(index, value)} />
+						<IngredientsListItem
+							key={`key${index}`}
+							value={ingredient}
+							disabled={disabled}
+							focus={focusOn === index}
+							onDelete={() => this.handleDeleteItem(index)}
+							onEnter={() => this.handleNewItemAfter(index)}
+							onChange={value => this.handleChangeItem(index, value)}
+						/>
 				))}
 				{ !disabled &&
 					<IngredientsListItem

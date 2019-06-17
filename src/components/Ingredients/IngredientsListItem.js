@@ -14,16 +14,17 @@ class ListItem extends Component {
 		const {
 			value = '',
 			newItem = false,
-			style = { height: 'auto' },
-			disabled = false,
 		} = props;
 
-		this.state = { value, newItem, style, disabled };
+		this.state = { value, newItem };
 	}
 
 	componentDidMount() {
+		const { focus } = this.props;
+		if (focus && this.textarea.current) this.textarea.current.focus();
 		this.setState({ style: { height: `${this.textarea.current.scrollHeight}px` } });
 	}
+
 
 	handleChange(e) {
 		const { value, scrollHeight } = e.target;
@@ -46,7 +47,9 @@ class ListItem extends Component {
 	}
 
 	render() {
-		const { value, style, disabled } = this.state;
+		const { style, disabled } = this.props;
+		const { value } = this.state;
+
 		return (
 			<div className="list-item">
 				<textarea

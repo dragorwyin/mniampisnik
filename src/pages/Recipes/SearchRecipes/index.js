@@ -70,7 +70,6 @@ class SearchRecipes extends Component {
 
 	close() {
 		this.setState({ isClosed: true });
-		if (this.props.onReset) this.props.onReset();
 	}
 
 	open() {

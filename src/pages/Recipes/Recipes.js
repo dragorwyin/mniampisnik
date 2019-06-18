@@ -15,7 +15,6 @@ class Recipes extends Component {
 		};
 
 		this.onSearch = this.onSearch.bind(this);
-		this.loadItems = this.loadItems.bind(this);
 	}
 
 	componentDidMount() {
@@ -24,10 +23,6 @@ class Recipes extends Component {
 
 	onSearch(filters) {
 		this.props.searchRecipes(filters);
-	}
-
-	loadItems() {
-		this.props.getRecipes();
 	}
 
 	areProperRecipes(recipes) {
@@ -55,7 +50,7 @@ class Recipes extends Component {
 						</div>
 					</>) : this.loader()
 				}
-				<SearchRecipes onSearch={this.onSearch} onReset={this.loadItems} />
+				<SearchRecipes onSearch={this.onSearch} />
 			</div>
     );
 	}

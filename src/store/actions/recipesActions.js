@@ -155,17 +155,19 @@ export const searchRecipes = ({
 	return (dispatch, getState) => {
 		const recipes = getState().recipes.items;
 
-		const foundFiltered = (filters, value) => filters.some(filter => {
+		const filter = (filters, value) => {
 			if (filters.every(({ selected }) => selected === false)) return true;
-			const mappedNullValue = value === null ? 'null' : value;
-			return filter.selected && filter.value === mappedNullValue;
-		});
+			return filters.some(filter => {
+				let mappedValue = value === null ? 'null' : value;
+				return filter.selected && filter.value === mappedValue;
+			})
+		};
 
-		const foundName = (itemName) => {
+		const filterName = (itemName) => {
 			return name === '' || itemName.toLowerCase().includes(name.toLowerCase());
 		}
 
-		const foundTimeOfDay = (itemTime) => {
+		const filterTimeOfDay = (itemTime) => {
 			if (time_of_day.every(({ checked }) => checked === false)) return true;
 			return itemTime.some(
 				time =>
@@ -175,15 +177,27 @@ export const searchRecipes = ({
 			);
 		};
 
+		const filterTested = (tested, itemTested) => {
+			if (tested.every(({ selected }) => selected === false)) return true;
+			const blah = tested
+				.map(filter => {
+					if (filter.value === 'true') return { ...filter, value: true };
+					if (filter.value === 'false') return { ...filter, value: false };
+					return {...filter, value: filter.value };
+				})
+				.some(filter => filter.selected && filter.value === itemTested);
+			return blah;
+		};
+
 		const data = recipes.filter((item) => {
 			return (
-				foundFiltered(recipe_types, item.type)
-				&& foundFiltered(preparation_types, item.preparation_type)
-				&& foundFiltered(ratings, item.rating)
-				&& foundFiltered(dish_types, item.dish_type)
-				&& foundName(item.name)
-				&& item.tested === tested
-				&& foundTimeOfDay(item.time_of_day)
+				filter(recipe_types, item.type)
+				&& filter(preparation_types, item.preparation_type)
+				&& filter(ratings, item.rating)
+				&& filter(dish_types, item.dish_type)
+				&& filterName(item.name)
+				&& filterTested(tested, item.tested)
+				&& filterTimeOfDay(item.time_of_day)
 		)});
 
 		dispatch({ type: FILTER_RECIPE_ACTION, data });

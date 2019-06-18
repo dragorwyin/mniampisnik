@@ -25,6 +25,7 @@ class DropdownItem extends Component {
 				onClick={(e) => this.onClick(e, value)}
 				key={value}>
 					{ icon && <Icon src={icon}/> }
+					{ !icon && <div></div> }
 					<span>{name}</span>
 					{ showCheckbox && (
 						<label className="checkbox">

@@ -85,6 +85,7 @@ class MultiDropdown extends Component {
 		return (
 			<div className="dropdown" disabled={disabled}>
 				<div className="selected-option" onClick={() => this.handleToggleDropdown()}>
+					{ placeholder.name && <span>{ placeholder.name }</span> }
 					{ placeholder.icon && <Icon src={placeholder.icon}/> }
 				</div>
 				{ !viewOnly && open && (

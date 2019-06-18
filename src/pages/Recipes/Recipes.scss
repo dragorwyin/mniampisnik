@@ -24,6 +24,10 @@
 		top: 4em;
 		transition: 1s;
 
+		.dropdown .selected-option {
+			font-size: 13px;
+		}
+
 		.searchRecipes--filters {
 			display: flex;
 			justify-content: space-around;

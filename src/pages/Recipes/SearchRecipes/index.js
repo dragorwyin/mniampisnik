@@ -8,7 +8,6 @@ import {
 	DISH_TYPE_ARRAY,
 } from '../../../constants/recipes';
 import Icon from '../../../components/common/Icon';
-import Switch from '../../../components/common/Switch';
 import MultiDropdown from '../../../components/common/Dropdown/MultiDropdown';
 
 const allUnselected = arr => arr.map(type => ({ ...type, selected: false }));
@@ -24,7 +23,10 @@ class SearchRecipes extends Component {
 			recipe_types: allUnselected(RECIPE_TYPES_ARRAY),
 			dish_types: allUnselected(DISH_TYPE_ARRAY),
 			ratings: allUnselected(RATINGS_ARRAY),
-			tested: true,
+			tested: allUnselected([
+				{ name: 'Testowane', value: 'true', icon: 'switch_on.svg' },
+				{ name: 'Nietestowane', value: 'false', icon: 'switch_off.svg' }
+			]),
 			name: '',
 			isClosed: false,
 		}
@@ -33,7 +35,6 @@ class SearchRecipes extends Component {
 		this.handleTimeDay = this.handleTimeDay.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleSearchClick = this.handleSearchClick.bind(this);
-		this.handleTestingSelect = this.handleTestingSelect.bind(this);
 
 		this.close = this.close.bind(this);
 		this.open = this.open.bind(this);
@@ -65,10 +66,6 @@ class SearchRecipes extends Component {
 
 	handleSearchClick() {
 		if (this.props.onSearch) this.props.onSearch(this.state);
-	}
-
-	handleTestingSelect(tested) {
-		this.setState({ tested })
 	}
 
 	close() {
@@ -104,7 +101,11 @@ class SearchRecipes extends Component {
 						</div>
 					</div>
 					<div className="searchRecipes--top-wrapper">
-						<Switch checked={tested} label="Testowane" name="tested" onChange={this.handleTestingSelect} />
+						<MultiDropdown
+							options={tested}
+							placeholder={{ icon: 'switch_between.svg' }}
+							onSelect={values => this.handleFiltersClick('tested', values)}
+						/>
 						<MultiDropdown
 							options={ratings}
 							placeholder={{ icon: 'non-medal.svg'}}

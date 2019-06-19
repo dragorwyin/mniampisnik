@@ -8,7 +8,8 @@ class IngredientsList extends Component {
 		super(props);
 
 		const { items, disabled = false } = this.props;
-		this.state = { items, disabled, focusOn: null };
+		items.push('');
+		this.state = { items, disabled, focusOn: null};
 
 		this.newItemTimeout = null;
 	}
@@ -31,15 +32,6 @@ class IngredientsList extends Component {
 		});
 	}
 
-	handleNewItemInput = value => {
-		this.setState(state => {
-			let { items } = state;
-			items.push(value);
-			if (this.props.onChange) this.props.onChange(items);
-			return { items };
-		});
-	}
-
 	handleNewItemAfter = index => {
 		const { items } = this.state;
 		items.splice(index+1, 0, '');
@@ -47,27 +39,31 @@ class IngredientsList extends Component {
 		setTimeout(() => { this.setState({ items, focusOn: index+1 }); }, 0);
 	}
 
+	renderListItem = (ingredient, index) => {
+		const { disabled, focusOn } = this.state;
+
+		return (
+			<IngredientsListItem
+				key={`key${index}`}
+				value={ingredient}
+				disabled={disabled}
+				focus={focusOn === index}
+				onDelete={() => this.handleDeleteItem(index)}
+				onEnter={() => this.handleNewItemAfter(index)}
+				onChange={value => this.handleChangeItem(index, value)}
+			/>
+		);
+	}
+
 	render() {
-		const { items, disabled, focusOn } = this.state;
+		const { items, disabled } = this.state;
 		return (
 			<div className="ingredients-list">
-				{ items && items.map((ingredient, index) => (
-						<IngredientsListItem
-							key={`key${index}`}
-							value={ingredient}
-							disabled={disabled}
-							focus={focusOn === index}
-							onDelete={() => this.handleDeleteItem(index)}
-							onEnter={() => this.handleNewItemAfter(index)}
-							onChange={value => this.handleChangeItem(index, value)}
-						/>
-				))}
-				{ !disabled &&
-					<IngredientsListItem
-						value=""
-						onEnter={this.handleNewItemInput}
-						newItem="true" />
-				}
+				{ items && items.map((ingredient, index) => {
+						if (index === items.length -1 && !disabled) return this.renderListItem(ingredient, index);
+						if (index < items.length - 1) return this.renderListItem(ingredient, index);
+						return null;
+				})}
 			</div>
 		);
 	}

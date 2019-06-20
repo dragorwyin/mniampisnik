@@ -4,9 +4,16 @@ main #panel {
 	background: white;
 	box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
 	height: auto;
-	margin: auto;
+	margin: 0 auto;
 	padding: 2em;
 	position: relative;
+}
+
+small.version {
+	text-align: center;
+	margin: 10px auto;
+	color: #aaaaaa;
+	font-weight: 200;
 }
 
 @media screen and (max-width: #{map-get($viewports, sm)}) {

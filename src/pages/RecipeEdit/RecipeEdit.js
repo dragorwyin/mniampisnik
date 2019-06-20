@@ -48,9 +48,10 @@ class RecipeEdit extends Component {
 		const { history } = this.props;
 		const { ingredients } = this.state;
 		if (!ingredients[ingredients.length - 1]) ingredients.pop();
-		this.props.patchRecipe(this.state.doc_id, this.state).then(() => {
-			history.push(ROUTES.RECIPE.replace(':id', this.state.doc_id));
-		});
+		this.props.patchRecipe(this.state.doc_id, this.state)
+			.then(() => {
+				history.push(ROUTES.RECIPE.replace(':id', this.state.doc_id));
+			});
 	}
 
 	handleDeleteClick = () => {

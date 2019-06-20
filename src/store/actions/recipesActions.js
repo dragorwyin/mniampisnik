@@ -112,7 +112,10 @@ export const patchRecipe = (doc_id, recipe) => {
 			const docRef = firestore.collection('users').doc(userUid).collection('recipes').doc(doc_id);
 
 			docRef.onSnapshot({ includeMetadataChanges: true }, (snapshot) => {
-				if (snapshot.metadata.fromCache) resolve();
+				if (snapshot.metadata.fromCache) {
+					dispatch({ type: PATCH_RECIPE_ACTION, data });
+					resolve(data);
+				}
 			});
 
 			docRef.set(data).then(() => {

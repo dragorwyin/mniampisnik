@@ -29,6 +29,7 @@ class Recipe extends Component {
 
 	componentDidMount() {
 		const { doc_id } = this.state;
+		this.setState(null);
 		this.props.getRecipe(doc_id).then(recipe => {
 			this.setState(recipe);
 		});

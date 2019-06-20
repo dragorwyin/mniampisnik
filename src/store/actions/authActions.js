@@ -1,3 +1,5 @@
+import { reject } from "q";
+
 export const signIn = ({ email, password }) => (dispatch, getState, { getFirebase }) => {
 	const firebase = getFirebase();
 
@@ -5,19 +7,20 @@ export const signIn = ({ email, password }) => (dispatch, getState, { getFirebas
 
 	return new Promise((resolve) => {
 		firebase.auth().signInWithEmailAndPassword(email, password)
-		.then(auth => {
-			dispatch({ type: 'LOGIN_SUCCESS', user: auth.user })
-			resolve(auth.user);
-		})
-		.catch(error => {
-			dispatch({ type: 'LOGIN_ERROR', error });
-		});
+			.then(auth => {
+				dispatch({ type: 'LOGIN_SUCCESS', data: auth.user })
+				resolve(auth.user);
+			})
+			.catch(error => {
+				dispatch({ type: 'LOGIN_ERROR', data: error });
+				reject(error);
+			});
 	});
 };
 
 
 export const setAuthUser = (user) => (dispatch) => {
-	dispatch({ type: 'LOGIN_SUCCESS', user });
+	dispatch({ type: 'LOGIN_SUCCESS', data: user });
 };
 
 export const logout = () => (dispatch, getState, { getFirebase }) => {

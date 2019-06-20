@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './SignIn.scss';
 import * as ROUTES from '../../constants/routes';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
 import Loader from '../../components/common/Loader';
 import Alert from '../../components/common/Alert';
+
+/* global process */
 
 const INITIAL_STATE = {
 	email: '',
@@ -28,8 +28,7 @@ class SignIn extends Component {
 		event.preventDefault();
 		const { email, password } = this.state;
 
-
-		this.props.dispatch(signIn({ email, password })).then(r => {
+		this.props.signIn({email, password }).then(() => {
 			this.setState({ ...INITIAL_STATE });
 			this.props.history.push(ROUTES.RECIPES);
 		});
@@ -72,10 +71,12 @@ class SignIn extends Component {
 
 // Map Props from store
 const mapStateToProps = (state) => ({
-	error: state.auth.error = '',
-	loading: state.auth.loading = false,
+		error: state.auth.error || '',
+		loading: state.auth.loading || false,
 });
 
-export default compose(
-	withRouter
-)(connect(mapStateToProps)(SignIn));
+const mapDispatchToProps = (dispatch) => ({
+	signIn: ({ email, password }) => dispatch(signIn({ email, password })),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

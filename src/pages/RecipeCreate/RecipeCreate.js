@@ -33,21 +33,9 @@ class RecipeCreate extends Component {
 			portions: 0,
 			type: 'vege',
 		}
-
-		this.handleRatingSelect = this.handleRatingSelect.bind(this);
-		this.handleTestingSelect = this.handleTestingSelect.bind(this);
-		this.handleTypeSelect = this.handleTypeSelect.bind(this);
-		this.handleDishTypeSelect = this.handleDishTypeSelect.bind(this);
-		this.handlePreparationTypeSelect = this.handlePreparationTypeSelect.bind(this);
-		this.handleNameChange = this.handleNameChange.bind(this);
-		this.handlePortionsChange = this.handlePortionsChange.bind(this);
-		this.handleEditorChange = this.handleEditorChange.bind(this);
-		this.handleTimeDay = this.handleTimeDay.bind(this);
-		this.handleIngredientsChange = this.handleIngredientsChange.bind(this);
-		this.handleSaveClick = this.handleSaveClick.bind(this);
 	}
 
-	handleEditorChange(preparation) {
+	handleEditorChange = (preparation) => {
 		this.setState({ preparation });
 	}
 
@@ -55,15 +43,15 @@ class RecipeCreate extends Component {
 		this.props.getRecipes();
 	}
 
-	handleRatingSelect(rating) { this.setState({ rating }); }
-	handleTestingSelect(tested) { this.setState({ tested }); }
-	handleTypeSelect(type) { this.setState({ type }); }
-	handlePreparationTypeSelect(preparation_type) { this.setState({ preparation_type }); }
-	handleNameChange(e) { this.setState({ name: e.target.value }); }
-	handlePortionsChange(portions) { this.setState({ portions }); }
-	handleIngredientsChange(ingredients) { this.setState({ ingredients })}
-	handleDishTypeSelect(dish_type) { this.setState({ dish_type })}
-	handleTimeDay(index) {
+	handleRatingSelect = (rating) => { this.setState({ rating }); }
+	handleTestingSelect = (tested) => { this.setState({ tested }); }
+	handleTypeSelect = (type) => { this.setState({ type }); }
+	handlePreparationTypeSelect = (preparation_type) => { this.setState({ preparation_type }); }
+	handleNameChange = (e) => { this.setState({ name: e.target.value }); }
+	handlePortionsChange = (portions) => { this.setState({ portions }); }
+	handleIngredientsChange = (ingredients) => { this.setState({ ingredients })}
+	handleDishTypeSelect = (dish_type) => { this.setState({ dish_type })}
+	handleTimeDay = (index) => {
 		this.setState(state => {
 			let { time_of_day } = state;
 			time_of_day[index].checked = !time_of_day[index].checked;
@@ -71,19 +59,21 @@ class RecipeCreate extends Component {
 		});
 	}
 
-	handleSaveClick() {
+	handleSaveClick = () => {
 		const { history } = this.props;
+		const { ingredients } = this.state;
+		if (!ingredients[ingredients.length - 1]) ingredients.pop();
 		this.props.postRecipe(this.state).then(() => {
 			history.push(ROUTES.RECIPES);
 		});
 	}
 
-	isSaveDisabled() {
+	isSaveDisabled = () => {
 		const { name, ingredients } = this.state;
 		return name === '' || ingredients.length === 0;
 	}
 
-	isVitarian() { return this.state.type === 'vit'; }
+	isVitarian = () => { return this.state.type === 'vit'; }
 
   render() {
 		const {

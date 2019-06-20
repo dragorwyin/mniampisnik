@@ -35,22 +35,12 @@ class RecipeCreate extends Component {
 		}
 	}
 
-	handleEditorChange = (preparation) => {
-		this.setState({ preparation });
-	}
-
 	componentDidMount() {
 		this.props.getRecipes();
 	}
 
-	handleRatingSelect = (rating) => { this.setState({ rating }); }
-	handleTestingSelect = (tested) => { this.setState({ tested }); }
-	handleTypeSelect = (type) => { this.setState({ type }); }
-	handlePreparationTypeSelect = (preparation_type) => { this.setState({ preparation_type }); }
-	handleNameChange = (e) => { this.setState({ name: e.target.value }); }
-	handlePortionsChange = (portions) => { this.setState({ portions }); }
-	handleIngredientsChange = (ingredients) => { this.setState({ ingredients })}
-	handleDishTypeSelect = (dish_type) => { this.setState({ dish_type })}
+	handleSelect = (type, value) => { this.setState({ [type]: value }) }
+
 	handleTimeDay = (index) => {
 		this.setState(state => {
 			let { time_of_day } = state;
@@ -96,7 +86,7 @@ class RecipeCreate extends Component {
 						<Dropdown
 							options={RATINGS_ARRAY}
 							selected={rating}
-							onSelect={this.handleRatingSelect}>
+							onSelect={(value) => this.handleSelect('rating', value)}>
 						</Dropdown>
 					</div>
 					<div className="right">
@@ -112,38 +102,42 @@ class RecipeCreate extends Component {
 
 				<div className="options-grid">
 					<div className="selectors">
-						<Switch label="Testowane" name="tested" onChange={this.handleTestingSelect} />
+						<Switch label="Testowane" name="tested" onChange={(value) => this.handleSelect('tested', value)} />
 						<Dropdown
 							options={RECIPE_TYPES_ARRAY}
 							selected={type}
-							onSelect={this.handleTypeSelect}>
+							onSelect={(value) => this.handleSelect('type', value)}>
 						</Dropdown>
 						<Dropdown
 							options={PREPARATION_TYPES_ARRAY}
 							selected={preparation_type}
-							onSelect={this.handlePreparationTypeSelect}
+							onSelect={(value) => this.handleSelect('preparation_type', value)}
 							disabled={this.isVitarian()}>
 						</Dropdown>
 						<Dropdown
 							options={DISH_TYPE_ARRAY}
 							selected={dish_type}
-							onSelect={this.handleDishTypeSelect}>
+							onSelect={(value) => this.handleSelect('dish_type', value)}>
 						</Dropdown>
 					</div>
 					<div className="mobile-hidden"></div>
 					<div className="name-wrapper">
-						<input name="name" onChange={this.handleNameChange} placeholder="Mój przepis" />
+						<input
+							name="name"
+							onChange={(e) => this.handleSelect('name', e.target.value)}
+							placeholder="Mój przepis"
+						/>
 					</div>
-					<Multiselect onChange={this.handlePortionsChange} />
+					<Multiselect onChange={(value) => this.handleSelect('portions', value)} />
 					<div className="ingredients-wrapper">
 						<h2>Składniki</h2>
-						<IngredientsList items={ingredients} onChange={this.handleIngredientsChange}/>
+						<IngredientsList items={ingredients} onChange={(value) => this.handleSelect('ingredients', value)}/>
 					</div>
 					<div className="preparation-wrapper">
 						<h2>Przygotowanie</h2>
 						<Editor
 							value={preparation}
-							onChange={this.handleEditorChange}
+							onChange={(value) => this.handleSelect('preparation', value)}
 						/>
 					</div>
 				</div>

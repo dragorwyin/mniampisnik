@@ -140,7 +140,26 @@ export const getRecipes = () => {
 		}).catch(error => {
 			console.error(error);
 		});
-	}
+	};
+};
+
+export const deleteRecipe = (doc_id) => {
+	return (dispatch, getState, { getFirestore }) => {
+		const firestore = getFirestore();
+		const userUid = getState().auth.user.uid;
+
+		const docRef = firestore.collection('users').doc(userUid).collection('recipes').doc(doc_id);
+
+		return new Promise((resolve) => {
+			docRef.delete()
+				.then(() => {
+					resolve();
+					dispatch({ type: DELETE_RECIPE_ACTION, data: doc_id });
+				}).catch(error => {
+					console.error(error);
+				});
+		});
+	};
 };
 
 export const searchRecipes = ({

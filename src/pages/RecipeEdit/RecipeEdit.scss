@@ -1,6 +1,8 @@
 @import '../../styles/variables';
 
 #editRecipe {
+	width: 100%;
+
 	.top {
     display: flex;
     justify-content: space-between;
@@ -20,6 +22,10 @@
 			.dropdown {
 				margin-left: 10px;
 			}
+		}
+
+		.right {
+			display: flex;
 		}
 	}
 

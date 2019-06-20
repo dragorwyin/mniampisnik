@@ -46,4 +46,12 @@ button.white,
 	&:hover {
 		background: darken(#fff, 10%);
 	}
+
+	&.alert {
+		color: var(--alert-color);
+	}
+
+	&.alert:hover:not([disabled]) {
+		color: darken(map-get($palette, alert), 10%);
+	}
 }

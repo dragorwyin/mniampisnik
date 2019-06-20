@@ -4,7 +4,7 @@ import Dropdown from '../../components/common/Dropdown/Dropdown';
 import Switch from '../../components/common/Switch';
 import Multiselect from '../../components/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
-import { patchRecipe, getRecipe } from '../../store/actions/recipesActions';
+import { patchRecipe, getRecipe, deleteRecipe } from '../../store/actions/recipesActions';
 import { connect } from 'react-redux';
 import Editor from '../../components/common/Editor';
 import {
@@ -25,17 +25,6 @@ class RecipeEdit extends Component {
 		this.state = {
 			doc_id: this.props.match.params.id,
 		};
-
-		this.handleRatingSelect = this.handleRatingSelect.bind(this);
-		this.handleTestingSelect = this.handleTestingSelect.bind(this);
-		this.handleTypeSelect = this.handleTypeSelect.bind(this);
-		this.handlePreparationTypeSelect = this.handlePreparationTypeSelect.bind(this);
-		this.handleNameChange = this.handleNameChange.bind(this);
-		this.handlePortionsChange = this.handlePortionsChange.bind(this);
-		this.handleEditorChange = this.handleEditorChange.bind(this);
-		this.handleTimeDay = this.handleTimeDay.bind(this);
-		this.handleSaveClick = this.handleSaveClick.bind(this);
-		this.handleDishTypeSelect = this.handleDishTypeSelect.bind(this);
 	}
 
 	handleEditorChange(preparation) {
@@ -49,14 +38,14 @@ class RecipeEdit extends Component {
 		});
 	}
 
-	handleRatingSelect(rating) { this.setState({ rating }); }
-	handleTestingSelect(tested) { this.setState({ tested }); }
-	handleTypeSelect(type) { this.setState({ type }); }
-	handlePreparationTypeSelect(preparation_type) { this.setState({ preparation_type }); }
-	handleDishTypeSelect(dish_type) { this.setState({ dish_type }); }
-	handleNameChange(e) { this.setState({ name: e.target.value }); }
-	handlePortionsChange(portions) { this.setState({ portions }); }
-	handleTimeDay(index) {
+	handleRatingSelect = (rating) => { this.setState({ rating }); }
+	handleTestingSelect = (tested) => { this.setState({ tested }); }
+	handleTypeSelect = (type) => { this.setState({ type }); }
+	handlePreparationTypeSelect = (preparation_type) => { this.setState({ preparation_type }); }
+	handleDishTypeSelect = (dish_type) => { this.setState({ dish_type }); }
+	handleNameChange = (e) => { this.setState({ name: e.target.value }); }
+	handlePortionsChange = (portions) => { this.setState({ portions }); }
+	handleTimeDay = (index) => {
 		this.setState(state => {
 			let { time_of_day } = state;
 			time_of_day[index].checked = !time_of_day[index].checked;
@@ -64,7 +53,7 @@ class RecipeEdit extends Component {
 		});
 	}
 
-	handleSaveClick() {
+	handleSaveClick = () => {
 		const { history } = this.props;
 		const { ingredients } = this.state;
 		if (!ingredients[ingredients.length - 1]) ingredients.pop();
@@ -73,12 +62,20 @@ class RecipeEdit extends Component {
 		});
 	}
 
-	isSaveDisabled() {
+	handleDeleteClick = () => {
+		const { doc_id } = this.state;
+		const { history } = this.props;
+		this.props.deleteRecipe(doc_id).then(() => {
+			history.push(ROUTES.RECIPES);
+		});
+	}
+
+	isSaveDisabled = () => {
 		const { name, ingredients } = this.state;
 		return name === '' || ingredients.length === 0;
 	}
 
-	isVitarian() { return this.state.type === 'vit'; }
+	isVitarian = () => { return this.state.type === 'vit'; }
 
 	loader() {
 		return <Loader loading={true} fullpage={true} />;
@@ -115,6 +112,12 @@ class RecipeEdit extends Component {
 						</Dropdown>
 					</div>
 					<div className="right">
+						<button
+							type="button"
+							className="alert small white button"
+							onClick={this.handleDeleteClick}>
+								USUŃ
+						</button>
 						<button
 							type="button"
 							className="primary small button"
@@ -182,6 +185,12 @@ class RecipeEdit extends Component {
 				<div className="pull-right on-mobile-only">
 					<button
 						type="button"
+						className="alert small white button"
+						onClick={this.handleDeleteClick}>
+							USUŃ
+					</button>
+					<button
+						type="button"
 						className="primary small button"
 						disabled={this.isSaveDisabled()}
 						onClick={this.handleSaveClick}>
@@ -201,6 +210,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
 	patchRecipe: (doc_id, recipe) => dispatch(patchRecipe(doc_id, recipe)),
 	getRecipe: (doc_id) => dispatch(getRecipe(doc_id)),
+	deleteRecipe: (doc_id) => dispatch(deleteRecipe(doc_id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeEdit);

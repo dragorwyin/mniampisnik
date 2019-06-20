@@ -18,7 +18,10 @@ const recipesReducer = (state = {}, action) => {
 		case PATCH_RECIPE_ACTION:
 			return { ...state, selected: data };
 		case DELETE_RECIPE_ACTION:
-			return state.filter(recipe => recipe.id !== action.id);
+			return {
+				...state,
+				items: state.items ? state.items.filter(recipe => recipe.doc_id !== data) : []
+			};
 		default:
 			return state;
 	}

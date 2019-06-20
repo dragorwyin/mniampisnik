@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Icon from '../common/Icon';
+import autosize from 'autosize';
 
 class ListItem extends Component {
 
@@ -22,6 +23,7 @@ class ListItem extends Component {
 	componentDidMount() {
 		const { focus } = this.props;
 		if (focus && this.textarea.current) this.textarea.current.focus();
+		autosize(this.textarea.current);
 		this.setState({ style: { height: `${this.textarea.current.scrollHeight}px` } });
 	}
 

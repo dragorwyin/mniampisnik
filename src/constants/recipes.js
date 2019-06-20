@@ -24,7 +24,7 @@ export const DISH_TYPE = {
 	salad: { value: 'salad', name: 'Sałatka, surówka', icon: 'salad.svg' },
 	sweet_dish: { value: 'sweet_dish', name: 'Danie na słodko', icon: 'sweet-dish.svg' },
 	soup: {value: 'soup', name: 'Zupa', icon: 'soup.svg' },
-	drink: {value: 'drink', name: 'Napój, kontajl, mleko', icon: 'milk.svg' },
+	drink: {value: 'drink', name: 'Napój, koktajl, mleko', icon: 'milk.svg' },
 	lubricant: {value: 'lubricant', name: 'Sos, serek, smarowidło, pasta', icon: 'jam.svg' },
 	dessert: {value: 'dessert', name: 'Deser, ciasto, ciasteczka', icon: 'bun.svg' },
 	snack: {value: 'snack', name: 'Przekąska, chlebek', icon: 'sandwich.svg' },

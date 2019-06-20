@@ -6,6 +6,7 @@ header {
 	background: var(--primary-color);
 	display: flex;
 	height: 84px;
+	min-height: 84px;
 	z-index: 3;
 
 	.mobile-only {

@@ -75,8 +75,7 @@ body {
 }
 
 html, body, #root, main, .App {
-	display: flex;
-	flex-direction: column;
+	text-align: center;
   height: 100%;
 }
 

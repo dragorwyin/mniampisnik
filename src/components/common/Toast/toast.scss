@@ -21,15 +21,12 @@
 	span {
 		color: white;
 		margin-left: 10px;
+		text-align: left;
 	}
 
 	&.error {
 		background: #d33f3f;
 		color: white;
-	}
-
-	&.success {
-
 	}
 
 	&[data-visible="false"] {

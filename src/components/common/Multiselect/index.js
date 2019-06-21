@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.scss';
-import Icon from '../common/Icon';
+import Icon from '../Icon';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './RecipeCreate.scss';
 import Dropdown from '../../components/common/Dropdown/Dropdown';
 import Switch from '../../components/common/Switch';
-import Multiselect from '../../components/Multiselect';
+import Multiselect from '../../components/common/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
 import Editor from '../../components/common/Editor';
 import { postRecipe, getRecipes } from '../../store/actions/recipesActions';

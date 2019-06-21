@@ -11,7 +11,7 @@ import {
 } from '../../constants/recipes';
 import Switch from '../../components/common/Switch';
 import Dropdown from '../../components/common/Dropdown/Dropdown';
-import Multiselect from '../../components/Multiselect';
+import Multiselect from '../../components/common/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
 import Loader from '../../components/common/Loader';
 import { Link } from 'react-router-dom';

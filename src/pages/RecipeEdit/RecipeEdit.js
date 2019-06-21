@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './RecipeEdit.scss';
 import Dropdown from '../../components/common/Dropdown/Dropdown';
 import Switch from '../../components/common/Switch';
-import Multiselect from '../../components/Multiselect';
+import Multiselect from '../../components/common/Multiselect';
 import IngredientsList from '../../components/Ingredients/IngredientsList';
 import { patchRecipe, getRecipe, deleteRecipe } from '../../store/actions/recipesActions';
 import { connect } from 'react-redux';

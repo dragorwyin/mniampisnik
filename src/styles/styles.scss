@@ -111,6 +111,10 @@ main.App > .background {
     content: none;
 	}
 
+	img.background {
+		display: none;
+	}
+
 	.on-mobile-only {
 		display: flex !important;
 	}

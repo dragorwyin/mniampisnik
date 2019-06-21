@@ -8,6 +8,7 @@ import RecipeEdit from './pages/RecipeEdit/RecipeEdit';
 import RecipeCreate from './pages/RecipeCreate/RecipeCreate';
 import Recipes from './pages/Recipes/Recipes';
 import ProtectedPanel from './pages/layout/ProtectedPanel';
+import Toast from './components/common/Toast';
 
 /* global process */
 
@@ -17,6 +18,7 @@ class App extends Component {
     return (
 			<main className="App">
 				<img className="background" src={process.env.PUBLIC_URL + '/images/bg.svg' } alt="background" />
+				<Toast />
 				<Router>
 					<Route exact path={ROUTES.HOME} component={SignIn} />
 					<Route exact path={ROUTES.SIGN_IN} component={SignIn} />

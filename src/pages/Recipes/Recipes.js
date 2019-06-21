@@ -11,17 +11,15 @@ class Recipes extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recipes: []
+			recipes: [],
 		};
-
-		this.onSearch = this.onSearch.bind(this);
 	}
 
 	componentDidMount() {
 		this.props.getRecipes();
 	}
 
-	onSearch(filters) {
+	onSearch = (filters) => {
 		this.props.searchRecipes(filters);
 	}
 
@@ -54,7 +52,6 @@ class Recipes extends Component {
 			</div>
     );
 	}
-
 }
 
 const mapStateToProps = state => ({

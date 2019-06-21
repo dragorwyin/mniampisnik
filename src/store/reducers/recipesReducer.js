@@ -7,21 +7,23 @@ import {
 } from '../actions/recipesActions';
 
 const recipesReducer = (state = {}, action) => {
-	const { type, data } = action;
+	const { type, data, error } = action;
 	switch (type) {
 		case GET_RECIPES_ACTION:
-			return { items: data };
+			return { items: data, error };
 		case FILTER_RECIPE_ACTION:
-			return { ...state, filtered: data };
+			return { ...state, filtered: data, error };
 		case GET_RECIPE_ACTION:
 			return { selected: data };
 		case PATCH_RECIPE_ACTION:
-			return { ...state, selected: data };
+			return { ...state, selected: data, error };
 		case DELETE_RECIPE_ACTION:
 			return {
-				...state,
+				...state, error,
 				items: state.items ? state.items.filter(recipe => recipe.doc_id !== data) : []
 			};
+		case 'ERROR':
+			return { ...state, error };
 		default:
 			return state;
 	}

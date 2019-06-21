@@ -4,7 +4,6 @@ import * as ROUTES from '../../constants/routes';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
 import Loader from '../../components/common/Loader';
-import Alert from '../../components/common/Alert';
 
 /* global process */
 
@@ -38,7 +37,7 @@ class SignIn extends Component {
 
   render() {
 		const { email, password } = this.state;
-		const { error, loading } = this.props;
+		const { loading } = this.props;
 		const isInvalid = password === '' || email === '';
 
     return (
@@ -50,16 +49,13 @@ class SignIn extends Component {
 					</h1>
 					<img src={ process.env.PUBLIC_URL + '/images/diet.svg' } className="info-graphic" alt="diet graphics" />
 					<form onSubmit={this.onSubmit}>
-						<Alert type="error" content={error} />
 						<div className="form--input with-icon">
 							<img className="icon" src={ process.env.PUBLIC_URL + '/images/icons/email.svg' } alt="email" />
 							<input name="email" type="email" placeholder="my-email@email.com" onChange={this.onChange} value={email} />
-							<div className="errors"></div>
 						</div>
 						<div className="form--input with-icon">
 							<img className="icon" src={ process.env.PUBLIC_URL + '/images/icons/lock.svg' } alt="password lock" />
 							<input name="password" type="password" placeholder="*********" onChange={this.onChange} value={password} />
-							<div className="errors"></div>
 						</div>
 						<button type="submit" className="button primary" disabled={isInvalid} >ZALOGUJ SIĘ</button>
 					</form>
@@ -71,7 +67,6 @@ class SignIn extends Component {
 
 // Map Props from store
 const mapStateToProps = (state) => ({
-		error: state.auth.error || '',
 		loading: state.auth.loading || false,
 });
 

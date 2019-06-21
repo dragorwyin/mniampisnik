@@ -18,10 +18,9 @@ export const getRecipe = doc_id => {
 				dispatch({ type: GET_RECIPE_ACTION, data });
 				resolve(data);
 			}).catch(error => {
-				console.error(error);
+				dispatch({ type: 'NOTIFY', message: error.message, toastType: 'error' });
 			});
 		});
-
 	}
 };
 
@@ -69,8 +68,7 @@ export const postRecipe = (recipe) => {
 			.then(() => {
 				resolve(data);
 			}).catch(error => {
-				console.error(error);
-				dispatch({type: POST_RECIPE_ACTION_ERR, error})
+				dispatch({ type: 'NOTIFY', message: error.message, toastType: 'error' });
 			});
 		});
 	}
@@ -122,7 +120,7 @@ export const patchRecipe = (doc_id, recipe) => {
 				dispatch({ type: PATCH_RECIPE_ACTION, data });
 				resolve(data);
 			}).catch(error => {
-				console.error(error);
+				dispatch({ type: 'NOTIFY', message: error.message, toastType: 'error' });
 			});
 		});
 	}
@@ -141,7 +139,7 @@ export const getRecipes = () => {
 			})).sort((a, b) => a.id > b.id ? 1 : -1);
 			dispatch({ type: GET_RECIPES_ACTION, data });
 		}).catch(error => {
-			console.error(error);
+			dispatch({ type: 'NOTIFY', message: error.message, toastType: 'error' });
 		});
 	};
 };
@@ -159,7 +157,7 @@ export const deleteRecipe = (doc_id) => {
 					resolve();
 					dispatch({ type: DELETE_RECIPE_ACTION, data: doc_id });
 				}).catch(error => {
-					console.error(error);
+					dispatch({ type: 'NOTIFY', message: error.message, toastType: 'error' });
 				});
 		});
 	};

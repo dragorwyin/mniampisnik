@@ -10,7 +10,6 @@ class SelectSlider extends Component {
 		super(props);
 
 		const {
-			items = [],
 			itemsPerPages = [3],
 			page = 0,
 		} = this.props;
@@ -19,7 +18,6 @@ class SelectSlider extends Component {
 
 		this.state = { pages };
 		this.state = {
-			items,
 			itemsPerPages,
 			page,
 			pages,
@@ -82,9 +80,10 @@ class SelectSlider extends Component {
 		const {
 			page,
 			itemsPerPages,
-			items,
 			disabled,
 		} = this.state;
+
+		const { items } = this.props;
 
 		return (
 			<div className={this.getClasses()}>

@@ -29,15 +29,22 @@ class SearchRecipes extends Component {
 			]),
 			name: '',
 			isClosed: false,
-		}
+		};
 
-		// this.handleFiltersClick = this.handleFiltersClick.bind(this);
 		this.handleTimeDay = this.handleTimeDay.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleSearchClick = this.handleSearchClick.bind(this);
 
 		this.close = this.close.bind(this);
 		this.open = this.open.bind(this);
+	}
+
+	componentDidMount() {
+		const filters = this.readFilters();
+		if (!filters) return;
+		this.setState(JSON.parse(filters), () => {
+			if (this.props.onSearch) this.props.onSearch(this.state);
+		});
 	}
 
 	handleNameChange(e) { this.setState({ name: e.target.value }); }
@@ -58,19 +65,18 @@ class SearchRecipes extends Component {
 	handleTimeDay(index) {
 		this.setState(state => {
 			let { time_of_day } = state;
+			console.log(time_of_day[index].checked);
 			time_of_day[index].checked = !time_of_day[index].checked;
-			time_of_day[index].selected = !time_of_day[index].selected;
 			return { time_of_day };
 		});
 	}
 
 	handleSearchClick() {
 		if (this.props.onSearch) this.props.onSearch(this.state);
+		this.rememberFilters(this.state);
 	}
 
-	close() {
-		this.setState({ isClosed: true });
-	}
+	close = () => this.setState({ isClosed: true });
 
 	open() {
 		const { isClosed } = this.state;
@@ -78,7 +84,11 @@ class SearchRecipes extends Component {
 		this.setState({ isClosed: false })
 	}
 
+	readFilters = () => sessionStorage.getItem('recipes-filter');
+	rememberFilters = (filters) => sessionStorage.setItem('recipes-filter', JSON.stringify(filters));
+
   render() {
+
 		const {
 			time_of_day,
 			tested,

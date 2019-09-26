@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import './Dropdown.scss';
 import DropdownItem from './DropdownItem';
@@ -8,6 +9,7 @@ class MultiDropdown extends Component {
 
 	constructor(props) {
 		super(props);
+
 		const {
 			options,
 			viewOnly = false,
@@ -73,12 +75,23 @@ class MultiDropdown extends Component {
 	componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
 	}
+
 	componentWillUnmount() {
 		document.removeEventListener("mousedown", this.handleClickOutside);
 	}
 
+	componentDidUpdate() {
+		const { options } = this.props;
+		const { selectedItems } = this.state;
+
+		const toUpdate = options.find((option, index) => option.selected !== this.state.options[index].selected);
+		if (!toUpdate) return;
+		selectedItems.has(toUpdate.value) ? selectedItems.delete(toUpdate.value) : selectedItems.add(toUpdate.value);
+		this.setState({ options });
+	}
+
 	render() {
-		const { options, open, viewOnly, placeholder } = this.state;;
+		const { options, open, viewOnly, placeholder } = this.state;
 		const { disabled } = this.props;
 		if (!options || !options.length) return null;
 

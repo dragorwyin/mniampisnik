@@ -48,7 +48,7 @@ class Recipes extends Component {
 						</div>
 					</>) : this.loader()
 				}
-				<SearchRecipes onSearch={this.onSearch} />
+				{ items && <SearchRecipes onSearch={this.onSearch} /> }
 			</div>
     );
 	}
